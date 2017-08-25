@@ -1,0 +1,2 @@
+# crazines
+Nintendo emulator

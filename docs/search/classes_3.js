@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['wxcrazines',['wxcrazines',['../classwxcrazines.html',1,'']]]
+  ['wxcrazines',['wxcraziNES',['../classwxcrazi_n_e_s.html',1,'']]]
 ];

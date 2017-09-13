@@ -1,6 +1,6 @@
 AC_PREREQ([2.69])
-AC_INIT([crazines], [0.1], [tim@metaverse.systems])
-AC_CONFIG_SRCDIR([src/crazines.cpp])
+AC_INIT([craziNES], [0.1], [tim@metaverse.systems])
+AC_CONFIG_SRCDIR([src/craziNES.cpp])
 AC_CONFIG_HEADERS([config.h])
 
 CXXFLAGS="-g3 -O0"

@@ -12,7 +12,7 @@ class MainWindow: public wxFrame
     wxDECLARE_EVENT_TABLE();
 };
 
-class wxcrazines: public wxApp
+class wxcraziNES: public wxApp
 {
   public:
     virtual bool OnInit();

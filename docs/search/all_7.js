@@ -7,5 +7,5 @@ var searchData=
   ['memory_2eh',['memory.h',['../memory_8h.html',1,'']]],
   ['memory_5fsection',['memory_section',['../structnes_1_1memory__section.html',1,'nes::memory_section'],['../namespacenes.html#a6075da73daaad80432eb9fa20ce95129',1,'nes::memory_section()']]],
   ['misc_5froms',['misc_roms',['../structnes_1_1_n_e_s__header.html#a232db07230537dafd52511df2fd2d4c9',1,'nes::NES_header']]],
-  ['mmu',['MMU',['../classnes_1_1_m_m_u.html',1,'nes::MMU'],['../crazines_8cpp.html#a4f521107ae139eddf7d4f3abb09d4362',1,'mmu():&#160;crazines.cpp']]]
+  ['mmu',['MMU',['../classnes_1_1_m_m_u.html',1,'nes::MMU'],['../crazi_n_e_s_8cpp.html#a4f521107ae139eddf7d4f3abb09d4362',1,'mmu():&#160;craziNES.cpp']]]
 ];

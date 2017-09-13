@@ -1,4 +1,4 @@
-#include <crazines.h>
+#include <craziNES.h>
 #include <memory.h>
 #include <rom.h>
 
@@ -8,11 +8,11 @@ wxBEGIN_EVENT_TABLE(MainWindow, wxFrame)
     EVT_MENU(wxID_EXIT,  MainWindow::OnExit)
 wxEND_EVENT_TABLE()
 
-wxIMPLEMENT_APP(wxcrazines);
+wxIMPLEMENT_APP(wxcraziNES);
 
-bool wxcrazines::OnInit()
+bool wxcraziNES::OnInit()
 {
-    frame = new MainWindow("crazines", wxPoint(20, 20), wxSize(640, 480));
+    frame = new MainWindow("craziNES", wxPoint(20, 20), wxSize(640, 480));
     frame->Show(true);
     return true;
 }

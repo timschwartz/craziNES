@@ -20,8 +20,8 @@ namespace nes
 
         if(!rom_file.good())
         {
-            std::string message = "Couldn't open file " +  filename;
-            throw message;
+            std::string msg = "Couldn't open file " +  filename;
+            throw msg;
         }
 
         rom_file.seekg(0, std::ios::end);
@@ -61,7 +61,6 @@ namespace nes
                 // NES 2.0 format
                 break;
             default:
-                char message[1024];
                 sprintf(message, "%s is not an NES rom.\nFlag 7: 0x%.8X\n", filename.c_str(), header.magic);
                 throw std::string(message);
                 break;

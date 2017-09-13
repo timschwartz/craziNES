@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['ppu_5fwrite',['ppu_write',['../classnes_1_1_m_m_u.html#a244df680bf7836ec1eebed46747dbef2',1,'nes::MMU']]]
+  ['onexit',['OnExit',['../class_main_window.html#a1a605e490ac5deeb89ed16cfc871bf3f',1,'MainWindow']]],
+  ['oninit',['OnInit',['../classwxcrazines.html#a8254f97604788e4012b067e63fc93855',1,'wxcrazines']]]
 ];

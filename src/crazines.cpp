@@ -1,5 +1,6 @@
 #include <crazines.h>
 #include <memory.h>
+#include <rom.h>
 
 nes::MMU *mmu = new nes::MMU();
 
@@ -35,12 +36,19 @@ MainWindow::MainWindow(const wxString& title, const wxPoint& pos, const wxSize& 
 
     CreateStatusBar(1);
 
+    if(wxGetApp().argc < 2) return;
+
     try
     {
-        mmu->write_byte(0x2008, 1);
+        mmu->load_rom(wxGetApp().argv[1].ToStdString());
     }
     catch(std::string e)
     {
-        SetStatusText(e, 0);
+        std::cout << e << std::endl;
+        wxGetApp().frame->SetStatusText(e, 0);
+        return;
     }
+
+    std::string message = "Loaded " + wxGetApp().argv[1].ToStdString();
+    SetStatusText(message, 0);    
 }

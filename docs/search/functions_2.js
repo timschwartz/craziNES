@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['onexit',['OnExit',['../class_main_window.html#a1a605e490ac5deeb89ed16cfc871bf3f',1,'MainWindow']]],
-  ['oninit',['OnInit',['../classwxcrazines.html#a8254f97604788e4012b067e63fc93855',1,'wxcrazines']]]
+  ['mainwindow',['MainWindow',['../class_main_window.html#ab5bd7c178471f31f5c7f20fad6446382',1,'MainWindow']]]
 ];

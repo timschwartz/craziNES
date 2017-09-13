@@ -2,6 +2,7 @@
 #define _CRAZINES_MEMORY_H
 
 #include <cstdint>
+#include <rom.h>
 
 namespace nes
 {
@@ -21,6 +22,7 @@ namespace nes
       public:
         uint8_t read_byte(uint16_t addr);
         void write_byte(uint16_t addr, uint8_t value);
+        void load_rom(std::string filename);
       private:
         memory_section get_section(uint16_t addr);
         static void ppu_write(MMU *mmu, memory_section s);
@@ -29,6 +31,8 @@ namespace nes
         uint8_t *registers = new uint8_t[0x20];
         uint8_t *lprgrom = new uint8_t[0x4000];
         uint8_t *hprgrom = new uint8_t[0x4000];
+        uint8_t mapper = 0;
+        nes::ROM *rom = nullptr;
     };
 }
 

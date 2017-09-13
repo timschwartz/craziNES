@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['offset',['offset',['../structnes_1_1memory__section.html#a15cc5e7acbf5c6508576c46946198239',1,'nes::memory_section']]]
+  ['lprgrom',['lprgrom',['../classnes_1_1_m_m_u.html#a6528b24d8de4d566cd9ed7db870d58e5',1,'nes::MMU']]]
 ];

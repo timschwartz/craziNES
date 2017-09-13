@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['frame',['frame',['../classwxcrazines.html#af1be80ff96670c40b4f3a2d726425c47',1,'wxcrazines']]]
+  ['data',['data',['../classnes_1_1_r_o_m.html#aa49826763386502485d136a50fb117bf',1,'nes::ROM']]]
 ];

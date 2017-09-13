@@ -1,6 +1,7 @@
 #include <string>
 
 #include <memory.h>
+#include <rom.h>
 
 namespace nes
 {
@@ -87,5 +88,21 @@ namespace nes
         char message[1024];
         sprintf(message, "Wrote 0x%X to 0x%X", mmu->read_byte(s.addr), s.addr);
         throw std::string(message);
+    }
+
+    void MMU::load_rom(std::string filename)
+    {
+        try
+        {
+            rom = new nes::ROM(filename);
+        }
+        catch(std::string e)
+        {
+            throw e;
+        }
+
+        NES_header header = rom->get_header();
+        mapper = header.flag7 & 0xF0;
+        mapper += header.flag6 >> 4;
     }
 }

@@ -34,6 +34,14 @@ namespace nes
             return s;
         }
 
+        if((addr >= 0xC000) && (addr <= 0xFFFF))
+        {
+            s.addr = addr;
+            s.offset = 0xBFF0;
+            s.ptr = rom->get_pointer();
+            return s;
+        }
+
         char message[1024];
         sprintf(message, "Unknown memory address 0x%.4X", addr);
         throw std::string(message);

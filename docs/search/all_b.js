@@ -1,12 +1,14 @@
 var searchData=
 [
-  ['ram',['ram',['../classnes_1_1_m_m_u.html#af09399dcef3d68602928c4b32de47a33',1,'nes::MMU']]],
-  ['ram_5fsize',['ram_size',['../structnes_1_1_n_e_s__header.html#a84d1ab6d1368bcc442cb18e74a27173b',1,'nes::NES_header']]],
-  ['read_5fbyte',['read_byte',['../classnes_1_1_m_m_u.html#a250bf667864db424eac53805d7ba99e0',1,'nes::MMU']]],
-  ['readme_2emd',['README.md',['../_r_e_a_d_m_e_8md.html',1,'']]],
-  ['registers',['registers',['../classnes_1_1_m_m_u.html#add828ec46bc02e3941ed0ecc987fff2b',1,'nes::MMU']]],
-  ['rom',['ROM',['../classnes_1_1_r_o_m.html',1,'nes::ROM'],['../classnes_1_1_m_m_u.html#a5c60b8d86aa6dd8da99f7d8b987b717a',1,'nes::MMU::rom()'],['../classnes_1_1_r_o_m.html#afe13ab0aa7cc98cfb53fefc17eb247c1',1,'nes::ROM::ROM()']]],
-  ['rom_2ecpp',['rom.cpp',['../rom_8cpp.html',1,'']]],
-  ['rom_2eh',['rom.h',['../rom_8h.html',1,'']]],
-  ['rom_5fupper',['rom_upper',['../structnes_1_1_n_e_s__header.html#aceed42321805ae19da1694cc3ca94d53',1,'nes::NES_header']]]
+  ['magic',['magic',['../structnes_1_1_n_e_s__header.html#ac50392ab994b91ea696a6a747b6b941a',1,'nes::NES_header']]],
+  ['mainwindow',['MainWindow',['../class_main_window.html',1,'MainWindow'],['../class_main_window.html#ab5bd7c178471f31f5c7f20fad6446382',1,'MainWindow::MainWindow()']]],
+  ['mapper',['mapper',['../classnes_1_1_m_m_u.html#adac98065aa3193826f471eaf06da7af9',1,'nes::MMU::mapper()'],['../structnes_1_1_n_e_s__header.html#a4b98d8f26b59af4acd2a69772ded8f2c',1,'nes::NES_header::mapper()']]],
+  ['memory',['memory',['../classwxcrazi_n_e_s.html#a40e091e8dddce0bd6977d8ef7aa4cbe8',1,'wxcraziNES']]],
+  ['memory_2ecpp',['memory.cpp',['../memory_8cpp.html',1,'']]],
+  ['memory_2eh',['memory.h',['../memory_8h.html',1,'']]],
+  ['memory_5flistbox',['memory_listbox',['../class_memory_window.html#afc62fd0fc8bb5435b1c76352fff6411c',1,'MemoryWindow']]],
+  ['memory_5fsection',['memory_section',['../structnes_1_1memory__section.html',1,'nes::memory_section'],['../namespacenes.html#a6075da73daaad80432eb9fa20ce95129',1,'nes::memory_section()']]],
+  ['memorywindow',['MemoryWindow',['../class_memory_window.html',1,'MemoryWindow'],['../class_memory_window.html#a69830c9ba81f8eaeec949043c4a419e8',1,'MemoryWindow::MemoryWindow()']]],
+  ['misc_5froms',['misc_roms',['../structnes_1_1_n_e_s__header.html#a232db07230537dafd52511df2fd2d4c9',1,'nes::NES_header']]],
+  ['mmu',['MMU',['../classnes_1_1_m_m_u.html',1,'nes::MMU'],['../classnes_1_1cpu__6502.html#a6f1ad5765b1436fca090e0e5422b58db',1,'nes::cpu_6502::mmu()']]]
 ];

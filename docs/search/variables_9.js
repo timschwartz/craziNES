@@ -1,8 +1,7 @@
 var searchData=
 [
-  ['ram',['ram',['../classnes_1_1_m_m_u.html#af09399dcef3d68602928c4b32de47a33',1,'nes::MMU']]],
-  ['ram_5fsize',['ram_size',['../structnes_1_1_n_e_s__header.html#a84d1ab6d1368bcc442cb18e74a27173b',1,'nes::NES_header']]],
-  ['registers',['registers',['../classnes_1_1_m_m_u.html#add828ec46bc02e3941ed0ecc987fff2b',1,'nes::MMU']]],
-  ['rom',['rom',['../classnes_1_1_m_m_u.html#a5c60b8d86aa6dd8da99f7d8b987b717a',1,'nes::MMU']]],
-  ['rom_5fupper',['rom_upper',['../structnes_1_1_n_e_s__header.html#aceed42321805ae19da1694cc3ca94d53',1,'nes::NES_header']]]
+  ['pc',['PC',['../classnes_1_1cpu__6502.html#a01d6cc46325c1bd5ee80c83edf700a98',1,'nes::cpu_6502']]],
+  ['ppu_5fregisters',['ppu_registers',['../classnes_1_1_m_m_u.html#a0ce53509fe5dbe772dff19ad312c8cb0',1,'nes::MMU']]],
+  ['prgrom_5fsize',['prgrom_size',['../structnes_1_1_n_e_s__header.html#ad95ecb393ac7712b554d59b60420fe0c',1,'nes::NES_header']]],
+  ['ptr',['ptr',['../structnes_1_1memory__section.html#a5e5cf1afb301dbb595eb9f745e41df89',1,'nes::memory_section']]]
 ];

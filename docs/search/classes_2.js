@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['rom',['ROM',['../classnes_1_1_r_o_m.html',1,'nes']]]
+  ['nes_5fheader',['NES_header',['../structnes_1_1_n_e_s__header.html',1,'nes']]]
 ];

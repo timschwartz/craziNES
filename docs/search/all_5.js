@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['header',['header',['../classnes_1_1_r_o_m.html#ac951c44c19ac6a05929f839d325642c7',1,'nes::ROM']]],
-  ['hprgrom',['hprgrom',['../classnes_1_1_m_m_u.html#a126cec622d33b081468c59ec442c2d55',1,'nes::MMU']]]
+  ['flag6',['flag6',['../structnes_1_1_n_e_s__header.html#a6b7a693aa70227e245fe1f53fd933b31',1,'nes::NES_header']]],
+  ['flag7',['flag7',['../structnes_1_1_n_e_s__header.html#a525cb454bb13ff3c83230bc618b930ab',1,'nes::NES_header']]],
+  ['frame',['frame',['../classwxcrazi_n_e_s.html#a8588be4b592a986f4ef9a18458f63fbf',1,'wxcraziNES']]]
 ];

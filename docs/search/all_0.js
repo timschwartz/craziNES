@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['addr',['addr',['../structnes_1_1memory__section.html#adf95ead77e708b0ed06da403d11fd0fc',1,'nes::memory_section']]]
+  ['_5fcrazines_5fcpu_5f6502_5fh',['_CRAZINES_CPU_6502_h',['../cpu__6502_8h.html#a9b0e42e96851b4c9067e887a3ea944ca',1,'cpu_6502.h']]]
 ];

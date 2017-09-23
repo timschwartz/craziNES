@@ -1,4 +1,7 @@
 var searchData=
 [
-  ['nes_5fheader',['NES_header',['../structnes_1_1_n_e_s__header.html',1,'nes']]]
+  ['mainwindow',['MainWindow',['../class_main_window.html',1,'']]],
+  ['memory_5fsection',['memory_section',['../structnes_1_1memory__section.html',1,'nes']]],
+  ['memorywindow',['MemoryWindow',['../class_memory_window.html',1,'']]],
+  ['mmu',['MMU',['../classnes_1_1_m_m_u.html',1,'nes']]]
 ];

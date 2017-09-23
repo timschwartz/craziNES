@@ -87,10 +87,14 @@ Public Member Functions</h2></td></tr>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a8588be4b592a986f4ef9a18458f63fbf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_main_window.html">MainWindow</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwxcrazi_n_e_s.html#a8588be4b592a986f4ef9a18458f63fbf">frame</a> = NULL</td></tr>
 <tr class="separator:a8588be4b592a986f4ef9a18458f63fbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40e091e8dddce0bd6977d8ef7aa4cbe8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_memory_window.html">MemoryWindow</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwxcrazi_n_e_s.html#a40e091e8dddce0bd6977d8ef7aa4cbe8">memory</a> = NULL</td></tr>
+<tr class="separator:a40e091e8dddce0bd6977d8ef7aa4cbe8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a957415269658af488f8c5d414e1da2f0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_registers_window.html">RegistersWindow</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwxcrazi_n_e_s.html#a957415269658af488f8c5d414e1da2f0">registers</a> = NULL</td></tr>
+<tr class="separator:a957415269658af488f8c5d414e1da2f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="crazi_n_e_s_8h_source.html#l00015">15</a> of file <a class="el" href="crazi_n_e_s_8h_source.html">craziNES.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="crazi_n_e_s_8h_source.html#l00019">19</a> of file <a class="el" href="crazi_n_e_s_8h_source.html">craziNES.h</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a740c2bae6381b40518cb9d48e53b400a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a740c2bae6381b40518cb9d48e53b400a">&#9670;&nbsp;</a></span>OnInit()</h2>
@@ -115,9 +119,9 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="crazi_n_e_s_8cpp_source.html#l00013">13</a> of file <a class="el" href="crazi_n_e_s_8cpp_source.html">craziNES.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <a class="code" href="classwxcrazi_n_e_s.html#a8588be4b592a986f4ef9a18458f63fbf">frame</a> = <span class="keyword">new</span> <a class="code" href="class_main_window.html">MainWindow</a>(<span class="stringliteral">&quot;craziNES&quot;</span>, wxPoint(20, 20), wxSize(640, 480));</div><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <a class="code" href="classwxcrazi_n_e_s.html#a8588be4b592a986f4ef9a18458f63fbf">frame</a>-&gt;Show(<span class="keyword">true</span>);</div><div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;}</div><div class="ttc" id="classwxcrazi_n_e_s_html_a8588be4b592a986f4ef9a18458f63fbf"><div class="ttname"><a href="classwxcrazi_n_e_s.html#a8588be4b592a986f4ef9a18458f63fbf">wxcraziNES::frame</a></div><div class="ttdeci">MainWindow * frame</div><div class="ttdef"><b>Definition:</b> <a href="crazi_n_e_s_8h_source.html#l00019">craziNES.h:19</a></div></div>
-<div class="ttc" id="class_main_window_html"><div class="ttname"><a href="class_main_window.html">MainWindow</a></div><div class="ttdef"><b>Definition:</b> <a href="crazi_n_e_s_8h_source.html#l00006">craziNES.h:6</a></div></div>
+<p class="definition">Definition at line <a class="el" href="crazi_n_e_s_8cpp_source.html#l00017">17</a> of file <a class="el" href="crazi_n_e_s_8cpp_source.html">craziNES.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <a class="code" href="classwxcrazi_n_e_s.html#a8588be4b592a986f4ef9a18458f63fbf">frame</a> = <span class="keyword">new</span> <a class="code" href="class_main_window.html">MainWindow</a>(<span class="stringliteral">&quot;craziNES&quot;</span>, wxPoint(20, 20), wxSize(640, 480));</div><div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <a class="code" href="classwxcrazi_n_e_s.html#a8588be4b592a986f4ef9a18458f63fbf">frame</a>-&gt;Show(<span class="keyword">true</span>);</div><div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div><div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;}</div><div class="ttc" id="classwxcrazi_n_e_s_html_a8588be4b592a986f4ef9a18458f63fbf"><div class="ttname"><a href="classwxcrazi_n_e_s.html#a8588be4b592a986f4ef9a18458f63fbf">wxcraziNES::frame</a></div><div class="ttdeci">MainWindow * frame</div><div class="ttdef"><b>Definition:</b> <a href="crazi_n_e_s_8h_source.html#l00023">craziNES.h:23</a></div></div>
+<div class="ttc" id="class_main_window_html"><div class="ttname"><a href="class_main_window.html">MainWindow</a></div><div class="ttdef"><b>Definition:</b> <a href="crazi_n_e_s_8h_source.html#l00007">craziNES.h:7</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -134,7 +138,39 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="crazi_n_e_s_8h_source.html#l00019">19</a> of file <a class="el" href="crazi_n_e_s_8h_source.html">craziNES.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="crazi_n_e_s_8h_source.html#l00023">23</a> of file <a class="el" href="crazi_n_e_s_8h_source.html">craziNES.h</a>.</p>
+
+</div>
+</div>
+<a id="a40e091e8dddce0bd6977d8ef7aa4cbe8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40e091e8dddce0bd6977d8ef7aa4cbe8">&#9670;&nbsp;</a></span>memory</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_memory_window.html">MemoryWindow</a>* wxcraziNES::memory = NULL</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="crazi_n_e_s_8h_source.html#l00024">24</a> of file <a class="el" href="crazi_n_e_s_8h_source.html">craziNES.h</a>.</p>
+
+</div>
+</div>
+<a id="a957415269658af488f8c5d414e1da2f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a957415269658af488f8c5d414e1da2f0">&#9670;&nbsp;</a></span>registers</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_registers_window.html">RegistersWindow</a>* wxcraziNES::registers = NULL</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="crazi_n_e_s_8h_source.html#l00025">25</a> of file <a class="el" href="crazi_n_e_s_8h_source.html">craziNES.h</a>.</p>
 
 </div>
 </div>

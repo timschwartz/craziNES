@@ -1,6 +1,19 @@
 var searchData=
 [
-  ['version',['VERSION',['../config_8h.html#a1c6d5de492ac61ad29aec7aa9a436bbf',1,'config.h']]],
-  ['vram_5fsize',['vram_size',['../structnes_1_1_n_e_s__header.html#a2e71b4b5f0302c0f312f82c36d8ed292',1,'nes::NES_header']]],
-  ['vs_5fhardware',['vs_hardware',['../structnes_1_1_n_e_s__header.html#a222de42e2257c04ecb512d3adb41531d',1,'nes::NES_header']]]
+  ['package',['PACKAGE',['../config_8h.html#aca8570fb706c81df371b7f9bc454ae03',1,'config.h']]],
+  ['package_5fbugreport',['PACKAGE_BUGREPORT',['../config_8h.html#a1d1d2d7f8d2f95b376954d649ab03233',1,'config.h']]],
+  ['package_5fname',['PACKAGE_NAME',['../config_8h.html#a1c0439e4355794c09b64274849eb0279',1,'config.h']]],
+  ['package_5fstring',['PACKAGE_STRING',['../config_8h.html#ac73e6f903c16eca7710f92e36e1c6fbf',1,'config.h']]],
+  ['package_5ftarname',['PACKAGE_TARNAME',['../config_8h.html#af415af6bfede0e8d5453708afe68651c',1,'config.h']]],
+  ['package_5furl',['PACKAGE_URL',['../config_8h.html#a5c93853116d5a50307b6744f147840aa',1,'config.h']]],
+  ['package_5fversion',['PACKAGE_VERSION',['../config_8h.html#aa326a05d5e30f9e9a4bb0b4469d5d0c0',1,'config.h']]],
+  ['pc',['PC',['../classnes_1_1cpu__6502.html#a01d6cc46325c1bd5ee80c83edf700a98',1,'nes::cpu_6502']]],
+  ['pha',['PHA',['../opcodes_8h.html#a02f815c3be4b1e6a6c966c71b272c616',1,'opcodes.h']]],
+  ['php',['PHP',['../opcodes_8h.html#a8ad9553f11b2ebd4cc74ef783dbb068e',1,'opcodes.h']]],
+  ['pla',['PLA',['../opcodes_8h.html#af84663c60186602f2e75dafe18840914',1,'opcodes.h']]],
+  ['plp',['PLP',['../opcodes_8h.html#a24e6dcc054d89fcc6e11c73982a529f3',1,'opcodes.h']]],
+  ['ppu_5fregisters',['ppu_registers',['../classnes_1_1_m_m_u.html#a0ce53509fe5dbe772dff19ad312c8cb0',1,'nes::MMU']]],
+  ['ppu_5fwrite',['ppu_write',['../classnes_1_1_m_m_u.html#a244df680bf7836ec1eebed46747dbef2',1,'nes::MMU']]],
+  ['prgrom_5fsize',['prgrom_size',['../structnes_1_1_n_e_s__header.html#ad95ecb393ac7712b554d59b60420fe0c',1,'nes::NES_header']]],
+  ['ptr',['ptr',['../structnes_1_1memory__section.html#a5e5cf1afb301dbb595eb9f745e41df89',1,'nes::memory_section']]]
 ];

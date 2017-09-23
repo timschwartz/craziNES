@@ -81,7 +81,7 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a15cc5e7acbf5c6508576c46946198239"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5e5cf1afb301dbb595eb9f745e41df89"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structnes_1_1memory__section.html#a5e5cf1afb301dbb595eb9f745e41df89">ptr</a> = nullptr</td></tr>
 <tr class="separator:a5e5cf1afb301dbb595eb9f745e41df89"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a26e746e99ce57dad54870f3af886429c"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structnes_1_1memory__section.html#a26e746e99ce57dad54870f3af886429c">write_handler</a> )(<a class="el" href="classnes_1_1_m_m_u.html">MMU</a> *<a class="el" href="crazi_n_e_s_8cpp.html#a4f521107ae139eddf7d4f3abb09d4362">mmu</a>, <a class="el" href="structnes_1_1memory__section.html">memory_section</a> s) = nullptr</td></tr>
+<tr class="memitem:a26e746e99ce57dad54870f3af886429c"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structnes_1_1memory__section.html#a26e746e99ce57dad54870f3af886429c">write_handler</a> )(<a class="el" href="classnes_1_1_m_m_u.html">MMU</a> *mmu, <a class="el" href="structnes_1_1memory__section.html">memory_section</a> s) = nullptr</td></tr>
 <tr class="separator:a26e746e99ce57dad54870f3af886429c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -102,7 +102,7 @@ Public Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="memory_8h_source.html#l00014">14</a> of file <a class="el" href="memory_8h_source.html">memory.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="memory_8cpp_source.html#l00008">nes::MMU::get_section()</a>, <a class="el" href="memory_8cpp_source.html#l00086">nes::MMU::ppu_write()</a>, <a class="el" href="memory_8cpp_source.html#l00042">nes::MMU::read_byte()</a>, and <a class="el" href="memory_8cpp_source.html#l00059">nes::MMU::write_byte()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="memory_8cpp_source.html#l00008">nes::MMU::get_section()</a>, <a class="el" href="memory_8cpp_source.html#l00094">nes::MMU::ppu_write()</a>, <a class="el" href="memory_8cpp_source.html#l00050">nes::MMU::read_byte()</a>, and <a class="el" href="memory_8cpp_source.html#l00067">nes::MMU::write_byte()</a>.</p>
 
 </div>
 </div>
@@ -120,7 +120,7 @@ Public Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="memory_8h_source.html#l00015">15</a> of file <a class="el" href="memory_8h_source.html">memory.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="memory_8cpp_source.html#l00008">nes::MMU::get_section()</a>, <a class="el" href="memory_8cpp_source.html#l00042">nes::MMU::read_byte()</a>, and <a class="el" href="memory_8cpp_source.html#l00059">nes::MMU::write_byte()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="memory_8cpp_source.html#l00008">nes::MMU::get_section()</a>, <a class="el" href="memory_8cpp_source.html#l00050">nes::MMU::read_byte()</a>, and <a class="el" href="memory_8cpp_source.html#l00067">nes::MMU::write_byte()</a>.</p>
 
 </div>
 </div>
@@ -138,7 +138,7 @@ Public Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="memory_8h_source.html#l00016">16</a> of file <a class="el" href="memory_8h_source.html">memory.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="memory_8cpp_source.html#l00008">nes::MMU::get_section()</a>, <a class="el" href="memory_8cpp_source.html#l00042">nes::MMU::read_byte()</a>, and <a class="el" href="memory_8cpp_source.html#l00059">nes::MMU::write_byte()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="memory_8cpp_source.html#l00008">nes::MMU::get_section()</a>, <a class="el" href="memory_8cpp_source.html#l00050">nes::MMU::read_byte()</a>, and <a class="el" href="memory_8cpp_source.html#l00067">nes::MMU::write_byte()</a>.</p>
 
 </div>
 </div>
@@ -149,14 +149,14 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void(* nes::memory_section::write_handler) (<a class="el" href="classnes_1_1_m_m_u.html">MMU</a> *<a class="el" href="crazi_n_e_s_8cpp.html#a4f521107ae139eddf7d4f3abb09d4362">mmu</a>, <a class="el" href="structnes_1_1memory__section.html">memory_section</a> s) = nullptr</td>
+          <td class="memname">void(* nes::memory_section::write_handler) (<a class="el" href="classnes_1_1_m_m_u.html">MMU</a> *mmu, <a class="el" href="structnes_1_1memory__section.html">memory_section</a> s) = nullptr</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="memory_8h_source.html#l00017">17</a> of file <a class="el" href="memory_8h_source.html">memory.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="memory_8cpp_source.html#l00008">nes::MMU::get_section()</a>, and <a class="el" href="memory_8cpp_source.html#l00059">nes::MMU::write_byte()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="memory_8cpp_source.html#l00008">nes::MMU::get_section()</a>, and <a class="el" href="memory_8cpp_source.html#l00067">nes::MMU::write_byte()</a>.</p>
 
 </div>
 </div>

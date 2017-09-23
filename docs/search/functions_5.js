@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['read_5fbyte',['read_byte',['../classnes_1_1_m_m_u.html#a250bf667864db424eac53805d7ba99e0',1,'nes::MMU']]],
-  ['rom',['ROM',['../classnes_1_1_r_o_m.html#afe13ab0aa7cc98cfb53fefc17eb247c1',1,'nes::ROM']]]
+  ['mainwindow',['MainWindow',['../class_main_window.html#ab5bd7c178471f31f5c7f20fad6446382',1,'MainWindow']]],
+  ['memorywindow',['MemoryWindow',['../class_memory_window.html#a69830c9ba81f8eaeec949043c4a419e8',1,'MemoryWindow']]]
 ];

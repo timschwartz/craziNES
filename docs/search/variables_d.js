@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['write_5fhandler',['write_handler',['../structnes_1_1memory__section.html#a26e746e99ce57dad54870f3af886429c',1,'nes::memory_section']]]
+  ['vram_5fsize',['vram_size',['../structnes_1_1_n_e_s__header.html#a2e71b4b5f0302c0f312f82c36d8ed292',1,'nes::NES_header']]],
+  ['vs_5fhardware',['vs_hardware',['../structnes_1_1_n_e_s__header.html#a222de42e2257c04ecb512d3adb41531d',1,'nes::NES_header']]]
 ];

@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['chrrom_5fsize',['chrrom_size',['../structnes_1_1_n_e_s__header.html#af168ce0e6afcf6bfa48ca84eabf4b47e',1,'nes::NES_header']]],
-  ['config_2eh',['config.h',['../config_8h.html',1,'']]],
-  ['crazines_2ecpp',['craziNES.cpp',['../crazi_n_e_s_8cpp.html',1,'']]],
-  ['crazines_2eh',['craziNES.h',['../crazi_n_e_s_8h.html',1,'']]],
-  ['crazines',['crazines',['../md__r_e_a_d_m_e.html',1,'']]]
+  ['a',['A',['../classnes_1_1cpu__6502.html#a9c597abc02e0fdede3c7c631e529a84d',1,'nes::cpu_6502']]],
+  ['addr',['addr',['../structnes_1_1memory__section.html#adf95ead77e708b0ed06da403d11fd0fc',1,'nes::memory_section']]],
+  ['and_5fimm',['AND_imm',['../opcodes_8h.html#aab4cd6e56cc9283090ae689073bbef64',1,'opcodes.h']]]
 ];

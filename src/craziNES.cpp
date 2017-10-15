@@ -46,7 +46,7 @@ void MainWindow::OnOpenROM(wxCommandEvent& event)
 void MainWindow::OnDebugROM(wxCommandEvent& event)
 {
     open_memory();
-    wxGetApp().memory->view(0xC5F5, 0xFFFF);
+    wxGetApp().memory->view(0x100, 0x1FF);
 }
 
 void MainWindow::OnDebugRegisters(wxCommandEvent &event)
@@ -98,7 +98,7 @@ MainWindow::MainWindow(const wxString& title, const wxPoint& pos, const wxSize& 
     uint32_t counter = 0;
     std::string arg2 = wxGetApp().argv[2].ToStdString();
     uint32_t max = atoi(arg2.c_str());
-
+    
     while(counter < max)
     {
         try

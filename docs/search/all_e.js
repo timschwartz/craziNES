@@ -1,19 +1,16 @@
 var searchData=
 [
-  ['package',['PACKAGE',['../config_8h.html#aca8570fb706c81df371b7f9bc454ae03',1,'config.h']]],
-  ['package_5fbugreport',['PACKAGE_BUGREPORT',['../config_8h.html#a1d1d2d7f8d2f95b376954d649ab03233',1,'config.h']]],
-  ['package_5fname',['PACKAGE_NAME',['../config_8h.html#a1c0439e4355794c09b64274849eb0279',1,'config.h']]],
-  ['package_5fstring',['PACKAGE_STRING',['../config_8h.html#ac73e6f903c16eca7710f92e36e1c6fbf',1,'config.h']]],
-  ['package_5ftarname',['PACKAGE_TARNAME',['../config_8h.html#af415af6bfede0e8d5453708afe68651c',1,'config.h']]],
-  ['package_5furl',['PACKAGE_URL',['../config_8h.html#a5c93853116d5a50307b6744f147840aa',1,'config.h']]],
-  ['package_5fversion',['PACKAGE_VERSION',['../config_8h.html#aa326a05d5e30f9e9a4bb0b4469d5d0c0',1,'config.h']]],
-  ['pc',['PC',['../classnes_1_1cpu__6502.html#a01d6cc46325c1bd5ee80c83edf700a98',1,'nes::cpu_6502']]],
-  ['pha',['PHA',['../opcodes_8h.html#a02f815c3be4b1e6a6c966c71b272c616',1,'opcodes.h']]],
-  ['php',['PHP',['../opcodes_8h.html#a8ad9553f11b2ebd4cc74ef783dbb068e',1,'opcodes.h']]],
-  ['pla',['PLA',['../opcodes_8h.html#af84663c60186602f2e75dafe18840914',1,'opcodes.h']]],
-  ['plp',['PLP',['../opcodes_8h.html#a24e6dcc054d89fcc6e11c73982a529f3',1,'opcodes.h']]],
-  ['ppu_5fregisters',['ppu_registers',['../classnes_1_1_m_m_u.html#a0ce53509fe5dbe772dff19ad312c8cb0',1,'nes::MMU']]],
-  ['ppu_5fwrite',['ppu_write',['../classnes_1_1_m_m_u.html#a244df680bf7836ec1eebed46747dbef2',1,'nes::MMU']]],
-  ['prgrom_5fsize',['prgrom_size',['../structnes_1_1_n_e_s__header.html#ad95ecb393ac7712b554d59b60420fe0c',1,'nes::NES_header']]],
-  ['ptr',['ptr',['../structnes_1_1memory__section.html#a5e5cf1afb301dbb595eb9f745e41df89',1,'nes::memory_section']]]
+  ['ram',['ram',['../classnes_1_1_m_m_u.html#af09399dcef3d68602928c4b32de47a33',1,'nes::MMU']]],
+  ['ram_5fsize',['ram_size',['../structnes_1_1_n_e_s__header.html#a84d1ab6d1368bcc442cb18e74a27173b',1,'nes::NES_header']]],
+  ['read_5fbyte',['read_byte',['../classnes_1_1_m_m_u.html#a250bf667864db424eac53805d7ba99e0',1,'nes::MMU']]],
+  ['readme_2emd',['README.md',['../_r_e_a_d_m_e_8md.html',1,'']]],
+  ['registers',['registers',['../classwxcrazi_n_e_s.html#a957415269658af488f8c5d414e1da2f0',1,'wxcraziNES::registers()'],['../classnes_1_1_m_m_u.html#add828ec46bc02e3941ed0ecc987fff2b',1,'nes::MMU::registers()']]],
+  ['registers_5flistbox',['registers_listbox',['../class_registers_window.html#a5d8baf6bde30c9782d102ed64816a3b3',1,'RegistersWindow']]],
+  ['registerswindow',['RegistersWindow',['../class_registers_window.html',1,'RegistersWindow'],['../class_registers_window.html#a20e575990b7951158b38189730288421',1,'RegistersWindow::RegistersWindow()']]],
+  ['rom',['ROM',['../classnes_1_1_r_o_m.html',1,'nes::ROM'],['../classnes_1_1_m_m_u.html#a5c60b8d86aa6dd8da99f7d8b987b717a',1,'nes::MMU::rom()'],['../classnes_1_1_r_o_m.html#afe13ab0aa7cc98cfb53fefc17eb247c1',1,'nes::ROM::ROM()']]],
+  ['rom_2ecpp',['rom.cpp',['../rom_8cpp.html',1,'']]],
+  ['rom_2eh',['rom.h',['../rom_8h.html',1,'']]],
+  ['rom_5fupper',['rom_upper',['../structnes_1_1_n_e_s__header.html#aceed42321805ae19da1694cc3ca94d53',1,'nes::NES_header']]],
+  ['rti',['rti',['../classnes_1_1cpu__6502.html#a79fbb0c81d6bd9f5bedae0f3ff220cbb',1,'nes::cpu_6502::rti()'],['../opcodes_8h.html#a16adb4f9e23f6f05317c17678eca62c2',1,'RTI():&#160;opcodes.h']]],
+  ['rts',['rts',['../classnes_1_1cpu__6502.html#a537f43818d3c898ea6b82b4b53bde1e9',1,'nes::cpu_6502::rts()'],['../opcodes_8h.html#a5da46cdb9a2133d1b4f0db71a332ba2e',1,'RTS():&#160;opcodes.h']]]
 ];

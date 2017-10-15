@@ -1,6 +1,8 @@
 #ifndef _CRAZINES_OPCODES_H
 #define _CRAZINES_OPCODES_H
 
+#define BRK        0x00
+
 #define NOP_zp_04  0x04
 #define ORA_zp     0x05
 
@@ -33,6 +35,8 @@
 
 #define SEC        0x38
 
+#define RTI        0x40
+
 #define NOP_zp_44  0x44
 
 #define PHA        0x48
@@ -40,6 +44,8 @@
 #define LSR_acc    0x4A
 
 #define JMP_abs    0x4C
+
+#define BVC        0x50
 
 #define NOP_zp_54  0x54
 
@@ -92,6 +98,10 @@
 #define LDA_abs    0xAD
 
 #define BCS        0xB0
+
+#define LDY_zp_x   0xB4
+
+#define CLV        0xB8
 
 #define LDA_abs_x  0xBD
 

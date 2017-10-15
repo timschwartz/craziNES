@@ -33,6 +33,7 @@ namespace nes
         uint8_t *hprgrom = new uint8_t[0x4000];
         uint8_t mapper = 0;
         nes::ROM *rom = nullptr;
+        nes::NES_header header;
     };
 }
 

@@ -1,4 +1,14 @@
 var searchData=
 [
-  ['ora_5fzp',['ORA_zp',['../opcodes_8h.html#a55ee2a0a4ee64f2e91d52c8e503d265b',1,'opcodes.h']]]
+  ['package',['PACKAGE',['../config_8h.html#aca8570fb706c81df371b7f9bc454ae03',1,'config.h']]],
+  ['package_5fbugreport',['PACKAGE_BUGREPORT',['../config_8h.html#a1d1d2d7f8d2f95b376954d649ab03233',1,'config.h']]],
+  ['package_5fname',['PACKAGE_NAME',['../config_8h.html#a1c0439e4355794c09b64274849eb0279',1,'config.h']]],
+  ['package_5fstring',['PACKAGE_STRING',['../config_8h.html#ac73e6f903c16eca7710f92e36e1c6fbf',1,'config.h']]],
+  ['package_5ftarname',['PACKAGE_TARNAME',['../config_8h.html#af415af6bfede0e8d5453708afe68651c',1,'config.h']]],
+  ['package_5furl',['PACKAGE_URL',['../config_8h.html#a5c93853116d5a50307b6744f147840aa',1,'config.h']]],
+  ['package_5fversion',['PACKAGE_VERSION',['../config_8h.html#aa326a05d5e30f9e9a4bb0b4469d5d0c0',1,'config.h']]],
+  ['pha',['PHA',['../opcodes_8h.html#a02f815c3be4b1e6a6c966c71b272c616',1,'opcodes.h']]],
+  ['php',['PHP',['../opcodes_8h.html#a8ad9553f11b2ebd4cc74ef783dbb068e',1,'opcodes.h']]],
+  ['pla',['PLA',['../opcodes_8h.html#af84663c60186602f2e75dafe18840914',1,'opcodes.h']]],
+  ['plp',['PLP',['../opcodes_8h.html#a24e6dcc054d89fcc6e11c73982a529f3',1,'opcodes.h']]]
 ];

@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['setup_5fopcode_5fsize_5fmatrix',['setup_opcode_size_matrix',['../namespacenes.html#a3c5963471b04c38d95fa73ccc4693728',1,'nes']]],
-  ['setz',['setZ',['../classnes_1_1cpu__6502.html#aec323c460b741e901ffbd158a948b4b9',1,'nes::cpu_6502']]],
-  ['step',['step',['../classnes_1_1cpu__6502.html#a04d046ed734b86432e99087746f57949',1,'nes::cpu_6502']]],
-  ['stx_5fzp',['stx_zp',['../classnes_1_1cpu__6502.html#a968254926120d218500d5ee890881e96',1,'nes::cpu_6502']]]
+  ['pop16',['pop16',['../classnes_1_1cpu__6502.html#a4792e5c9eb82315f232032d196510143',1,'nes::cpu_6502']]],
+  ['pop8',['pop8',['../classnes_1_1cpu__6502.html#ab3003c48999c96c80d90ba0144848125',1,'nes::cpu_6502']]],
+  ['ppu_5fwrite',['ppu_write',['../classnes_1_1_m_m_u.html#a244df680bf7836ec1eebed46747dbef2',1,'nes::MMU']]],
+  ['push16',['push16',['../classnes_1_1cpu__6502.html#a488c7e7ee84394e56c38577d45181ade',1,'nes::cpu_6502']]],
+  ['push8',['push8',['../classnes_1_1cpu__6502.html#a597a50fa584042d71daa54020c1e36ff',1,'nes::cpu_6502']]]
 ];

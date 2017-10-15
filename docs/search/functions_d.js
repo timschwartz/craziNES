@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['write_5fbyte',['write_byte',['../classnes_1_1_m_m_u.html#a394c70a9546e45e2e236161d083e26dc',1,'nes::MMU']]],
-  ['wxbegin_5fevent_5ftable',['wxBEGIN_EVENT_TABLE',['../crazi_n_e_s_8cpp.html#a6037f102d21e7ea2962411e939dc4213',1,'craziNES.cpp']]],
-  ['wxdeclare_5fevent_5ftable',['wxDECLARE_EVENT_TABLE',['../class_main_window.html#ae2ff5d7859e51963c5c07ab11583021a',1,'MainWindow::wxDECLARE_EVENT_TABLE()'],['../class_memory_window.html#a3e9992d8c1c3e030e364030177cce320',1,'MemoryWindow::wxDECLARE_EVENT_TABLE()']]]
+  ['to_5fstring',['to_string',['../classnes_1_1opcode__t.html#abe0d90487eac7baebe0629ae61623f8b',1,'nes::opcode_t']]],
+  ['txs',['txs',['../classnes_1_1cpu__6502.html#a187a1333052958d97f242e7767ed07be',1,'nes::cpu_6502']]]
 ];

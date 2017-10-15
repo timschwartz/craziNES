@@ -1,4 +1,5 @@
 #include <string>
+#include <cstring>
 
 #include <memory.h>
 #include <rom.h>
@@ -34,11 +35,19 @@ namespace nes
             return s;
         }
 
+        if((addr >= 0x8000) && (addr <= 0xBFFF))
+        {
+            s.addr = addr;
+            s.offset = 0x8000;
+            s.ptr = lprgrom;
+            return s;
+        }
+
         if((addr >= 0xC000) && (addr <= 0xFFFF))
         {
             s.addr = addr;
-            s.offset = 0xBFF0;
-            s.ptr = rom->get_pointer();
+            s.offset = 0xC000;
+            s.ptr = hprgrom;
             return s;
         }
 
@@ -95,7 +104,7 @@ namespace nes
     {
         char message[1024];
         sprintf(message, "Wrote 0x%X to 0x%X", mmu->read_byte(s.addr), s.addr);
-        throw std::string(message);
+    //    throw std::string(message);
     }
 
     void MMU::load_rom(std::string filename)
@@ -109,8 +118,20 @@ namespace nes
             throw e;
         }
 
-        NES_header header = rom->get_header();
+        header = rom->get_header();
         mapper = header.flag7 & 0xF0;
         mapper += header.flag6 >> 4;
+
+        if(header.prgrom_size == 1)
+        {
+            memcpy(lprgrom, rom->get_pointer() + 16, 0x4000);
+            memcpy(hprgrom, rom->get_pointer() + 16, 0x4000);
+        }
+
+        if(mapper != 0)
+        {
+            std::string message = "Unsupported mapper " + mapper;
+            throw message;
+        }
     }
 }

@@ -8,7 +8,6 @@ var searchData=
   ['onexit',['OnExit',['../class_main_window.html#a1a605e490ac5deeb89ed16cfc871bf3f',1,'MainWindow']]],
   ['oninit',['OnInit',['../classwxcrazi_n_e_s.html#a740c2bae6381b40518cb9d48e53b400a',1,'wxcraziNES']]],
   ['onopenrom',['OnOpenROM',['../class_main_window.html#a28e8accc0a0157573cd8f9aad24c0c70',1,'MainWindow']]],
-  ['op_5fsz_5fmatrix',['op_sz_matrix',['../namespacenes.html#a4f786ee9640a6634a2ee33aeef555202',1,'nes']]],
   ['opcode',['opcode',['../classnes_1_1opcode__t.html#a99ccd5cbff1138c0499c4be7baaba7c9',1,'nes::opcode_t::opcode()'],['../classnes_1_1cpu__6502.html#a5b2cb6206543e5fa76bc21a106769e6f',1,'nes::cpu_6502::opcode()']]],
   ['opcode_5ft',['opcode_t',['../classnes_1_1opcode__t.html',1,'nes::opcode_t'],['../classnes_1_1opcode__t.html#ae906b9284f5c25c5bc7bdb3581f2773f',1,'nes::opcode_t::opcode_t()']]],
   ['opcodes_2eh',['opcodes.h',['../opcodes_8h.html',1,'']]],

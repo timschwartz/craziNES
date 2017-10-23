@@ -3,7 +3,7 @@ AC_INIT([craziNES], [0.1], [tim@metaverse.systems])
 AC_CONFIG_SRCDIR([src/craziNES.cpp])
 AC_CONFIG_HEADERS([config.h])
 
-CXXFLAGS="-g3 -O0"
+# CXXFLAGS="-g3 -O0"
 
 AC_PROG_CXX
 AM_INIT_AUTOMAKE([subdir-objects])

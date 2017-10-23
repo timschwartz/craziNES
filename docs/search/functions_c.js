@@ -6,7 +6,6 @@ var searchData=
   ['setd',['setD',['../classnes_1_1cpu__6502.html#ab5fef23ff760b271d82b8062daee9241',1,'nes::cpu_6502']]],
   ['seti',['setI',['../classnes_1_1cpu__6502.html#ac7193e753c53ae2dbfb0ecd348bafd35',1,'nes::cpu_6502']]],
   ['setn',['setN',['../classnes_1_1cpu__6502.html#a22610268f4666ae0e2d3fbf7c972a768',1,'nes::cpu_6502']]],
-  ['setup_5fopcode_5fsize_5fmatrix',['setup_opcode_size_matrix',['../namespacenes.html#a3c5963471b04c38d95fa73ccc4693728',1,'nes']]],
   ['setv',['setV',['../classnes_1_1cpu__6502.html#ac392cae1523ae38a7a407a8539c4e212',1,'nes::cpu_6502']]],
   ['setz',['setZ',['../classnes_1_1cpu__6502.html#af17b51590abd75bfcdbcde2c565b3043',1,'nes::cpu_6502']]],
   ['sta_5fabs',['sta_abs',['../classnes_1_1cpu__6502.html#ac7bdd790bb0ba1522aec933fc2c99a12',1,'nes::cpu_6502']]],

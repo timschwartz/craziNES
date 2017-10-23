@@ -3,10 +3,6 @@
 
 namespace nes
 {
-    uint8_t op_sz_matrix[0xFF] = { 0 };
-
-    void setup_opcode_size_matrix();
-
     uint16_t cpu_6502::get_PC()
     {
         return PC;
@@ -131,7 +127,7 @@ namespace nes
     {
         // 0x00
         cpu->cycles += 7;
-        cpu->PC += op_sz_matrix[BRK];
+        cpu->PC += op->sz;
         uint8_t status = cpu->status;
         status |= 0x10; 
         cpu->push16(cpu->PC);
@@ -151,14 +147,14 @@ namespace nes
         // 0x10
         if(!cpu->checkN())
         {
-            uint16_t next_addr = cpu->PC + op_sz_matrix[BPL];
-            cpu->PC += op_sz_matrix[BPL] + op->imm;
+            uint16_t next_addr = cpu->PC + op->sz;
+            cpu->PC += op->sz + op->imm;
             cpu->cycles += 3;
             if((next_addr >> 8) != (cpu->PC >> 8)) cpu->cycles += 2;
         }
         else
         {
-            cpu->PC += op_sz_matrix[BPL];
+            cpu->PC += op->sz;
             cpu->cycles += 2;
         }
     }
@@ -168,13 +164,13 @@ namespace nes
         // 0x18
         cpu->clearC();
         cpu->cycles += 2;
-        cpu->PC += op_sz_matrix[CLC];
+        cpu->PC += op->sz;
     }
 
     void cpu_6502::jsr(cpu_6502 *cpu, opcode_t *op)
     {
         // 0x20
-        uint16_t addr = cpu->PC +  op_sz_matrix[JSR] - 1;
+        uint16_t addr = cpu->PC +  op->sz - 1;
         cpu->push16(addr);
         cpu->PC = op->imm;
         cpu->cycles += 6;
@@ -190,7 +186,7 @@ namespace nes
         cpu->setZ(acc & test);
         cpu->setN(test);
         cpu->setV(test);
-        cpu->PC += op_sz_matrix[BIT_zp];
+        cpu->PC += op->sz;
         cpu->cycles += 3;
     }
 
@@ -199,7 +195,7 @@ namespace nes
         // 0x29
         cpu->A &= op->imm;
         cpu->cycles += 2;
-        cpu->PC += op_sz_matrix[AND_imm];
+        cpu->PC += op->sz;
         cpu->setZ(cpu->A); 
     }
 
@@ -208,7 +204,7 @@ namespace nes
         // 0x38
         cpu->setC();
         cpu->cycles += 2;
-        cpu->PC += op_sz_matrix[SEC];
+        cpu->PC += op->sz;
     }
 
     void cpu_6502::rti(cpu_6502 *cpu, opcode_t *op)
@@ -235,14 +231,14 @@ namespace nes
         // 0x50
         if(!cpu->checkV())
         {
-            uint16_t next_addr = cpu->PC + op_sz_matrix[BVC];
-            cpu->PC += op_sz_matrix[BVC] + op->imm;
+            uint16_t next_addr = cpu->PC + op->sz;
+            cpu->PC += op->sz + op->imm;
             cpu->cycles += 3;
             if((next_addr >> 8) != (cpu->PC >> 8)) cpu->cycles += 2;
         }
         else
         {
-            cpu->PC += op_sz_matrix[BVC];
+            cpu->PC += op->sz;
             cpu->cycles += 2;
         }
     }
@@ -264,14 +260,14 @@ namespace nes
         // 0x70
         if(cpu->checkV())
         {
-            uint16_t next_addr = cpu->PC + op_sz_matrix[BVS];
-            cpu->PC += op_sz_matrix[BVS] + op->imm;
+            uint16_t next_addr = cpu->PC + op->sz;
+            cpu->PC += op->sz + op->imm;
             cpu->cycles += 3;
             if((next_addr >> 8) != (cpu->PC >> 8)) cpu->cycles += 2;
         }
         else
         {
-            cpu->PC += op_sz_matrix[BVS];
+            cpu->PC += op->sz;
             cpu->cycles += 2;
         }
     }
@@ -280,7 +276,7 @@ namespace nes
     {
         // 0x78
         cpu->cycles += 2;
-        cpu->PC += op_sz_matrix[SEI];
+        cpu->PC += op->sz;
         cpu->setI();
     }
 
@@ -290,7 +286,7 @@ namespace nes
         uint16_t addr = (0 << 8) | op->imm;
         cpu->mmu->write_byte(addr, cpu->A);
         cpu->cycles += 3;
-        cpu->PC += op_sz_matrix[STA_zp];
+        cpu->PC += op->sz;
     }
 
     void cpu_6502::stx_zp(cpu_6502 *cpu, opcode_t *op)
@@ -299,7 +295,7 @@ namespace nes
         uint16_t addr = (0 << 8) | op->imm;
         cpu->mmu->write_byte(addr, cpu->X);
         cpu->cycles += 3;
-        cpu->PC += op_sz_matrix[STX_zp];
+        cpu->PC += op->sz;
     }
 
     void cpu_6502::sta_abs(cpu_6502 *cpu, opcode_t *op)
@@ -307,7 +303,7 @@ namespace nes
         // 0x8D
         cpu->mmu->write_byte(op->imm, cpu->A);
         cpu->cycles += 4;
-        cpu->PC += op_sz_matrix[STA_abs];
+        cpu->PC += op->sz;
     }
 
     void cpu_6502::bcc(cpu_6502 *cpu, opcode_t *op)
@@ -315,14 +311,14 @@ namespace nes
         // 0x90
         if(!cpu->checkC())
         {
-            uint16_t next_addr = cpu->PC + op_sz_matrix[BCC];
-            cpu->PC += op_sz_matrix[BCC] + op->imm;
+            uint16_t next_addr = cpu->PC + op->sz;
+            cpu->PC += op->sz + op->imm;
             cpu->cycles += 3;
             if((next_addr >> 8) != (cpu->PC >> 8)) cpu->cycles += 2;
         }
         else
         {
-            cpu->PC += op_sz_matrix[BCC];
+            cpu->PC += op->sz;
             cpu->cycles += 2;
         }
     }
@@ -332,7 +328,7 @@ namespace nes
         // 0x9A
         cpu->SP = cpu->X;
         cpu->cycles += 2;
-        cpu->PC += op_sz_matrix[TXS];
+        cpu->PC += op->sz;
     }
 
     void cpu_6502::ldx_imm(cpu_6502 *cpu, opcode_t *op)
@@ -340,7 +336,7 @@ namespace nes
         // 0xA2
         cpu->X = op->imm;
         cpu->cycles += 2;
-        cpu->PC += op_sz_matrix[LDX_imm];
+        cpu->PC += op->sz;
         cpu->setZ(cpu->X);
     }
 
@@ -349,7 +345,7 @@ namespace nes
         // 0xA9
         cpu->A = op->imm;
         cpu->cycles += 2;
-        cpu->PC += op_sz_matrix[LDA_imm];
+        cpu->PC += op->sz;
         cpu->setZ(cpu->A);
         cpu->setN(cpu->A);
     }
@@ -360,7 +356,7 @@ namespace nes
         cpu->A = cpu->mmu->read_byte(op->imm);
         cpu->cycles += 2;
         if((cpu->PC >> 8) != (op->imm >>8)) cpu->cycles++;
-        cpu->PC += op_sz_matrix[LDA_abs];
+        cpu->PC += op->sz;
         cpu->setZ(cpu->A);
     }
 
@@ -369,14 +365,14 @@ namespace nes
         // 0xB0
         if(cpu->checkC())
         {
-            uint16_t next_addr = cpu->PC + op_sz_matrix[BCS];
-            cpu->PC += op_sz_matrix[BCS] + op->imm;
+            uint16_t next_addr = cpu->PC + op->sz;
+            cpu->PC += op->sz + op->imm;
             cpu->cycles += 3;
             if((next_addr >> 8) != (cpu->PC >> 8)) cpu->cycles += 2;
         }
         else
         {
-            cpu->PC += op_sz_matrix[BCS];
+            cpu->PC += op->sz;
             cpu->cycles += 2;
         }
     }
@@ -386,7 +382,7 @@ namespace nes
         // 0xB8
         cpu->clearV();
         cpu->cycles += 2;
-        cpu->PC += op_sz_matrix[CLV];
+        cpu->PC += op->sz;
     }
 
     void cpu_6502::bne(cpu_6502 *cpu, opcode_t *op)
@@ -394,14 +390,14 @@ namespace nes
         // 0xD0
         if(!cpu->checkZ())
         {
-            uint16_t next_addr = cpu->PC + op_sz_matrix[BNE];
-            cpu->PC += op_sz_matrix[BNE] + op->imm;
+            uint16_t next_addr = cpu->PC + op->sz;
+            cpu->PC += op->sz + op->imm;
             cpu->cycles += 3;
             if((next_addr >> 8) != (cpu->PC >> 8)) cpu->cycles += 2;
         }
         else
         {
-            cpu->PC += op_sz_matrix[BNE];
+            cpu->PC += op->sz;
             cpu->cycles += 2;
         }
     }
@@ -410,14 +406,14 @@ namespace nes
     {
         // 0xD8
         cpu->cycles += 2;
-        cpu->PC += op_sz_matrix[CLD];
+        cpu->PC += op->sz;
     }
 
     void cpu_6502::nop_ea(cpu_6502 *cpu, opcode_t *op)
     {
         // 0xEA
         cpu->cycles += 2;
-        cpu->PC += op_sz_matrix[NOP_EA];
+        cpu->PC += op->sz;
     }
 
     void cpu_6502::beq(cpu_6502 *cpu, opcode_t *op)
@@ -425,14 +421,14 @@ namespace nes
         // 0xF0
         if(cpu->checkZ())
         {
-            uint16_t next_addr = cpu->PC + op_sz_matrix[BEQ];
-            cpu->PC += op_sz_matrix[BEQ] + op->imm;
+            uint16_t next_addr = cpu->PC + op->sz;
+            cpu->PC += op->sz + op->imm;
             cpu->cycles += 3;
             if((next_addr >> 8) != (cpu->PC >> 8)) cpu->cycles += 2;
         }
         else
         {
-            cpu->PC += op_sz_matrix[BEQ];
+            cpu->PC += op->sz;
             cpu->cycles += 2;
         }
     }
@@ -513,253 +509,323 @@ namespace nes
 
     opcode_t::opcode_t(nes::MMU *mmu, uint16_t addr)
     {
-        if(op_sz_matrix[JMP_abs] == 0) setup_opcode_size_matrix();
-
         opcode = mmu->read_byte(addr);
-        sz = op_sz_matrix[opcode];
         instruction = opcode;
 
         switch(opcode)
         {
             case BRK:
+                sz = 1;
                 break;
             case NOP_zp_04:
+                sz = 2;
                 imm = mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case ORA_zp:
+                sz = 2;
                 imm = mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case NOP_abs_0C:
+                sz = 3;
                 imm = (mmu->read_byte(addr + 2) << 8) | mmu->read_byte(addr + 1);
                 instruction = (opcode << 16) | imm;
                 break;
             case PHP:
+                sz = 1;
                 break;
             case NOP_zp_14:
+                sz = 2;
                 imm = mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case CLC:
+                sz = 1;
                 break;
             case NOP_1A:
+                sz = 1;
                 break;
             case NOP_abs_1C:
+                sz = 2;
                 imm = mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case BPL:
+                sz = 2;
                 imm = mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case JSR:
+                sz = 3;
                 imm = (mmu->read_byte(addr + 2) << 8) | mmu->read_byte(addr + 1);
                 instruction = (opcode << 16) | imm;
                 break;
             case BIT_zp:
+                sz = 2;
                 imm = mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case PLP:
+                sz = 1;
                 break;
             case AND_imm:
+                sz = 2;
                 imm = mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case BIT_abs:
+                sz = 3;
                 imm = (mmu->read_byte(addr + 2) << 8) | mmu->read_byte(addr + 1);
                 instruction = (opcode << 16) | imm;
                 break;
             case NOP_zp_34:
+                sz = 2;
                 imm = mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case SEC:
+                sz = 1;
                 break;
             case RTI:
+                sz = 1;
                 break;
             case NOP_3A:
+                sz = 1;
                 break;
             case NOP_zp_44:
+                sz = 2;
                 imm = mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case PHA:
+                sz = 1;
                 break;
             case LSR_acc:
+                sz = 1;
                 break;
             case JMP_abs:
+                sz = 3;
                 imm = (mmu->read_byte(addr + 2) << 8) | mmu->read_byte(addr + 1);
                 instruction = (opcode << 16) | imm;
                 break;
             case BVC:
+                sz = 2;
                 imm = mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case NOP_zp_54:
+                sz = 2;
                 imm = mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case NOP_5A:
+                sz = 1;
                 break;
-            case NOP_abs_5C:
+            case NOP_abs_5C: 
+                sz = 3;
                 imm = (mmu->read_byte(addr + 2) << 8) | mmu->read_byte(addr + 1);
                 instruction = (opcode << 16) | imm;
                 break;
             case RTS:
+                sz = 1;
                 break;
             case NOP_zp_64:
+                sz = 2;
                 imm = mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case PLA:
+                sz = 1;
                 break;
             case BVS:
+                sz = 2;
                 imm = mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case NOP_zp_74:
+                sz = 2;
                 imm = mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case SEI:
+                sz = 1;
                 break;
             case NOP_7A:
+                sz = 1;
                 break;
             case NOP_abs_7C:
+                sz = 3;
                 imm = (mmu->read_byte(addr + 2) << 8) | mmu->read_byte(addr + 1);
                 instruction = (opcode << 16) | imm;
                 break;
             case NOP_imm_80:
+                sz = 2;
                 imm = mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case STY_zp_x:
+                sz = 2;
                 imm = mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case STA_zp:
+                sz = 2;
                 imm = mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case STX_zp:
+                sz = 2;
                 imm = mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case DEY:
+                sz = 1;
                 break;
             case STY_abs:
+                sz = 3;
                 imm = (mmu->read_byte(addr + 2) << 8) | mmu->read_byte(addr + 1);
                 instruction = (opcode << 16) | imm;
                 break;
             case STA_abs:
+                sz = 3;
                 imm = (mmu->read_byte(addr + 2) << 8) | mmu->read_byte(addr + 1);
                 instruction = (opcode << 16) | imm;
                 break;
             case STX_abs:
+                sz = 3;
                 imm = (mmu->read_byte(addr + 2) << 8) | mmu->read_byte(addr + 1);
                 instruction = (opcode << 16) | imm;
                 break;
             case TXS:
+                sz = 1;
                 break;
             case BCC:
+                sz = 2;
                 imm = mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case LDY_imm:
+                sz = 2;
                 imm = mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case LDA_zp:
+                sz = 2;
                 imm = mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case LDX_zp:
+                sz = 2;
                 imm = mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case LDX_imm:
+                sz = 2;
                 imm = mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case LDA_imm:
+                sz = 2;
                 imm = mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case LDA_abs:
+                sz = 3;
                 imm = (mmu->read_byte(addr + 2) << 8) | mmu->read_byte(addr + 1);
                 instruction = (opcode << 16) | imm;
                 break;
             case BCS:
+                sz  = 2;
                 imm = mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case LDY_zp_x:
+                sz = 2;
                 imm = mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case CLV:
+                sz = 1;
                 break;
             case LDA_abs_x:
+                sz = 3;
                 imm = (mmu->read_byte(addr + 2) << 8) | mmu->read_byte(addr + 1);
                 instruction = (opcode << 16) | imm;
                 break;
             case DEC_zp:
+                sz = 2;
                 imm = mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case INY:
+                sz = 1;
                 break;
             case CMP_imm:
+                sz = 2;
                 imm = mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case DEX:
+                sz = 1;
                 break;
             case BNE:
+                sz = 2;
                 imm = mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case NOP_zp_D4:
+                sz = 2;
                 imm = mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case CLD:
+                sz = 1;
                 break;
             case NOP_DA:
+                sz = 1;
                 break;
             case NOP_abs_DC:
+                sz = 3;
                 imm = (mmu->read_byte(addr + 2) << 8) | mmu->read_byte(addr + 1);
                 instruction = (opcode << 16) | imm;
                 break;
             case CPX_imm:
+                sz = 2;
                 imm = mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case INC_zp:
+                sz = 2;
                 imm = mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case INX:
+                sz = 1;
                 break;
             case NOP_EA:
+                sz = 1;
                 break;
             case BEQ:
+                sz = 2;
                 imm = mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case NOP_zp_F4:
+                sz = 2;
                 imm = mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case NOP_FA:
+                sz = 1;
                 break;
             case NOP_abs_FC:
+                sz = 3;
                 imm = (mmu->read_byte(addr + 2) << 8) | mmu->read_byte(addr + 1);
                 instruction = (opcode << 16) | imm;
                 break;
             case 0xFF:
+                sz = 1;
                 break;
             default:
                 char message[1024];
@@ -1001,82 +1067,5 @@ namespace nes
         char message[1024];
         sprintf(message, "   %s", temp);
         return std::string(message);
-    }
-
-    void setup_opcode_size_matrix()
-    {
-        op_sz_matrix[BRK] = 1;
-        op_sz_matrix[NOP_zp_04] = 2;
-        op_sz_matrix[ORA_zp] = 2;
-        op_sz_matrix[NOP_abs_0C] = 3;
-        op_sz_matrix[PHP] = 1;
-        op_sz_matrix[BPL] = 2;
-        op_sz_matrix[NOP_zp_14] = 2;
-        op_sz_matrix[CLC] = 1;
-        op_sz_matrix[NOP_1A] = 1;
-        op_sz_matrix[NOP_abs_1C] = 2;
-        op_sz_matrix[JSR] = 3;
-        op_sz_matrix[BIT_zp] = 2;
-        op_sz_matrix[PLP] = 1;
-        op_sz_matrix[AND_imm] = 2;
-        op_sz_matrix[BIT_abs] = 3;
-        op_sz_matrix[NOP_zp_34] = 2;
-        op_sz_matrix[SEC] = 1;
-        op_sz_matrix[RTI] = 1;
-        op_sz_matrix[NOP_3A] = 1;
-        op_sz_matrix[NOP_zp_44] = 2;
-        op_sz_matrix[PHA] = 1;
-        op_sz_matrix[LSR_acc] = 1;
-        op_sz_matrix[JMP_abs] = 3;
-        op_sz_matrix[BVC] = 2;
-        op_sz_matrix[NOP_zp_54] = 2;
-        op_sz_matrix[NOP_5A] = 1;
-        op_sz_matrix[NOP_abs_5C] = 3;
-        op_sz_matrix[RTS] = 1; 
-        op_sz_matrix[NOP_zp_64] = 2;
-        op_sz_matrix[PLA] = 1;
-        op_sz_matrix[BVS] = 2;
-        op_sz_matrix[NOP_zp_74] = 2;
-        op_sz_matrix[SEI] = 1;
-        op_sz_matrix[NOP_7A] = 1;
-        op_sz_matrix[NOP_abs_7C] = 3;
-        op_sz_matrix[NOP_imm_80] = 2;
-        op_sz_matrix[STY_zp_x] = 2;
-        op_sz_matrix[STA_zp] = 2;
-        op_sz_matrix[STX_zp] = 2;
-        op_sz_matrix[DEY] = 1;
-        op_sz_matrix[STY_abs] = 3;
-        op_sz_matrix[STA_abs] = 3;
-        op_sz_matrix[STX_abs] = 3;
-        op_sz_matrix[TXS] = 1;
-        op_sz_matrix[BCC] = 2;
-        op_sz_matrix[LDY_imm] = 2;
-        op_sz_matrix[LDX_imm] = 2;
-        op_sz_matrix[LDA_zp] = 2;
-        op_sz_matrix[LDX_zp] = 2;
-        op_sz_matrix[LDA_imm] = 2;
-        op_sz_matrix[LDA_abs] = 3;
-        op_sz_matrix[BCS] = 2;
-        op_sz_matrix[LDY_zp_x] = 2;
-        op_sz_matrix[CLV] = 1;
-        op_sz_matrix[LDA_abs_x] = 3;
-        op_sz_matrix[DEC_zp] = 2;
-        op_sz_matrix[INY] = 1;
-        op_sz_matrix[CMP_imm] = 2;
-        op_sz_matrix[DEX] = 1;
-        op_sz_matrix[BNE] = 2;
-        op_sz_matrix[NOP_zp_D4] = 2;
-        op_sz_matrix[CLD] = 1;
-        op_sz_matrix[NOP_DA] = 1;
-        op_sz_matrix[NOP_abs_DC] = 3;
-        op_sz_matrix[CPX_imm] = 2;
-        op_sz_matrix[INC_zp] = 2;
-        op_sz_matrix[INX] = 1;
-        op_sz_matrix[NOP_EA] = 1;
-        op_sz_matrix[BEQ] = 2;
-        op_sz_matrix[NOP_zp_F4] = 2;
-        op_sz_matrix[NOP_FA] = 1;
-        op_sz_matrix[NOP_abs_FC] = 3;
-        op_sz_matrix[0xFF] = 1;
     }
 }

@@ -54,7 +54,7 @@ namespace nes
        void setD();
        void clearD();
 
-       void (*opcode[0xFF])(cpu_6502 *, opcode_t *);
+       void (*opcode[0x100])(cpu_6502 *, opcode_t *);
        static void not_implemented(cpu_6502 *, opcode_t *);
 
        static void brk(cpu_6502 *cpu, opcode_t *op); // 0x00

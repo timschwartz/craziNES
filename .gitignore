@@ -31,3 +31,14 @@ Makefile.in
 # http://www.gnu.org/software/texinfo
 
 /texinfo.tex
+
+*.o
+Doxyfile
+Makefile
+config.h
+config.log
+config.status
+src/.deps/
+src/Makefile
+src/craziNES
+

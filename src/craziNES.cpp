@@ -9,6 +9,7 @@ wxBEGIN_EVENT_TABLE(MainWindow, wxFrame)
     EVT_MENU(ID_open_rom,   MainWindow::OnOpenROM)
     EVT_MENU(ID_debug_rom, MainWindow::OnDebugROM)
     EVT_MENU(ID_debug_registers, MainWindow::OnDebugRegisters)
+    EVT_MENU(ID_debug_log, MainWindow::OnDebugLog)
     EVT_MENU(wxID_EXIT,  MainWindow::OnExit)
 wxEND_EVENT_TABLE()
 
@@ -46,12 +47,17 @@ void MainWindow::OnOpenROM(wxCommandEvent& event)
 void MainWindow::OnDebugROM(wxCommandEvent& event)
 {
     open_memory();
-    wxGetApp().memory->view(0x100, 0x1FF);
+    wxGetApp().memory->view(cpu->get_PC(), cpu->get_PC() + 0x400);
 }
 
 void MainWindow::OnDebugRegisters(wxCommandEvent &event)
 {
     open_registers();
+}
+
+void MainWindow::OnDebugLog(wxCommandEvent &event)
+{
+    open_log();
 }
 
 void MainWindow::OnExit(wxCommandEvent& event)
@@ -71,6 +77,7 @@ MainWindow::MainWindow(const wxString& title, const wxPoint& pos, const wxSize& 
     wxMenu *menuDebug = new wxMenu;
     menuDebug->Append(ID_debug_rom, "View &ROM", "");
     menuDebug->Append(ID_debug_registers, "View R&egisters", "");
+    menuDebug->Append(ID_debug_log, "View &Log", "");
 
     wxMenuBar *menuBar = new wxMenuBar;
     menuBar->Append(menuFile, "&File");
@@ -83,6 +90,7 @@ MainWindow::MainWindow(const wxString& title, const wxPoint& pos, const wxSize& 
 
     try
     {
+        std::string argv1 = wxGetApp().argv[1].ToStdString();
         cpu->load_rom(wxGetApp().argv[1].ToStdString());
     }
     catch(std::string e)
@@ -103,10 +111,13 @@ MainWindow::MainWindow(const wxString& title, const wxPoint& pos, const wxSize& 
     {
         try
         {
-            SetStatusText(cpu->step(), 0);
+            std::string status = cpu->step();
+            std::cout << status << std::endl;
+            SetStatusText(status.c_str(), 0);
         }
         catch(std::string e)
         {
+            std::cout << e << std::endl;
             SetStatusText(e, 0);
             return;
         }

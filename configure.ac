@@ -9,8 +9,8 @@ AC_PROG_CXX
 AM_INIT_AUTOMAKE([subdir-objects])
 
 AM_OPTIONS_WXCONFIG
-reqwx=2.4.0
-AM_PATH_WXCONFIG($reqwx, wxWin=1)
+reqwx=3.1.0
+AM_PATH_WXCONFIG($reqwx, wxWin=1,,[all])
 if test "$wxWin" != 1; then
         AC_MSG_ERROR([
                 wxWidgets must be installed on your system.

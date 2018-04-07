@@ -8,17 +8,21 @@
 
 namespace nes
 {
+    class cpu_6502;
+
     class opcode_t
     {
       private:
         void decode_instruction();
+        cpu_6502 *cpu;
       public:
-        opcode_t(nes::MMU *mmu, uint16_t addr);
+        opcode_t(nes::cpu_6502 *cpu, uint16_t addr);
         std::string to_string();
         uint32_t instruction = 0;
         uint8_t opcode = 0;
         uint16_t imm = 0;
         uint8_t sz = 1;
+        uint16_t addr = 0;
     };
 
    class cpu_6502
@@ -26,6 +30,7 @@ namespace nes
      public:
        cpu_6502();
        uint16_t get_PC();
+       uint8_t get_A();
        std::string get_state();
        uint8_t get_status();
        std::string step();
@@ -58,16 +63,23 @@ namespace nes
        static void not_implemented(cpu_6502 *, opcode_t *);
 
        static void brk(cpu_6502 *cpu, opcode_t *op); // 0x00
+       static void php(cpu_6502 *cpu, opcode_t *op); // 0x08
+       static void ora_imm(cpu_6502 *cpu, opcode_t *op); // 0x09
        static void bpl(cpu_6502 *cpu, opcode_t *op); // 0x10
        static void clc(cpu_6502 *cpu, opcode_t *op); // 0x18
        static void jsr(cpu_6502 *cpu, opcode_t *op); // 0x20
        static void bit_zp(cpu_6502 *cpu, opcode_t *op); // 0x24
+       static void plp(cpu_6502 *cpu, opcode_t *op); // 0x28
        static void and_imm(cpu_6502 *cpu, opcode_t *op); // 0x29
+       static void bmi(cpu_6502 *cpu, opcode_t *op); // 0x30
        static void sec(cpu_6502 *cpu, opcode_t *op); // 0x38
        static void rti(cpu_6502 *cpu, opcode_t *op); // 0x40
+       static void pha(cpu_6502 *cpu, opcode_t *op); // 0x48
+       static void eor_imm(cpu_6502 *cpu, opcode_t *op); // 0x49
        static void jmp_abs(cpu_6502 *cpu, opcode_t *op); // 0x4C
        static void bvc(cpu_6502 *cpu, opcode_t *op); // 0x50
        static void rts(cpu_6502 *cpu, opcode_t *op); // 0x60
+       static void pla(cpu_6502 *cpu, opcode_t *op); // 0x68
        static void bvs(cpu_6502 *cpu, opcode_t *op); // 0x70
        static void sei(cpu_6502 *cpu, opcode_t *op); // 0x78
        static void sta_zp(cpu_6502 *cpu, opcode_t *op); // 0x85
@@ -80,10 +92,12 @@ namespace nes
        static void lda_abs(cpu_6502 *cpu, opcode_t *op); // 0xAD
        static void bcs(cpu_6502 *cpu, opcode_t *op); // 0xB0
        static void clv(cpu_6502 *cpu, opcode_t *op); // 0xB8
+       static void cmp_imm(cpu_6502 *cpu, opcode_t *op); // 0xC9
        static void bne(cpu_6502 *cpu, opcode_t *op); // 0xD0
        static void cld(cpu_6502 *cpu, opcode_t *op); // 0xD8
        static void nop_ea(cpu_6502 *cpu, opcode_t *op); // 0xEA
        static void beq(cpu_6502 *cpu, opcode_t *op); // 0xF0
+       static void sed(cpu_6502 *cpu, opcode_t *op); // 0xF8
    };
 }
 

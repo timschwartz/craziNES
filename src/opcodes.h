@@ -7,6 +7,7 @@
 #define ORA_zp     0x05
 
 #define PHP        0x08
+#define ORA_imm    0x09
 
 #define NOP_abs_0C 0x0C
 
@@ -29,6 +30,8 @@
 
 #define BIT_abs    0x2C
 
+#define BMI        0x30
+
 #define NOP_zp_34  0x34
 
 #define NOP_3A     0x3A
@@ -40,6 +43,7 @@
 #define NOP_zp_44  0x44
 
 #define PHA        0x48
+#define EOR_imm    0x49
 
 #define LSR_acc    0x4A
 
@@ -137,5 +141,7 @@
 #define NOP_FA     0xFA
 
 #define NOP_abs_FC 0xFC
+
+#define SED        0xF8
 
 #endif

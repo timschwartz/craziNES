@@ -50,10 +50,13 @@ void MemoryWindow::view(uint16_t start_addr, uint16_t end_addr)
     char message[1024];
     std::string msg;
     uint16_t addr = start_addr;
+    this->start_addr = start_addr;
+    this->end_addr = end_addr;
 
     sprintf(message, "0x%.4X", addr);
     debugger_pc->Clear();
     debugger_pc->AppendText(message);
+    memory_listbox->Clear();
 
     nes::opcode_t *op;
 
@@ -61,7 +64,7 @@ void MemoryWindow::view(uint16_t start_addr, uint16_t end_addr)
     {
         try
         {
-            op = new nes::opcode_t(cpu->mmu, addr); 
+            op = new nes::opcode_t(cpu, addr); 
 
             if(op->sz == 1) sprintf(message, "%.4X    %.2X      ", addr, op->opcode);
 
@@ -82,8 +85,34 @@ void MemoryWindow::view(uint16_t start_addr, uint16_t end_addr)
     }
 }
 
+void open_log()
+{
+    if(!wxGetApp().log)
+    {
+        wxGetApp().log = new LogWindow(wxGetApp().frame,
+                              "Log", wxPoint(150, 50), wxSize(700, 480));
+    }
+
+    wxGetApp().log->SetBackgroundColour(wxColour(*wxWHITE));
+    wxGetApp().log->Show(true);
+
+    wxGetApp().log->log_listbox = new wxListBox(wxGetApp().log, ID_LOG_LISTBOX,
+      wxPoint(20, 30), wxSize(550, 380));
+    wxFont log_font(wxFontInfo(12).FaceName("Courier"));
+    wxGetApp().log->log_listbox->SetFont(log_font);
+}
+
 void open_registers()
 {
+    if(!wxGetApp().registers)
+    {
+        wxGetApp().registers = new RegistersWindow(wxGetApp().frame,
+                              "6502 Registers", wxPoint(150, 50), wxSize(700, 480));
+    }
+
+    wxGetApp().registers->SetBackgroundColour(wxColour(*wxWHITE));
+    wxGetApp().registers->Show(true);
+
 }
 
 MemoryWindow::MemoryWindow(wxWindow *parent, const wxString& title, const wxPoint& pos, const wxSize& size)
@@ -99,9 +128,70 @@ MemoryWindow::~MemoryWindow()
 void MemoryWindow::OnCPUStep(wxCommandEvent& event)
 {
     if(wxGetApp().registers != NULL) open_registers();
+    std::string status;
+    try
+    {
+        status = cpu->step();
+    }
+    catch(std::string e)
+    {
+        std::cout << e << std::endl;
+    }
+    if(wxGetApp().log) wxGetApp().log->log_listbox->Append(status);
+    std::cout << status << std::endl;
+    view(start_addr, end_addr);
+
+    char message[1024];
+    sprintf(message, "0x%.4X", cpu->get_PC());
+    debugger_pc->Clear();
+    debugger_pc->AppendText(message);
 }
 
 void MemoryWindow::OnCPUSteps(wxCommandEvent& event)
 {
     if(wxGetApp().registers != NULL) open_registers();
+    std::string steps_str = wxGetApp().memory->cpu_steps_count->GetValue().ToStdString();
+    uint64_t steps = atoi(steps_str.c_str());
+
+    std::string status;
+
+    while(steps--)
+    {
+        try
+        {
+            status = cpu->step();
+        }
+        catch(std::string e)
+        {
+            std::cout << e << std::endl;
+        }
+        if(wxGetApp().log) wxGetApp().log->log_listbox->Append(status);
+        std::cout << status << std::endl;
+    }
+    view(start_addr, end_addr);
+
+    char message[1024];
+    sprintf(message, "0x%.4X", cpu->get_PC());
+    debugger_pc->Clear();
+    debugger_pc->AppendText(message);
+}
+
+RegistersWindow::RegistersWindow(wxWindow *parent, const wxString& title, const wxPoint& pos, const wxSize& size)
+        : wxFrame(parent, wxID_ANY, title, pos, size)
+{
+}
+
+RegistersWindow::~RegistersWindow()
+{
+    wxGetApp().registers = NULL;
+}
+
+LogWindow::LogWindow(wxWindow *parent, const wxString& title, const wxPoint& pos, const wxSize& size)
+        : wxFrame(parent, wxID_ANY, title, pos, size)
+{
+}
+
+LogWindow::~LogWindow()
+{
+    wxGetApp().log = NULL;
 }

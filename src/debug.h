@@ -5,6 +5,15 @@
 
 void open_memory();
 void open_registers();
+void open_log();
+
+class LogWindow: public wxFrame
+{
+  public:
+    LogWindow(wxWindow *parent, const wxString &title, const wxPoint &pos, const wxSize &size);
+    ~LogWindow();
+    wxListBox *log_listbox = NULL;
+};
 
 class RegistersWindow: public wxFrame
 {
@@ -16,6 +25,8 @@ class RegistersWindow: public wxFrame
 
 class MemoryWindow: public wxFrame
 {
+  private:
+    uint16_t start_addr = 0, end_addr = 0;
   public:
     MemoryWindow(wxWindow *parent, const wxString &title, const wxPoint &pos, const wxSize &size);
     ~MemoryWindow();
@@ -40,5 +51,6 @@ const int ID_MEMORY_LISTBOX = 100;
 const int ID_REGISTERS_LISTBOX = 101;
 const int ID_CPU_STEP_COUNT = 102;
 const int ID_DEBUGGER_PC = 103;
+const int ID_LOG_LISTBOX = 104;
 
 #endif

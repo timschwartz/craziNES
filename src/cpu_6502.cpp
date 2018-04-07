@@ -1,11 +1,17 @@
 #include <cpu_6502.h>
 #include <iostream>
+#include <cstring>
 
 namespace nes
 {
     uint16_t cpu_6502::get_PC()
     {
         return PC;
+    }
+
+    uint8_t cpu_6502::get_A()
+    {
+        return A;
     }
 
     uint8_t cpu_6502::get_status()
@@ -16,7 +22,7 @@ namespace nes
     std::string cpu_6502::get_state()
     {
         char message[1024];
-        sprintf(message, " A:%.2X X:%.2X Y:%.2X P:%.2X SP:%.2X CYC: %d", 
+        sprintf(message, "A:%.2X X:%.2X Y:%.2X P:%.2X SP:%.2X CYC:%3d", 
                 A, X, Y, status, SP, (cycles * 3) % 341);
         return std::string(message);
     }
@@ -24,16 +30,19 @@ namespace nes
     void cpu_6502::push8(uint8_t value)
     {
         mmu->write_byte(SP + 0x100, value);
-        SP--;
+        if(SP == 1) SP = 0xFF; 
+        else SP--;
     }
 
     uint8_t cpu_6502::pop8()
     {
+        if(SP == 0xFF) SP = 0;
+        else SP++;
         uint8_t value = mmu->read_byte(SP + 0x100);
-        SP++;
         return value;
     }
 
+/*
     void cpu_6502::push16(uint16_t value)
     {
         mmu->write_byte(SP + 0x100 - 1, value & 0xFF);
@@ -47,6 +56,7 @@ namespace nes
         SP += 2;
         return value;
     }
+*/
 
     void cpu_6502::setN(uint8_t check)
     {
@@ -119,7 +129,7 @@ namespace nes
     void cpu_6502::not_implemented(cpu_6502 *cpu, opcode_t *op)
     {
         char message[1024];
-        sprintf(message, "0x%.4X: NOT IMPLEMENTED %s\n", cpu->get_PC(), op->to_string().c_str());
+        sprintf(message, "%.4X %s\n", cpu->get_PC(), op->to_string().c_str());
         throw std::string(message);
     }
 
@@ -130,16 +140,30 @@ namespace nes
         cpu->PC += op->sz;
         uint8_t status = cpu->status;
         status |= 0x10; 
-        cpu->push16(cpu->PC);
+
+        cpu->push8(cpu->PC & 0xFF);
+        cpu->push8(cpu->PC >> 8); 
         cpu->push8(status);
         cpu->setI();
         cpu->PC = (cpu->mmu->read_byte(0xFFFF) << 8) | cpu->mmu->read_byte(0xFFFE);
-        
-/*
-        char message[1024];
-        sprintf(message, "Jumping to 0x%.4X %s", cpu->PC, cpu->get_state().c_str());
-        throw std::string(message);
-*/
+    }
+
+    void cpu_6502::php(cpu_6502 *cpu, opcode_t *op)
+    {
+        // 0x08
+        cpu->push8(cpu->status);
+        cpu->PC += op->sz;
+        cpu->cycles += 3;
+    }
+
+    void cpu_6502::ora_imm(cpu_6502 *cpu, opcode_t *op)
+    {
+        // 0x09
+        cpu->A |= op->imm;
+        cpu->setZ(cpu->A);
+        cpu->setN(cpu->A);
+        cpu->PC += op->sz;
+        cpu->cycles += 2;
     }
 
     void cpu_6502::bpl(cpu_6502 *cpu, opcode_t *op)
@@ -171,7 +195,10 @@ namespace nes
     {
         // 0x20
         uint16_t addr = cpu->PC +  op->sz - 1;
-        cpu->push16(addr);
+
+        cpu->push8(addr & 0xFF);
+        cpu->push8(addr >> 8);
+
         cpu->PC = op->imm;
         cpu->cycles += 6;
     }
@@ -190,6 +217,14 @@ namespace nes
         cpu->cycles += 3;
     }
 
+    void cpu_6502::plp(cpu_6502 *cpu, opcode_t *op)
+    {
+        // 0x28
+        cpu->status = cpu->pop8();
+        cpu->cycles += 4;
+        cpu->PC += op->sz;
+    }
+
     void cpu_6502::and_imm(cpu_6502 *cpu, opcode_t *op)
     {
         // 0x29
@@ -197,6 +232,23 @@ namespace nes
         cpu->cycles += 2;
         cpu->PC += op->sz;
         cpu->setZ(cpu->A); 
+    }
+
+    void cpu_6502::bmi(cpu_6502 *cpu, opcode_t *op)
+    {
+        // 0x30
+        if(cpu->checkN())
+        {
+            uint16_t next_addr = cpu->PC + op->sz;
+            cpu->PC += op->sz + op->imm;
+            cpu->cycles += 3;
+            if((next_addr >> 8) != (cpu->PC >> 8)) cpu->cycles += 2;
+        }
+        else
+        {
+            cpu->PC += op->sz;
+            cpu->cycles += 2;
+        }
     }
 
     void cpu_6502::sec(cpu_6502 *cpu, opcode_t *op)
@@ -212,11 +264,29 @@ namespace nes
         // 0x40
         cpu->cycles += 6;
         cpu->status = cpu->pop8();
-        cpu->PC = cpu->pop16();
-
+        cpu->PC = cpu->pop8();
+        cpu->PC |= (cpu->pop8() << 8);
         char message[1024];
-        sprintf(message, "PC: 0x%.4X   P: 0x%.2X", cpu->PC, cpu->status);
+        sprintf(message, "PC: $%.4X   P: $%.2X", cpu->PC, cpu->status);
 //        throw std::string(message);
+    }
+
+    void cpu_6502::pha(cpu_6502 *cpu, opcode_t *op)
+    {
+        // 0x48
+        cpu->push8(cpu->A);
+        cpu->cycles += 3;
+        cpu->PC += op->sz;
+    }
+
+    void cpu_6502::eor_imm(cpu_6502 *cpu, opcode_t *op)
+    {
+        // 0x49
+        cpu->A ^= op->imm;
+        cpu->setZ(cpu->A);
+        cpu->setN(cpu->A);
+        cpu->PC += op->sz;
+        cpu->cycles += 2;
     }
 
     void cpu_6502::jmp_abs(cpu_6502 *cpu, opcode_t *op)
@@ -246,13 +316,22 @@ namespace nes
     void cpu_6502::rts(cpu_6502 *cpu, opcode_t *op)
     {
         // 0x60
-/*
-        char message[1024];
-        sprintf(message, "Popped 0x%.4X off stack, new pointer: 0x%.2X", value, cpu->SP);
-        throw std::string(message);
-*/
-        cpu->PC = cpu->pop16() + 1;
+        uint16_t addr = (cpu->pop8() << 8);
+        addr |= cpu->pop8();
+
+        cpu->PC = addr + 1;
         cpu->cycles += 6;
+    }
+
+    void cpu_6502::pla(cpu_6502 *cpu, opcode_t *op)
+    {
+        // 0x68
+        cpu->A = cpu->pop8();
+        cpu->setZ(cpu->A);
+        cpu->setN(cpu->A);
+
+        cpu->PC += op->sz;
+        cpu->cycles += 4;
     }
 
     void cpu_6502::bvs(cpu_6502 *cpu, opcode_t *op)
@@ -283,7 +362,7 @@ namespace nes
     void cpu_6502::sta_zp(cpu_6502 *cpu, opcode_t *op)
     {
         // 0x85
-        uint16_t addr = (0 << 8) | op->imm;
+        uint16_t addr = (0 << 8) | (op->imm & 0xFF);
         cpu->mmu->write_byte(addr, cpu->A);
         cpu->cycles += 3;
         cpu->PC += op->sz;
@@ -385,6 +464,17 @@ namespace nes
         cpu->PC += op->sz;
     }
 
+    void cpu_6502::cmp_imm(cpu_6502 *cpu, opcode_t *op)
+    {
+        // 0xC9
+        if(cpu->A >= op->imm) cpu->setC();
+        cpu->setZ(cpu->A - op->imm);
+        cpu->setN(cpu->A - op->imm);
+
+        cpu->cycles += 2;
+        cpu->PC += op->sz;
+    }
+
     void cpu_6502::bne(cpu_6502 *cpu, opcode_t *op)
     {
         // 0xD0
@@ -433,6 +523,14 @@ namespace nes
         }
     }
 
+    void cpu_6502::sed(cpu_6502 *cpu, opcode_t *op)
+    {
+        // 0xF8
+        cpu->setD();
+        cpu->cycles += 2;
+        cpu->PC += op->sz;
+    }
+
     cpu_6502::cpu_6502()
     {
         mmu = new MMU();
@@ -445,16 +543,23 @@ namespace nes
         }
 
         opcode[BRK] = brk;
+        opcode[PHP] = php;
+        opcode[ORA_imm] = ora_imm;
         opcode[BPL] = bpl;
         opcode[CLC] = clc;
         opcode[JSR] = jsr;
         opcode[BIT_zp] = bit_zp;
+        opcode[PLP] = plp;
         opcode[AND_imm] = and_imm;
+        opcode[BMI] = bmi;
         opcode[SEC] = sec;
         opcode[RTI] = rti;
+        opcode[PHA] = pha;
+        opcode[EOR_imm] = eor_imm;
         opcode[JMP_abs] = jmp_abs;
         opcode[BVC] = bvc; 
         opcode[RTS] = rts;
+        opcode[PLA] = pla;
         opcode[BVS] = bvs;
         opcode[SEI] = sei;
         opcode[STA_zp] = sta_zp;
@@ -467,10 +572,12 @@ namespace nes
         opcode[LDA_abs] = lda_abs;
         opcode[BCS] = bcs;
         opcode[CLV] = clv;
+        opcode[CMP_imm] = cmp_imm;
         opcode[BNE] = bne;
         opcode[CLD] = cld;
         opcode[NOP_EA] = nop_ea;
         opcode[BEQ] = beq;
+        opcode[SED] = sed;
     }
 
     void cpu_6502::load_rom(std::string filename)
@@ -485,11 +592,15 @@ namespace nes
         }
 
         PC = (mmu->read_byte(0xFFFD) << 8) | mmu->read_byte(0xFFFC);
+        PC = 0xC000;
+//        char temp[1024];
+//        sprintf(temp, "Set PC to $%X\n", PC);
+//        std::cout << temp << std::endl;
     }
 
     std::string cpu_6502::step()
     {
-        opcode_t *op = new opcode_t(mmu, PC);
+        opcode_t *op = new opcode_t(this, PC);
         char message[1024];
         sprintf(message, "%.4X %s", PC, op->to_string().c_str());
 
@@ -507,9 +618,11 @@ namespace nes
         return state;
     }
 
-    opcode_t::opcode_t(nes::MMU *mmu, uint16_t addr)
+    opcode_t::opcode_t(nes::cpu_6502 *cpu, uint16_t addr)
     {
-        opcode = mmu->read_byte(addr);
+        this->cpu = cpu;
+        this->addr = addr;
+        opcode = cpu->mmu->read_byte(addr);
         instruction = opcode;
 
         switch(opcode)
@@ -519,25 +632,30 @@ namespace nes
                 break;
             case NOP_zp_04:
                 sz = 2;
-                imm = mmu->read_byte(addr + 1);
+                imm = cpu->mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case ORA_zp:
                 sz = 2;
-                imm = mmu->read_byte(addr + 1);
+                imm = cpu->mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case NOP_abs_0C:
                 sz = 3;
-                imm = (mmu->read_byte(addr + 2) << 8) | mmu->read_byte(addr + 1);
+                imm = (cpu->mmu->read_byte(addr + 2) << 8) | cpu->mmu->read_byte(addr + 1);
                 instruction = (opcode << 16) | imm;
                 break;
             case PHP:
                 sz = 1;
                 break;
+            case ORA_imm: 
+                sz = 2;
+                imm = cpu->mmu->read_byte(addr + 1);
+                instruction = (opcode << 8) | imm;
+                break;
             case NOP_zp_14:
                 sz = 2;
-                imm = mmu->read_byte(addr + 1);
+                imm = cpu->mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case CLC:
@@ -548,22 +666,22 @@ namespace nes
                 break;
             case NOP_abs_1C:
                 sz = 2;
-                imm = mmu->read_byte(addr + 1);
+                imm = cpu->mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case BPL:
                 sz = 2;
-                imm = mmu->read_byte(addr + 1);
+                imm = cpu->mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case JSR:
                 sz = 3;
-                imm = (mmu->read_byte(addr + 2) << 8) | mmu->read_byte(addr + 1);
+                imm = (cpu->mmu->read_byte(addr + 2) << 8) | cpu->mmu->read_byte(addr + 1);
                 instruction = (opcode << 16) | imm;
                 break;
             case BIT_zp:
                 sz = 2;
-                imm = mmu->read_byte(addr + 1);
+                imm = cpu->mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case PLP:
@@ -571,17 +689,22 @@ namespace nes
                 break;
             case AND_imm:
                 sz = 2;
-                imm = mmu->read_byte(addr + 1);
+                imm = cpu->mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case BIT_abs:
                 sz = 3;
-                imm = (mmu->read_byte(addr + 2) << 8) | mmu->read_byte(addr + 1);
+                imm = (cpu->mmu->read_byte(addr + 2) << 8) | cpu->mmu->read_byte(addr + 1);
                 instruction = (opcode << 16) | imm;
+                break;
+            case BMI:
+                sz = 2;
+                imm = cpu->mmu->read_byte(addr + 1);
+                instruction = (opcode << 8) | imm;
                 break;
             case NOP_zp_34:
                 sz = 2;
-                imm = mmu->read_byte(addr + 1);
+                imm = cpu->mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case SEC:
@@ -595,28 +718,33 @@ namespace nes
                 break;
             case NOP_zp_44:
                 sz = 2;
-                imm = mmu->read_byte(addr + 1);
+                imm = cpu->mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case PHA:
                 sz = 1;
+                break;
+            case EOR_imm:
+                sz = 2;
+                imm = cpu->mmu->read_byte(addr + 1);
+                instruction = (opcode << 8) | imm;
                 break;
             case LSR_acc:
                 sz = 1;
                 break;
             case JMP_abs:
                 sz = 3;
-                imm = (mmu->read_byte(addr + 2) << 8) | mmu->read_byte(addr + 1);
+                imm = (cpu->mmu->read_byte(addr + 2) << 8) | cpu->mmu->read_byte(addr + 1);
                 instruction = (opcode << 16) | imm;
                 break;
             case BVC:
                 sz = 2;
-                imm = mmu->read_byte(addr + 1);
+                imm = cpu->mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case NOP_zp_54:
                 sz = 2;
-                imm = mmu->read_byte(addr + 1);
+                imm = cpu->mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case NOP_5A:
@@ -624,7 +752,7 @@ namespace nes
                 break;
             case NOP_abs_5C: 
                 sz = 3;
-                imm = (mmu->read_byte(addr + 2) << 8) | mmu->read_byte(addr + 1);
+                imm = (cpu->mmu->read_byte(addr + 2) << 8) | cpu->mmu->read_byte(addr + 1);
                 instruction = (opcode << 16) | imm;
                 break;
             case RTS:
@@ -632,7 +760,7 @@ namespace nes
                 break;
             case NOP_zp_64:
                 sz = 2;
-                imm = mmu->read_byte(addr + 1);
+                imm = cpu->mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case PLA:
@@ -640,12 +768,12 @@ namespace nes
                 break;
             case BVS:
                 sz = 2;
-                imm = mmu->read_byte(addr + 1);
+                imm = cpu->mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case NOP_zp_74:
                 sz = 2;
-                imm = mmu->read_byte(addr + 1);
+                imm = cpu->mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case SEI:
@@ -656,27 +784,27 @@ namespace nes
                 break;
             case NOP_abs_7C:
                 sz = 3;
-                imm = (mmu->read_byte(addr + 2) << 8) | mmu->read_byte(addr + 1);
+                imm = (cpu->mmu->read_byte(addr + 2) << 8) | cpu->mmu->read_byte(addr + 1);
                 instruction = (opcode << 16) | imm;
                 break;
             case NOP_imm_80:
                 sz = 2;
-                imm = mmu->read_byte(addr + 1);
+                imm = cpu->mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case STY_zp_x:
                 sz = 2;
-                imm = mmu->read_byte(addr + 1);
+                imm = cpu->mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case STA_zp:
                 sz = 2;
-                imm = mmu->read_byte(addr + 1);
+                imm = cpu->mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case STX_zp:
                 sz = 2;
-                imm = mmu->read_byte(addr + 1);
+                imm = cpu->mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case DEY:
@@ -684,17 +812,17 @@ namespace nes
                 break;
             case STY_abs:
                 sz = 3;
-                imm = (mmu->read_byte(addr + 2) << 8) | mmu->read_byte(addr + 1);
+                imm = (cpu->mmu->read_byte(addr + 2) << 8) | cpu->mmu->read_byte(addr + 1);
                 instruction = (opcode << 16) | imm;
                 break;
             case STA_abs:
                 sz = 3;
-                imm = (mmu->read_byte(addr + 2) << 8) | mmu->read_byte(addr + 1);
+                imm = (cpu->mmu->read_byte(addr + 2) << 8) | cpu->mmu->read_byte(addr + 1);
                 instruction = (opcode << 16) | imm;
                 break;
             case STX_abs:
                 sz = 3;
-                imm = (mmu->read_byte(addr + 2) << 8) | mmu->read_byte(addr + 1);
+                imm = (cpu->mmu->read_byte(addr + 2) << 8) | cpu->mmu->read_byte(addr + 1);
                 instruction = (opcode << 16) | imm;
                 break;
             case TXS:
@@ -702,47 +830,47 @@ namespace nes
                 break;
             case BCC:
                 sz = 2;
-                imm = mmu->read_byte(addr + 1);
+                imm = cpu->mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case LDY_imm:
                 sz = 2;
-                imm = mmu->read_byte(addr + 1);
+                imm = cpu->mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case LDA_zp:
                 sz = 2;
-                imm = mmu->read_byte(addr + 1);
+                imm = cpu->mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case LDX_zp:
                 sz = 2;
-                imm = mmu->read_byte(addr + 1);
+                imm = cpu->mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case LDX_imm:
                 sz = 2;
-                imm = mmu->read_byte(addr + 1);
+                imm = cpu->mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case LDA_imm:
                 sz = 2;
-                imm = mmu->read_byte(addr + 1);
+                imm = cpu->mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case LDA_abs:
                 sz = 3;
-                imm = (mmu->read_byte(addr + 2) << 8) | mmu->read_byte(addr + 1);
+                imm = (cpu->mmu->read_byte(addr + 2) << 8) | cpu->mmu->read_byte(addr + 1);
                 instruction = (opcode << 16) | imm;
                 break;
             case BCS:
                 sz  = 2;
-                imm = mmu->read_byte(addr + 1);
+                imm = cpu->mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case LDY_zp_x:
                 sz = 2;
-                imm = mmu->read_byte(addr + 1);
+                imm = cpu->mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case CLV:
@@ -750,12 +878,12 @@ namespace nes
                 break;
             case LDA_abs_x:
                 sz = 3;
-                imm = (mmu->read_byte(addr + 2) << 8) | mmu->read_byte(addr + 1);
+                imm = (cpu->mmu->read_byte(addr + 2) << 8) | cpu->mmu->read_byte(addr + 1);
                 instruction = (opcode << 16) | imm;
                 break;
             case DEC_zp:
                 sz = 2;
-                imm = mmu->read_byte(addr + 1);
+                imm = cpu->mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case INY:
@@ -763,7 +891,7 @@ namespace nes
                 break;
             case CMP_imm:
                 sz = 2;
-                imm = mmu->read_byte(addr + 1);
+                imm = cpu->mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case DEX:
@@ -771,12 +899,12 @@ namespace nes
                 break;
             case BNE:
                 sz = 2;
-                imm = mmu->read_byte(addr + 1);
+                imm = cpu->mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case NOP_zp_D4:
                 sz = 2;
-                imm = mmu->read_byte(addr + 1);
+                imm = cpu->mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case CLD:
@@ -787,17 +915,17 @@ namespace nes
                 break;
             case NOP_abs_DC:
                 sz = 3;
-                imm = (mmu->read_byte(addr + 2) << 8) | mmu->read_byte(addr + 1);
+                imm = (cpu->mmu->read_byte(addr + 2) << 8) | cpu->mmu->read_byte(addr + 1);
                 instruction = (opcode << 16) | imm;
                 break;
             case CPX_imm:
                 sz = 2;
-                imm = mmu->read_byte(addr + 1);
+                imm = cpu->mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case INC_zp:
                 sz = 2;
-                imm = mmu->read_byte(addr + 1);
+                imm = cpu->mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case INX:
@@ -808,12 +936,12 @@ namespace nes
                 break;
             case BEQ:
                 sz = 2;
-                imm = mmu->read_byte(addr + 1);
+                imm = cpu->mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case NOP_zp_F4:
                 sz = 2;
-                imm = mmu->read_byte(addr + 1);
+                imm = cpu->mmu->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
             case NOP_FA:
@@ -821,15 +949,18 @@ namespace nes
                 break;
             case NOP_abs_FC:
                 sz = 3;
-                imm = (mmu->read_byte(addr + 2) << 8) | mmu->read_byte(addr + 1);
+                imm = (cpu->mmu->read_byte(addr + 2) << 8) | cpu->mmu->read_byte(addr + 1);
                 instruction = (opcode << 16) | imm;
+                break;
+            case SED:
+                sz = 1;
                 break;
             case 0xFF:
                 sz = 1;
                 break;
             default:
                 char message[1024];
-                sprintf(message, "Unknown opcode 0x%.2X", opcode);
+                sprintf(message, "Unknown opcode $%.2X", opcode);
                 throw std::string(message);
                 break;
         }
@@ -845,49 +976,55 @@ namespace nes
                 sprintf(temp, "BRK");
                 break;
             case NOP_zp_04:
-                sprintf(temp, "NOP(0x04) 0x%.2X, 0", imm);
+                sprintf(temp, "NOP $%.2X, 0", imm);
                 break;
             case ORA_zp:
-                sprintf(temp, "ORA 0x%.2X, 0", imm);
+                sprintf(temp, "ORA $%.2X, 0", imm);
                 break;
             case NOP_abs_0C:
-                sprintf(temp, "NOP(0x0C) 0x%.4X", imm);
+                sprintf(temp, "NOP $%.4X", imm);
                 break;
             case PHP:
                 sprintf(temp, "PHP");
                 break;
+            case ORA_imm:
+                sprintf(temp, "ORA $%.2X", imm);
+                break;
             case NOP_zp_14:
-                sprintf(temp, "NOP(0x14) 0x%.2X, 0", imm);
+                sprintf(temp, "NOP $%.2X, 0", imm);
                 break;
             case CLC:
                 sprintf(temp, "CLC");
                 break;
             case NOP_1A:
-                sprintf(temp, "NOP(0x1A)");
+                sprintf(temp, "NOP");
                 break;
             case NOP_abs_1C:
-                sprintf(temp, "NOP(0x1C) 0x%.2X", imm);
+                sprintf(temp, "NOP $%.2X", imm);
                 break;
             case BPL:
-                sprintf(temp, "BPL #0x%.2X", imm);
+                sprintf(temp, "BPL $%.2X", addr + imm + sz);
                 break;
             case JSR:
-                sprintf(temp, "JSR 0x%.4X", imm);
+                sprintf(temp, "JSR $%.4X", imm);
                 break;
             case BIT_zp:
-                sprintf(temp, "BIT 0x%.2X", imm);
+                sprintf(temp, "BIT $%.2X = %.2X", imm, cpu->get_A());
                 break;
             case PLP:
                 sprintf(temp, "PLP");
                 break;
             case AND_imm:
-                sprintf(temp, "AND #0x%.2X", imm);
+                sprintf(temp, "AND #$%.2X", imm);
                 break;
             case BIT_abs:
-                sprintf(temp, "BIT 0x%.4X", imm);
+                sprintf(temp, "BIT $%.4X", imm);
+                break;
+            case BMI:
+                sprintf(temp, "BMI $%.2X", addr + imm + sz);
                 break;
             case NOP_zp_34:
-                sprintf(temp, "NOP(0x34) 0x%.2X, 0", imm);
+                sprintf(temp, "NOP $%.2X, 0", imm);
                 break;
             case SEC:
                 sprintf(temp, "SEC");
@@ -896,176 +1033,199 @@ namespace nes
                 sprintf(temp, "RTI");
                 break;
             case NOP_3A:
-                sprintf(temp, "NOP(0x3A)");
+                sprintf(temp, "NOP");
                 break;
             case NOP_zp_44:
-                sprintf(temp, "NOP(0x44) 0x%.2X, 0", imm);
+                sprintf(temp, "NOP $%.2X, 0", imm);
                 break;
             case PHA:
                 sprintf(temp, "PHA");
+                break;
+            case EOR_imm:
+            sprintf(temp, "EOR $%.2X", imm);
                 break;
             case LSR_acc:
                 sprintf(temp, "LSR accumulator");
                 break;
             case JMP_abs:
-                sprintf(temp, "JMP 0x%.4X", imm);
+                sprintf(temp, "JMP $%.4X", imm);
                 break;
             case BVC:
-                sprintf(temp, "BVC 0x%.2X", imm);
+                sprintf(temp, "BVC $%.2X", addr + imm + sz);
                 break;
             case NOP_zp_54:
-                sprintf(temp, "NOP(0x54) 0x%.2X, 0", imm);
+                sprintf(temp, "NOP $%.2X, 0", imm);
                 break;
             case NOP_5A:
-                sprintf(temp, "NOP(0x5A)");
+                sprintf(temp, "NOP");
                 break;
             case NOP_abs_5C:
-                sprintf(temp, "NOP(0x5C) 0x%.4X, X", imm);
+                sprintf(temp, "NOP $%.4X, X", imm);
                 break;
             case RTS:
                 sprintf(temp, "RTS");
                 break;
             case NOP_zp_64:
-                sprintf(temp, "NOP(0x64) 0x%.2X, 0", imm);
+                sprintf(temp, "NOP $%.2X, 0", imm);
                 break;
             case PLA:
                 sprintf(temp, "PLA");
                 break;
             case BVS:
-                sprintf(temp, "BVS 0x%.2X, 0", imm);
+                sprintf(temp, "BVS $%.2X", addr + imm + sz);
                 break;
             case NOP_zp_74:
-                sprintf(temp, "NOP(0x74) 0x%.2X, 0", imm);
+                sprintf(temp, "NOP $%.2X, 0", imm);
                 break;
             case NOP_abs_7C:
-                sprintf(temp, "NOP(0x7C) 0x%.4X, X", imm);
+                sprintf(temp, "NOP $%.4X, X", imm);
                 break;
             case SEI:
                 sprintf(temp, "SEI");
                 break;
             case NOP_7A:
-                sprintf(temp, "NOP(0x7A)");
+                sprintf(temp, "NOP");
                 break;
             case NOP_imm_80:
-                sprintf(temp, "NOP(0x80) 0x%.2X, 0", imm);
+                sprintf(temp, "NOP $%.2X, 0", imm);
                 break;
             case STY_zp_x:
-                sprintf(temp, "STY 0x%.2X, X", imm);
+                sprintf(temp, "STY $%.2X, X", imm);
                 break;
             case STA_zp:
-                sprintf(temp, "STA 0x%.2X, 0", imm);
+                sprintf(temp, "STA $%.2X = %.2X", imm, cpu->get_A());
                 break;
             case STX_zp:
-                sprintf(temp, "STX 0x%.2X, 0", imm);
+                sprintf(temp, "STX $%.2X = 00", imm);
                 break;
             case DEY:
                 sprintf(temp, "DEY");
                 break;
             case STY_abs:
-                sprintf(temp, "STY 0x%.4X", imm);
+                sprintf(temp, "STY $%.4X", imm);
                 break;
             case STA_abs:
-                sprintf(temp, "STA 0x%.4X", imm);
+                sprintf(temp, "STA $%.4X", imm);
                 break;
             case STX_abs:
-                sprintf(temp, "STX 0x%.4X", imm);
+                sprintf(temp, "STX $%.4X", imm);
                 break;
             case TXS:
                 sprintf(temp, "TXS");
                 break;
             case BCC:
-                sprintf(temp, "BCC 0x%.2X", imm);
+                sprintf(temp, "BCC $%.2X", addr + imm + sz);
                 break;
             case LDY_imm:
-                sprintf(temp, "LDY #0x%.2X", imm);
+                sprintf(temp, "LDY #$%.2X", imm);
                 break;
             case LDX_imm:
-                sprintf(temp, "LDX #0x%.2X", imm);
+                sprintf(temp, "LDX #$%.2X", imm);
                 break;
             case LDA_zp:
-                sprintf(temp, "LDA 0x%.2X, 0", imm);
+                sprintf(temp, "LDA $%.2X, 0", imm);
                 break;
             case LDX_zp:
-                sprintf(temp, "LDX 0x%.2X, 0", imm);
+                sprintf(temp, "LDX $%.2X, 0", imm);
                 break;
             case LDA_imm:
-                sprintf(temp, "LDA #0x%.2X", imm);
+                sprintf(temp, "LDA #$%.2X", imm);
                 break;
             case LDA_abs:
-                sprintf(temp, "LDA 0x%.4X", imm);
+                sprintf(temp, "LDA $%.4X", imm);
                 break;
             case BCS:
-                sprintf(temp, "BCS 0x%.2X", imm);
+                sprintf(temp, "BCS $%.2X", addr + imm + sz);
                 break;
             case LDY_zp_x:
-                sprintf(temp, "LDY 0x%.2X, X", imm);
+                sprintf(temp, "LDY $%.2X, X", imm);
                 break;
             case CLV:
                 sprintf(temp, "CLV");
                 break;
             case LDA_abs_x:
-                sprintf(temp, "LDA 0x%.4X, X", imm);
+                sprintf(temp, "LDA $%.4X, X", imm);
                 break;
             case DEC_zp:
-                sprintf(temp, "DEC 0x%.2X, 0", imm);
+                sprintf(temp, "DEC $%.2X, 0", imm);
                 break;
             case INY:
                 sprintf(temp, "INY");
                 break;
             case CMP_imm:
-                sprintf(temp, "CMP #0x%.2X, 0", imm);
+                sprintf(temp, "CMP #$%.2X, 0", imm);
                 break;
             case DEX:
                 sprintf(temp, "DEX");
                 break;
             case BNE:
-                sprintf(temp, "BNE #0x%.2X", imm);
+                sprintf(temp, "BNE $%.2X", addr + imm + sz);
                 break;
             case NOP_zp_D4:
-                sprintf(temp, "NOP(0xD4) 0x%.2X, 0", imm);
+                sprintf(temp, "NOP $%.2X, 0", imm);
                 break;
             case CLD:
                 sprintf(temp, "CLD");
                 break;
             case NOP_DA:
-                sprintf(temp, "NOP(0xDA)");
+                sprintf(temp, "NOP");
                 break;
             case NOP_abs_DC:
-                sprintf(temp, "NOP(0xDC) 0x%.4X, X", imm);
+                sprintf(temp, "NOP $%.4X, X", imm);
                 break;
             case CPX_imm:
-                sprintf(temp, "CPX #0x%.2X", imm);
+                sprintf(temp, "CPX #$%.2X", imm);
                 break;
             case INC_zp:
-                sprintf(temp, "INC 0x%.2X, 0", imm);
+                sprintf(temp, "INC $%.2X, 0", imm);
                 break;
             case INX:
                 sprintf(temp, "INX");
                 break;
             case NOP_EA:
-                sprintf(temp, "NOP(0xEA)");
+                sprintf(temp, "NOP");
                 break;
             case BEQ:
-                sprintf(temp, "BEQ 0x%.2X, 0", imm);
+                sprintf(temp, "BEQ $%.2X", addr + imm + sz);
                 break;
             case NOP_zp_F4:
-                sprintf(temp, "NOP(0xF4) 0x%.2X, 0", imm);
+                sprintf(temp, "NOP $%.2X, 0", imm);
                 break;
             case NOP_FA:
-                sprintf(temp, "NOP(0xFA)");
+                sprintf(temp, "NOP");
                 break;
             case NOP_abs_FC:
-                sprintf(temp, "NOP(0xFC) 0x%.4X, X", imm);
+                sprintf(temp, "NOP $%.4X, X", imm);
+                break;
+            case SED:
+                sprintf(temp, "SED");
                 break;
             case 0xFF:
                 break;
             default:
-                sprintf(temp, "Unknown opcode 0x%.2X", opcode);
+                sprintf(temp, "Unknown opcode $%.2X", opcode);
+                break;
+        }
+
+        char bytecode[10];
+
+        switch(sz)
+        {
+            case 1:
+                sprintf(bytecode, "%.2X       ", opcode);
+                break;
+            case 2:
+                sprintf(bytecode, "%.2X %.2X    ", opcode, (uint8_t)imm);
+                break;
+            case 3:
+                sprintf(bytecode, "%.2X %.2X %.2X ", opcode, (imm & 0xFF), (uint8_t)(imm >> 8));
+                break;
+            default:
                 break;
         }
 
         char message[1024];
-        sprintf(message, "   %s", temp);
+        sprintf(message, " %s %-32s", bytecode, temp);
         return std::string(message);
     }
 }

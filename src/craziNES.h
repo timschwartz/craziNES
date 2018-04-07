@@ -12,6 +12,7 @@ class MainWindow: public wxFrame
     void OnOpenROM(wxCommandEvent &event);
     void OnDebugROM(wxCommandEvent &event);
     void OnDebugRegisters(wxCommandEvent &event);
+    void OnDebugLog(wxCommandEvent &event);
     void OnExit(wxCommandEvent &event);
     wxDECLARE_EVENT_TABLE();
 };
@@ -23,6 +24,7 @@ class wxcraziNES: public wxApp
     MainWindow *frame = NULL;
     MemoryWindow *memory = NULL;
     RegistersWindow *registers = NULL;
+    LogWindow *log = NULL;
 };
 
 enum
@@ -30,7 +32,8 @@ enum
     ID_open_rom = 0,
 
     ID_debug_rom = 10,
-    ID_debug_registers = 11
+    ID_debug_registers = 11,
+    ID_debug_log = 12
 };
 
 #endif

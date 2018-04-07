@@ -30,7 +30,7 @@ namespace nes
     void cpu_6502::push8(uint8_t value)
     {
         mmu->write_byte(SP + 0x100, value);
-        if(SP == 1) SP = 0xFF; 
+        if(SP == 0) SP = 0xFF; 
         else SP--;
     }
 

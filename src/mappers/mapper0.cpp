@@ -1,12 +1,36 @@
 #include <string>
 #include <cstring>
+#include <iostream>
 
-#include <memory.h>
-#include <rom.h>
+#include <mappers/mapper0.h>
 
 namespace nes
 {
-    memory_section MMU::get_section(uint16_t addr)
+    Mapper0::Mapper0(nes::ROM *rom, nes::PPU *ppu)
+    {
+        this->rom = rom;
+        this->ppu = ppu;
+
+        nes::NES_header header = rom->get_header();
+
+        if(header.prgrom_size == 1)
+        {
+            memcpy(lprgrom, rom->get_pointer() + 16, 0x4000);
+            memcpy(hprgrom, rom->get_pointer() + 16, 0x4000);
+            return;
+        }
+
+        if(header.prgrom_size == 2)
+        {
+            memcpy(lprgrom, rom->get_pointer() + 16, 0x4000);
+            memcpy(hprgrom, rom->get_pointer() + 16 + 0x4000, 0x4000);
+            return;
+        }
+
+        throw std::string("Unknown prgrom_size: " + header.prgrom_size);
+    }
+
+    memory_section Mapper0::get_section(uint16_t addr)
     {
         memory_section s;
 
@@ -56,7 +80,7 @@ namespace nes
         throw std::string(message);
     }
 
-    uint8_t MMU::read_byte(uint16_t addr)
+    uint8_t Mapper0::read_byte(uint16_t addr)
     {
         memory_section s;
         try
@@ -73,9 +97,9 @@ namespace nes
         return p[s.addr - s.offset];
     }
 
-    void MMU::write_byte(uint16_t addr, uint8_t value)
+    void Mapper0::write_byte(uint16_t addr, uint8_t value)
     {
-        memory_section s;
+        nes::memory_section s;
         try
         {
             s = get_section(addr);
@@ -100,38 +124,14 @@ namespace nes
         }
     }
 
-    void MMU::ppu_write(MMU *mmu, memory_section s)
+    void Mapper0::ppu_write(Mapper *mapper, memory_section s)
     {
         char message[1024];
-        sprintf(message, "Wrote 0x%X to 0x%X", mmu->read_byte(s.addr), s.addr);
-    //    throw std::string(message);
-    }
+        sprintf(message, "Wrote 0x%X to 0x%X", mapper->read_byte(s.addr), s.addr);
+        std::cout << message << std::endl;
 
-    void MMU::load_rom(std::string filename)
-    {
-        try
-        {
-            rom = new nes::ROM(filename);
-        }
-        catch(std::string e)
-        {
-            throw e;
-        }
-
-        header = rom->get_header();
-        mapper = header.flag7 & 0xF0;
-        mapper += header.flag6 >> 4;
-
-        if(header.prgrom_size == 1)
-        {
-            memcpy(lprgrom, rom->get_pointer() + 16, 0x4000);
-            memcpy(hprgrom, rom->get_pointer() + 16, 0x4000);
-        }
-
-        if(mapper != 0)
-        {
-            std::string message = "Unsupported mapper " + mapper;
-            throw message;
-        }
+        uint8_t *p = (uint8_t *)s.ptr;
+        p[s.addr - s.offset + 2] = mapper->read_byte(s.addr); 
+//        throw std::string(message);
     }
 }

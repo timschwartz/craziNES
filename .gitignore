@@ -41,4 +41,4 @@ config.status
 src/.deps/
 src/Makefile
 src/craziNES
-
+*.nes

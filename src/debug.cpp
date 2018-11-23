@@ -1,6 +1,5 @@
 #include <craziNES.h>
 #include <cpu_6502.h>
-#include <memory.h>
 
 DECLARE_APP(wxcraziNES)
 

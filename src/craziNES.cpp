@@ -1,6 +1,5 @@
 #include <craziNES.h>
 #include <cpu_6502.h>
-#include <memory.h>
 #include <rom.h>
 
 nes::cpu_6502 *cpu = new nes::cpu_6502();
@@ -101,11 +100,14 @@ MainWindow::MainWindow(const wxString& title, const wxPoint& pos, const wxSize& 
     }
 
     std::string message = "Loaded " + wxGetApp().argv[1].ToStdString();
+    std::cout << message << std::endl;
     SetStatusText(message, 0);    
 
     uint32_t counter = 0;
     std::string arg2 = wxGetApp().argv[2].ToStdString();
     uint32_t max = atoi(arg2.c_str());
+
+    std::cout << "Running " << arg2 << " instructions." << std::endl;
     
     while(counter < max)
     {

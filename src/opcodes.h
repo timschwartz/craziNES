@@ -11,6 +11,7 @@
 
 #define NOP_abs_0C 0x0C
 
+#define SLO_abs    0x0F
 #define BPL        0x10
 
 #define NOP_zp_14  0x14
@@ -22,6 +23,7 @@
 #define NOP_abs_1C 0x1C
 
 #define JSR        0x20
+#define AND_ind_x  0x21
 
 #define BIT_zp     0x24
 
@@ -36,6 +38,7 @@
 
 #define NOP_3A     0x3A
 
+#define RLA_zp_x   0x37
 #define SEC        0x38
 
 #define RTI        0x40
@@ -62,6 +65,7 @@
 #define NOP_zp_64  0x64
 
 #define PLA        0x68
+#define ADC_imm    0x69
 
 #define BVS        0x70
 
@@ -104,10 +108,13 @@
 #define BCS        0xB0
 
 #define LDY_zp_x   0xB4
+#define LDA_zp_x   0xB5
 
 #define CLV        0xB8
 
 #define LDA_abs_x  0xBD
+
+#define CPY_imm    0xC0
 
 #define DEC_zp     0xC6
 
@@ -115,6 +122,8 @@
 #define CMP_imm    0xC9
 
 #define DEX        0xCA
+
+#define DEC_abs    0xCE
 
 #define BNE        0xD0
 
@@ -131,6 +140,7 @@
 #define INC_zp     0xE6
 
 #define INX        0xE8
+#define SBC_imm    0xE9
 
 #define NOP_EA     0xEA
 

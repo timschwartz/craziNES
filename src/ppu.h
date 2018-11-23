@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <mappers/mappers.h>
 
 namespace nes
 {
@@ -8,6 +9,6 @@ namespace nes
     {
       public:
         void step(uint16_t);
-        void write_byte(uint16_t addr, uint8_t value);
+        static void register_write_byte(void *ptr, uint16_t addr, uint8_t value);
     };
 }

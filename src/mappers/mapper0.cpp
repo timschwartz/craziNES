@@ -44,10 +44,8 @@ namespace nes
 
         if((addr >= 0x2000) && (addr <= 0x3FFF))
         {
-            s.addr = ((addr - 0x2000) % 0x8) + 0x2000;
-            s.offset = 0x2000;
-            s.ptr = ppu_registers;
-            s.write_handler = &ppu_write;
+            s.ptr = this->ppu;
+            s.write_handler = &PPU::register_write_byte;
             return s;
         }
 
@@ -109,29 +107,20 @@ namespace nes
             throw e;
         }
 
+        if(s.write_handler != nullptr)
+        {
+            try
+            {
+                s.write_handler(s.ptr, addr, value);
+            }
+            catch(std::string e)
+            {
+                throw e;
+            }
+            return;
+        }
+
         uint8_t *p = (uint8_t *)s.ptr;
         p[s.addr - s.offset] = value;
-
-        if(s.write_handler == nullptr) return ;
-
-        try
-        {
-            s.write_handler(this, s);
-        }
-        catch(std::string e)
-        {
-            throw e;
-        }
-    }
-
-    void Mapper0::ppu_write(Mapper *mapper, memory_section s)
-    {
-        char message[1024];
-        sprintf(message, "Wrote 0x%X to 0x%X", mapper->read_byte(s.addr), s.addr);
-        std::cout << message << std::endl;
-
-        uint8_t *p = (uint8_t *)s.ptr;
-        p[s.addr - s.offset + 2] = mapper->read_byte(s.addr); 
-//        throw std::string(message);
     }
 }

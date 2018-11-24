@@ -46,6 +46,7 @@ namespace nes
         {
             s.ptr = this->ppu;
             s.write_handler = &PPU::register_write_byte;
+            s.read_handler = &PPU::register_read_byte;
             return s;
         }
 
@@ -54,6 +55,14 @@ namespace nes
             s.addr = addr;
             s.offset = 0x4000;
             s.ptr = registers;
+            return s;
+        }
+
+        if((addr >= 0x6000) && (addr <= 0x7FFF))
+        {
+            s.addr = addr;
+            s.offset = 0x6000;
+            s.ptr = prgram;
             return s;
         }
 
@@ -76,51 +85,5 @@ namespace nes
         char message[1024];
         sprintf(message, "Unknown memory address 0x%.4X", addr);
         throw std::string(message);
-    }
-
-    uint8_t Mapper0::read_byte(uint16_t addr)
-    {
-        memory_section s;
-        try
-        {
-            s = get_section(addr);
-        }
-        catch(std::string e)
-        {
-            throw e;
-        }
-         
-        uint8_t *p = (uint8_t *)s.ptr;
-
-        return p[s.addr - s.offset];
-    }
-
-    void Mapper0::write_byte(uint16_t addr, uint8_t value)
-    {
-        nes::memory_section s;
-        try
-        {
-            s = get_section(addr);
-        }
-        catch(std::string e)
-        {
-            throw e;
-        }
-
-        if(s.write_handler != nullptr)
-        {
-            try
-            {
-                s.write_handler(s.ptr, addr, value);
-            }
-            catch(std::string e)
-            {
-                throw e;
-            }
-            return;
-        }
-
-        uint8_t *p = (uint8_t *)s.ptr;
-        p[s.addr - s.offset] = value;
     }
 }

@@ -6,6 +6,7 @@
 #define NOP_zp_04  0x04
 #define ORA_zp     0x05
 
+#define SLO_zp     0x07
 #define PHP        0x08
 #define ORA_imm    0x09
 
@@ -56,6 +57,8 @@
 
 #define NOP_zp_54  0x54
 
+#define CLI        0x58
+
 #define NOP_5A     0x5A
 
 #define NOP_abs_5C 0x5C
@@ -91,6 +94,7 @@
 #define STX_abs    0x8E
 
 #define BCC        0x90
+#define STA_ind_y  0x91
 
 #define TXS        0x9A
 

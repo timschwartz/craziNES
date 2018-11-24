@@ -115,14 +115,19 @@ MainWindow::MainWindow(const wxString& title, const wxPoint& pos, const wxSize& 
         {
             std::string status = cpu->step();
             std::cout << status << std::endl;
-            SetStatusText(status.c_str(), 0);
+//            SetStatusText(status.c_str(), 0);
         }
         catch(std::string e)
         {
             std::cout << e << std::endl;
             SetStatusText(e, 0);
+            std::cout << "Clock cycles: " << std::dec << +(cpu->get_cycles()) << std::endl;
+            exit(0);
             return;
         }
         counter++;
     }
+
+    std::cout << "Clock cycles: " << std::dec << +(cpu->get_cycles()) << std::endl;
+    exit(0);
 }

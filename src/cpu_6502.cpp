@@ -27,6 +27,11 @@ namespace nes
         return std::string(message);
     }
 
+    uint32_t cpu_6502::get_cycles()
+    {
+        return cycles;
+    }
+
     void cpu_6502::push8(uint8_t value)
     {
         mapper->write_byte(SP + 0x100, value);
@@ -106,6 +111,11 @@ namespace nes
         status |= 0x4;
     }
 
+    void cpu_6502::clearI()
+    {
+        status &= ~0x4;
+    }
+
     void cpu_6502::setD()
     {
         status |= 0x8;
@@ -123,20 +133,61 @@ namespace nes
         throw std::string(message);
     }
 
+    void cpu_6502::nmi()
+    {
+        this->push8(this->PC >> 8);
+        this->push8(this->PC & 0xFF);
+        
+        uint8_t status = this->status;
+        status &= ~0x10;
+        status &= ~0x20;
+        this->push8(status);
+
+        uint8_t pcl = this->mapper->read_byte(0xFFFA);
+        this->setI();
+        uint8_t pch = this->mapper->read_byte(0xFFFB);
+        this->PC = (pch << 8) | pcl;
+    }
+
     void cpu_6502::brk(cpu_6502 *cpu, opcode_t *op)
     {
         // 0x00
         cpu->cycles += 7;
         cpu->PC += op->sz;
-        uint8_t status = cpu->status;
-        status |= 0x10; 
-        status |= 0x20;
 
+        cpu->push8(cpu->PC >> 8);
         cpu->push8(cpu->PC & 0xFF);
-        cpu->push8(cpu->PC >> 8); 
+
+        uint8_t status = cpu->status;
+        status |= 0x10;
+        status |= 0x20;
         cpu->push8(status);
+
+        uint8_t pcl = cpu->mapper->read_byte(0xFFFE);
         cpu->setI();
-        cpu->PC = (cpu->mapper->read_byte(0xFFFF) << 8) | cpu->mapper->read_byte(0xFFFE);
+        uint8_t pch = cpu->mapper->read_byte(0xFFFF);
+        cpu->PC = (pch << 8) | pcl;
+    }
+
+    void cpu_6502::slo_zp(cpu_6502 *cpu, opcode_t *op)
+    {
+        // 0x07
+        cpu->cycles += 5;
+        cpu->PC += op->sz;
+
+        uint16_t addr = (0 << 8) | op->imm;
+        uint8_t value = cpu->mapper->read_byte(addr);
+        uint8_t carry_true = value & 0x80;
+        value <<= 1;
+
+        cpu->mapper->write_byte(addr, value);
+
+        cpu->A |= value;
+        cpu->setN(cpu->A);
+        cpu->setZ(cpu->A);
+
+        if(carry_true) cpu->setC();
+        else cpu->clearC();
     }
 
     void cpu_6502::php(cpu_6502 *cpu, opcode_t *op)
@@ -359,6 +410,13 @@ namespace nes
         }
     }
 
+    void cpu_6502::cli(cpu_6502 *cpu, opcode_t *op)
+    {
+        // 0x54
+        cpu->clearI();
+        cpu->cycles += 2;
+    }
+
     void cpu_6502::rts(cpu_6502 *cpu, opcode_t *op)
     {
         // 0x60
@@ -441,6 +499,17 @@ namespace nes
         cpu->PC += op->sz;
     }
 
+    void cpu_6502::dey(cpu_6502 *cpu, opcode_t *op)
+    {
+        // 0x88
+        cpu->Y--;
+        cpu->setZ(cpu->Y);
+        cpu->setN(cpu->Y);
+
+        cpu->cycles += 2;
+        cpu->PC += op->sz;
+    }
+
     void cpu_6502::sta_abs(cpu_6502 *cpu, opcode_t *op)
     {
         // 0x8D
@@ -474,6 +543,19 @@ namespace nes
         }
     }
 
+    void cpu_6502::sta_ind_y(cpu_6502 *cpu, opcode_t *op)
+    {
+        // 0x91
+        uint16_t addr = (0 << 8) | ((op->imm + cpu->Y) & 0xFF);
+        uint16_t t_addr = (cpu->mapper->read_byte(addr + 1) << 8) |
+                          cpu->mapper->read_byte(addr);
+
+        cpu->mapper->write_byte(t_addr, cpu->A);
+
+        cpu->PC += op->sz;
+        cpu->cycles += 6;
+    }
+
     void cpu_6502::txs(cpu_6502 *cpu, opcode_t *op)
     {
         // 0x9A
@@ -498,6 +580,30 @@ namespace nes
         // 0xA2
         cpu->X = op->imm;
         cpu->cycles += 2;
+        cpu->PC += op->sz;
+        cpu->setZ(cpu->X);
+        cpu->setN(cpu->X);
+    }
+
+    void cpu_6502::lda_zp(cpu_6502 *cpu, opcode_t *op)
+    {
+        // 0xA5
+        uint16_t addr = (0 << 8) | op->imm;
+        cpu->A = cpu->mapper->read_byte(addr);
+
+        cpu->cycles += 3;
+        cpu->PC += op->sz;
+        cpu->setZ(cpu->A);
+        cpu->setN(cpu->A);
+    }
+
+    void cpu_6502::ldx_zp(cpu_6502 *cpu, opcode_t *op)
+    {
+        // 0xA6
+        uint16_t addr = (0 << 8) | op->imm;
+        cpu->X = cpu->mapper->read_byte(addr);
+
+        cpu->cycles += 3;
         cpu->PC += op->sz;
         cpu->setZ(cpu->X);
         cpu->setN(cpu->X);
@@ -718,6 +824,13 @@ namespace nes
         }
     }
 
+    void cpu_6502::nop_zp_F4(cpu_6502 *cpu, opcode_t *op)
+    {
+        // 0xF4
+        cpu->cycles += 4;
+        cpu->PC += op->sz;
+    }
+
     void cpu_6502::sed(cpu_6502 *cpu, opcode_t *op)
     {
         // 0xF8
@@ -728,7 +841,7 @@ namespace nes
 
     cpu_6502::cpu_6502()
     {
-        this->ppu = new nes::PPU();
+        this->ppu = new nes::PPU(this);
 
         uint16_t counter = 0;
         while(counter < 256)
@@ -738,6 +851,7 @@ namespace nes
         }
 
         opcode[BRK] = brk;
+        opcode[SLO_zp] = slo_zp;
         opcode[PHP] = php;
         opcode[ORA_imm] = ora_imm;
         opcode[SLO_abs] = slo_abs;
@@ -755,6 +869,7 @@ namespace nes
         opcode[EOR_imm] = eor_imm;
         opcode[JMP_abs] = jmp_abs;
         opcode[BVC] = bvc; 
+        opcode[CLI] = cli;
         opcode[RTS] = rts;
         opcode[PLA] = pla;
         opcode[ADC_imm] = adc_imm;
@@ -762,12 +877,16 @@ namespace nes
         opcode[SEI] = sei;
         opcode[STA_zp] = sta_zp;
         opcode[STX_zp] = stx_zp;
+        opcode[DEY] = dey;
         opcode[STA_abs] = sta_abs;
         opcode[STX_abs] = stx_abs;
         opcode[BCC] = bcc;
+        opcode[STA_ind_y] = sta_ind_y;
         opcode[TXS] = txs;
         opcode[LDY_imm] = ldy_imm;
         opcode[LDX_imm] = ldx_imm;
+        opcode[LDA_zp] = lda_zp;
+        opcode[LDX_zp] = ldx_zp;
         opcode[LDA_imm] = lda_imm;
         opcode[LDA_abs] = lda_abs;
         opcode[BCS] = bcs;
@@ -785,12 +904,13 @@ namespace nes
         opcode[CPX_imm] = cpx_imm;
         opcode[NOP_EA] = nop_ea;
         opcode[BEQ] = beq;
+        opcode[NOP_zp_F4] = nop_zp_F4;
         opcode[SED] = sed;
     }
 
     void cpu_6502::load_rom(std::string filename)
     {
-        //this->status = 0x34;
+        this->status = 0x34;
 
         try
         {
@@ -837,6 +957,9 @@ namespace nes
             throw e;
         }
 
+        this->ppu->step(this->cycles - this->last_cycles);
+        this->last_cycles = this->cycles;
+
         return state;
     }
 
@@ -866,6 +989,11 @@ namespace nes
                 sz = 3;
                 imm = (cpu->mapper->read_byte(addr + 2) << 8) | cpu->mapper->read_byte(addr + 1);
                 instruction = (opcode << 16) | imm;
+                break;
+            case SLO_zp:
+                sz = 2;
+                imm = cpu->mapper->read_byte(addr + 1);
+                instruction = (opcode << 8) | imm;
                 break;
             case PHP:
                 sz = 1;
@@ -979,6 +1107,9 @@ namespace nes
                 imm = cpu->mapper->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
+            case CLI:
+                sz = 1;
+                break;
             case NOP_5A:
                 sz = 1;
                 break;
@@ -1066,6 +1197,11 @@ namespace nes
                 sz = 1;
                 break;
             case BCC:
+                sz = 2;
+                imm = cpu->mapper->read_byte(addr + 1);
+                instruction = (opcode << 8) | imm;
+                break;
+            case STA_ind_y:
                 sz = 2;
                 imm = cpu->mapper->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
@@ -1241,6 +1377,9 @@ namespace nes
             case NOP_abs_0C:
                 sprintf(temp, "NOP $%.4X", imm);
                 break;
+            case SLO_zp:
+                sprintf(temp, "SLO $%.2X, 0", imm);
+                break;
             case PHP:
                 sprintf(temp, "PHP");
                 break;
@@ -1319,6 +1458,9 @@ namespace nes
             case NOP_zp_54:
                 sprintf(temp, "NOP $%.2X, 0", imm);
                 break;
+            case CLI:
+                sprintf(temp, "CLI");
+                break;
             case NOP_5A:
                 sprintf(temp, "NOP");
                 break;
@@ -1381,6 +1523,9 @@ namespace nes
                 break;
             case BCC:
                 sprintf(temp, "BCC $%.2X", addr + imm + sz);
+                break;
+            case STA_ind_y:
+                sprintf(temp, "STA ($%.2X,Y)", imm);
                 break;
             case LDY_imm:
                 sprintf(temp, "LDY #$%.2X", imm);

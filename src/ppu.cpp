@@ -14,7 +14,7 @@ namespace nes
 
         for(uint16_t counter = 0; counter < ppu_cycles; counter++)
         {
-            if((this->scanline >=0) && (this->scanline <= 240))
+            if((this->scanline >= 0) && (this->scanline <= 240))
             {
                 // draw stuff
             }
@@ -23,7 +23,10 @@ namespace nes
             {
                 // Start vblank
                 this->registers[2] |= 0x80;
+            }
 
+            if((this->scanline >= 241) && (this->scanline <= 260))
+            {
                 if((this->registers[0] >> 7) & 0x1)
                 {
                     // NMI

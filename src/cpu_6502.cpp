@@ -931,8 +931,8 @@ namespace nes
                 mapper = new nes::Mapper0(rom, ppu);
                 break;
             default:
-                std::string message = "Unsupported mapper " + mapper_id;
-                throw message;
+                std::cerr << "Unsupported mapper " << +(mapper_id) << std::endl;;
+                exit(1);
                 break;
         }
 

@@ -27,13 +27,16 @@ namespace nes
 
             if((this->scanline >= 241) && (this->scanline <= 260))
             {
-                if((this->registers[0] >> 7) & 0x1)
+                if(this->pixel == 0)
                 {
-                    // NMI
-                    std::cout << "PPU::step(): NMI" << std::endl;
-                    this->cpu->nmi();
+                    if((this->registers[0] >> 7) & 0x1)
+                    {
+                        // NMI
+                        std::cout << "PPU::step(): NMI" << std::endl;
+                        this->cpu->nmi();
+                    }
+                    else std::cout << "NMI disabled" << std::endl;
                 }
-                else std::cout << "NMI disabled" << std::endl;
             }
 
             if((this->scanline == 261) && (this->pixel == 0))

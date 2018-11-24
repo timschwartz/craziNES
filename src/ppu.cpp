@@ -57,7 +57,6 @@ namespace nes
     void PPU::register_write_byte(void *ptr, uint16_t addr, uint8_t value)
     {
         PPU *ppu = (PPU *)ptr;
-        ppu->step(0);
 
         addr -= 0x2000;
         addr %= 8;

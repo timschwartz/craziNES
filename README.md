@@ -3,4 +3,4 @@ Nintendo emulator
 
 ## Documentation
 
-[https://timschwartz.github.io/craziNES/]
+https://timschwartz.github.io/craziNES/

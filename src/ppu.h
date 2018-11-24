@@ -17,6 +17,10 @@ namespace nes
         static uint8_t register_read_byte(void *ptr, uint16_t addr);
       private:
         uint8_t registers[8];
+        uint16_t base_name_table[4] = { 0x2000, 0x2400, 0x2800, 0x2C00 };
+        uint16_t sprite_pattern_table[2] = { 0x0000, 0x1000 };
+        uint16_t background_pattern_table[2] = { 0x0000, 0x1000 };
+
         uint16_t scanline = 0;
         uint16_t pixel = 0;
         nes::cpu_6502 *cpu = nullptr;

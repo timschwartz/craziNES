@@ -67,36 +67,16 @@ namespace nes
         switch(addr)
         {
             case 0: // PPUCTRL
-                switch(value & 0x3)
-                {
-                    case 0:
-                        std::cout << "Base name table address: 0x2000" << std::endl;
-                        break;
-                    case 1:
-                        std::cout << "Base name table address: 0x2400" << std::endl;
-                        break;
-                    case 2:
-                        std::cout << "Base name table address: 0x2800" << std::endl;
-                        break;
-                    case 3:
-                        std::cout << "Base name table address: 0x2C00" << std::endl;
-                        break;
-                }
+                std::cout << "Base name table address: 0x" << std::hex << +ppu->base_name_table[(value & 0x3)] << std::endl;
 
                 std::cout << "VRAM address increment per CPU read/write of PPUDATA: ";
                 if((value >> 2) & 0x1) std::cout << "add 32, going down";
                 else std::cout << "add 1, going across";
                 std::cout << std::endl;
 
-                std::cout << "Sprite pattern table address for 8x8 sprites: ";
-                if((value >> 3) & 0x1) std::cout << "0x1000";
-                else std::cout << "0x0000";
-                std::cout << std::endl;
+                std::cout << "Sprite pattern table address for 8x8 sprites: 0x" << std::hex << +ppu->sprite_pattern_table[((value >> 3) & 0x1)] << std::endl;
 
-                std::cout << "Background pattern table address: ";
-                if((value >> 4) & 0x1) std::cout << "0x1000";
-                else std::cout << "0x0000";
-                std::cout << std::endl;
+                std::cout << "Background pattern table address: 0x" << std::hex << +ppu->background_pattern_table[((value >> 4) & 0x1)] << std::endl;;
 
                 std::cout << "Sprite size: ";
                 if((value >> 5) & 0x1) std::cout << "8x16 pixels";

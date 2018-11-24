@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['nop_5fea',['nop_ea',['../classnes_1_1cpu__6502.html#a1bc062db960ea95c54310d6d79aa13a4',1,'nes::cpu_6502']]],
-  ['not_5fimplemented',['not_implemented',['../classnes_1_1cpu__6502.html#a3a00ea790891a4d7ead0be81003dbc5e',1,'nes::cpu_6502']]]
+  ['mainwindow',['MainWindow',['../class_main_window.html#ab5bd7c178471f31f5c7f20fad6446382',1,'MainWindow']]],
+  ['mapper0',['Mapper0',['../classnes_1_1_mapper0.html#ac4616059fb0a3b2d69ff9404e06a1779',1,'nes::Mapper0']]],
+  ['memorywindow',['MemoryWindow',['../class_memory_window.html#a69830c9ba81f8eaeec949043c4a419e8',1,'MemoryWindow']]]
 ];

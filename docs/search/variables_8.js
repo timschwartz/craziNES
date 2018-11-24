@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['offset',['offset',['../structnes_1_1memory__section.html#a15cc5e7acbf5c6508576c46946198239',1,'nes::memory_section']]],
-  ['opcode',['opcode',['../classnes_1_1opcode__t.html#a99ccd5cbff1138c0499c4be7baaba7c9',1,'nes::opcode_t::opcode()'],['../classnes_1_1cpu__6502.html#a5b2cb6206543e5fa76bc21a106769e6f',1,'nes::cpu_6502::opcode()']]]
+  ['last_5fcycles',['last_cycles',['../classnes_1_1cpu__6502.html#abc1afbffaa48b634555c8f6390002ef9',1,'nes::cpu_6502']]],
+  ['log',['log',['../classwxcrazi_n_e_s.html#acf034ef4dc425d0ac0f3300944da9447',1,'wxcraziNES']]],
+  ['log_5flistbox',['log_listbox',['../class_log_window.html#ae22cace953b92d849025f89aaff1c61c',1,'LogWindow']]],
+  ['lprgrom',['lprgrom',['../classnes_1_1_mapper0.html#a974688ff06f5f60f492b58c3935cf738',1,'nes::Mapper0::lprgrom()'],['../classnes_1_1_m_m_u.html#a6528b24d8de4d566cd9ed7db870d58e5',1,'nes::MMU::lprgrom()']]]
 ];

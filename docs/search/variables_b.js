@@ -1,6 +1,10 @@
 var searchData=
 [
-  ['sp',['SP',['../classnes_1_1cpu__6502.html#a9d9c1068ef56b510ea478b5255b4f8ef',1,'nes::cpu_6502']]],
-  ['status',['status',['../classnes_1_1cpu__6502.html#ad37bda0c950157b9acfd3a3dd1587ff2',1,'nes::cpu_6502']]],
-  ['sz',['sz',['../classnes_1_1opcode__t.html#aec2b8f1ddb8f6d1784e47175bf38c5a3',1,'nes::opcode_t::sz()'],['../classnes_1_1_r_o_m.html#a968666ef9c403091748f18e14b4443ea',1,'nes::ROM::sz()']]]
+  ['pc',['PC',['../classnes_1_1cpu__6502.html#a01d6cc46325c1bd5ee80c83edf700a98',1,'nes::cpu_6502']]],
+  ['pixel',['pixel',['../classnes_1_1_p_p_u.html#a2a5826c4abc5f6413086b35c95f964bb',1,'nes::PPU']]],
+  ['ppu',['ppu',['../classnes_1_1cpu__6502.html#add5cd7e1a984cdd3178eb920e09f271b',1,'nes::cpu_6502::ppu()'],['../classnes_1_1_mapper0.html#a0c3665cf54aab9efc7351dbfe8f63b00',1,'nes::Mapper0::ppu()']]],
+  ['ppu_5fregisters',['ppu_registers',['../classnes_1_1_m_m_u.html#a0ce53509fe5dbe772dff19ad312c8cb0',1,'nes::MMU']]],
+  ['prgram',['prgram',['../classnes_1_1_mapper0.html#ac675b7ba08f155bd58eaa0a5049d5a4a',1,'nes::Mapper0']]],
+  ['prgrom_5fsize',['prgrom_size',['../structnes_1_1_n_e_s__header.html#ad95ecb393ac7712b554d59b60420fe0c',1,'nes::NES_header']]],
+  ['ptr',['ptr',['../structnes_1_1memory__section.html#a670affcc954678f783010ac09b78fa30',1,'nes::memory_section']]]
 ];

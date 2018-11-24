@@ -1,8 +1,7 @@
 var searchData=
 [
-  ['write_5fbyte',['write_byte',['../classnes_1_1_m_m_u.html#a394c70a9546e45e2e236161d083e26dc',1,'nes::MMU']]],
-  ['write_5fhandler',['write_handler',['../structnes_1_1memory__section.html#a26e746e99ce57dad54870f3af886429c',1,'nes::memory_section']]],
-  ['wxbegin_5fevent_5ftable',['wxBEGIN_EVENT_TABLE',['../crazi_n_e_s_8cpp.html#a6037f102d21e7ea2962411e939dc4213',1,'craziNES.cpp']]],
-  ['wxcrazines',['wxcraziNES',['../classwxcrazi_n_e_s.html',1,'']]],
-  ['wxdeclare_5fevent_5ftable',['wxDECLARE_EVENT_TABLE',['../class_main_window.html#ae2ff5d7859e51963c5c07ab11583021a',1,'MainWindow::wxDECLARE_EVENT_TABLE()'],['../class_memory_window.html#a3e9992d8c1c3e030e364030177cce320',1,'MemoryWindow::wxDECLARE_EVENT_TABLE()']]]
+  ['version',['VERSION',['../config_8h.html#a1c6d5de492ac61ad29aec7aa9a436bbf',1,'config.h']]],
+  ['view',['view',['../class_memory_window.html#a25a8061041a33e91a7619ebfe0fcdb10',1,'MemoryWindow']]],
+  ['vram_5fsize',['vram_size',['../structnes_1_1_n_e_s__header.html#a2e71b4b5f0302c0f312f82c36d8ed292',1,'nes::NES_header']]],
+  ['vs_5fhardware',['vs_hardware',['../structnes_1_1_n_e_s__header.html#a222de42e2257c04ecb512d3adb41531d',1,'nes::NES_header']]]
 ];

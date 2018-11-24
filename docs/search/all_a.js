@@ -1,14 +1,19 @@
 var searchData=
 [
-  ['magic',['magic',['../structnes_1_1_n_e_s__header.html#ac50392ab994b91ea696a6a747b6b941a',1,'nes::NES_header']]],
-  ['mainwindow',['MainWindow',['../class_main_window.html',1,'MainWindow'],['../class_main_window.html#ab5bd7c178471f31f5c7f20fad6446382',1,'MainWindow::MainWindow()']]],
-  ['mapper',['mapper',['../classnes_1_1_m_m_u.html#adac98065aa3193826f471eaf06da7af9',1,'nes::MMU::mapper()'],['../structnes_1_1_n_e_s__header.html#a4b98d8f26b59af4acd2a69772ded8f2c',1,'nes::NES_header::mapper()']]],
-  ['memory',['memory',['../classwxcrazi_n_e_s.html#a40e091e8dddce0bd6977d8ef7aa4cbe8',1,'wxcraziNES']]],
-  ['memory_2ecpp',['memory.cpp',['../memory_8cpp.html',1,'']]],
-  ['memory_2eh',['memory.h',['../memory_8h.html',1,'']]],
-  ['memory_5flistbox',['memory_listbox',['../class_memory_window.html#afc62fd0fc8bb5435b1c76352fff6411c',1,'MemoryWindow']]],
-  ['memory_5fsection',['memory_section',['../structnes_1_1memory__section.html',1,'nes::memory_section'],['../namespacenes.html#a6075da73daaad80432eb9fa20ce95129',1,'nes::memory_section()']]],
-  ['memorywindow',['MemoryWindow',['../class_memory_window.html',1,'MemoryWindow'],['../class_memory_window.html#a69830c9ba81f8eaeec949043c4a419e8',1,'MemoryWindow::MemoryWindow()']]],
-  ['misc_5froms',['misc_roms',['../structnes_1_1_n_e_s__header.html#a232db07230537dafd52511df2fd2d4c9',1,'nes::NES_header']]],
-  ['mmu',['MMU',['../classnes_1_1_m_m_u.html',1,'nes::MMU'],['../classnes_1_1cpu__6502.html#a6f1ad5765b1436fca090e0e5422b58db',1,'nes::cpu_6502::mmu()']]]
+  ['last_5fcycles',['last_cycles',['../classnes_1_1cpu__6502.html#abc1afbffaa48b634555c8f6390002ef9',1,'nes::cpu_6502']]],
+  ['lda_5fabs',['lda_abs',['../classnes_1_1cpu__6502.html#a62605cc0d6c4466799fab74f8de9e33e',1,'nes::cpu_6502::lda_abs()'],['../opcodes_8h.html#a7048adf959dbcd25df0fee5f96b99748',1,'LDA_abs():&#160;opcodes.h']]],
+  ['lda_5fabs_5fx',['lda_abs_x',['../classnes_1_1cpu__6502.html#a25437ca03f8a8b6ac5f5de2e76aa5ebb',1,'nes::cpu_6502::lda_abs_x()'],['../opcodes_8h.html#ac9bb3bdac0879f212c96a2b18e2f260c',1,'LDA_abs_x():&#160;opcodes.h']]],
+  ['lda_5fimm',['lda_imm',['../classnes_1_1cpu__6502.html#af8db973eb66888db7ea5aff0886ed6ab',1,'nes::cpu_6502::lda_imm()'],['../opcodes_8h.html#abea2e495b3a84abdc1e4b9cfd9540389',1,'LDA_imm():&#160;opcodes.h']]],
+  ['lda_5fzp',['lda_zp',['../classnes_1_1cpu__6502.html#a6e7a203d1e7cfa8e967c0ce2801b154e',1,'nes::cpu_6502::lda_zp()'],['../opcodes_8h.html#ae08d2dab2e3f0b50b5f10bff1b4546b3',1,'LDA_zp():&#160;opcodes.h']]],
+  ['lda_5fzp_5fx',['lda_zp_x',['../classnes_1_1cpu__6502.html#aaebf5a1cffc867ba68dc258bec2fc829',1,'nes::cpu_6502::lda_zp_x()'],['../opcodes_8h.html#a8221e61f22498beefa876317dfcfa929',1,'LDA_zp_x():&#160;opcodes.h']]],
+  ['ldx_5fimm',['ldx_imm',['../classnes_1_1cpu__6502.html#a2548488a0a5066f877d8181f174b0adf',1,'nes::cpu_6502::ldx_imm()'],['../opcodes_8h.html#ac5b8ab11f0b7b64fe77bd6c7c46f5708',1,'LDX_imm():&#160;opcodes.h']]],
+  ['ldx_5fzp',['ldx_zp',['../classnes_1_1cpu__6502.html#a1116942a37804c0dfa5addd7aaa0d876',1,'nes::cpu_6502::ldx_zp()'],['../opcodes_8h.html#ac0c1b0020fe4949dc0586c9a9781180b',1,'LDX_zp():&#160;opcodes.h']]],
+  ['ldy_5fimm',['ldy_imm',['../classnes_1_1cpu__6502.html#a1b8d7856bc74bea23ee479cf68d77f07',1,'nes::cpu_6502::ldy_imm()'],['../opcodes_8h.html#a0ffae7ec11228acb4f4a7a1357e697a5',1,'LDY_imm():&#160;opcodes.h']]],
+  ['ldy_5fzp_5fx',['LDY_zp_x',['../opcodes_8h.html#adbaf8f50f9ae1a2ffd728ebc9b054826',1,'opcodes.h']]],
+  ['load_5from',['load_rom',['../classnes_1_1cpu__6502.html#a786d4c628316f7a105c0f72d043d9908',1,'nes::cpu_6502::load_rom()'],['../classnes_1_1_m_m_u.html#a93855e88db203ca97388abacf7714ee2',1,'nes::MMU::load_rom()']]],
+  ['log',['log',['../classwxcrazi_n_e_s.html#acf034ef4dc425d0ac0f3300944da9447',1,'wxcraziNES']]],
+  ['log_5flistbox',['log_listbox',['../class_log_window.html#ae22cace953b92d849025f89aaff1c61c',1,'LogWindow']]],
+  ['logwindow',['LogWindow',['../class_log_window.html',1,'LogWindow'],['../class_log_window.html#a9905205c3d57674ff4c8497e8b9098d5',1,'LogWindow::LogWindow()']]],
+  ['lprgrom',['lprgrom',['../classnes_1_1_mapper0.html#a974688ff06f5f60f492b58c3935cf738',1,'nes::Mapper0::lprgrom()'],['../classnes_1_1_m_m_u.html#a6528b24d8de4d566cd9ed7db870d58e5',1,'nes::MMU::lprgrom()']]],
+  ['lsr_5facc',['LSR_acc',['../opcodes_8h.html#a0dd7b1e161c4f8e33f0ce99c0aa6ac3e',1,'opcodes.h']]]
 ];

@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['registerswindow',['RegistersWindow',['../class_registers_window.html',1,'']]],
-  ['rom',['ROM',['../classnes_1_1_r_o_m.html',1,'nes']]]
+  ['opcode_5ft',['opcode_t',['../classnes_1_1opcode__t.html',1,'nes']]]
 ];

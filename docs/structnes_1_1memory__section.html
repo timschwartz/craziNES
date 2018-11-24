@@ -71,7 +71,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="memory_8h_source.html">memory.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="mapper_8h_source.html">mapper.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -79,14 +79,16 @@ Public Attributes</h2></td></tr>
 <tr class="separator:adf95ead77e708b0ed06da403d11fd0fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a15cc5e7acbf5c6508576c46946198239"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structnes_1_1memory__section.html#a15cc5e7acbf5c6508576c46946198239">offset</a> = 0</td></tr>
 <tr class="separator:a15cc5e7acbf5c6508576c46946198239"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5e5cf1afb301dbb595eb9f745e41df89"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structnes_1_1memory__section.html#a5e5cf1afb301dbb595eb9f745e41df89">ptr</a> = nullptr</td></tr>
-<tr class="separator:a5e5cf1afb301dbb595eb9f745e41df89"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a26e746e99ce57dad54870f3af886429c"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structnes_1_1memory__section.html#a26e746e99ce57dad54870f3af886429c">write_handler</a> )(<a class="el" href="classnes_1_1_m_m_u.html">MMU</a> *mmu, <a class="el" href="structnes_1_1memory__section.html">memory_section</a> s) = nullptr</td></tr>
-<tr class="separator:a26e746e99ce57dad54870f3af886429c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a670affcc954678f783010ac09b78fa30"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structnes_1_1memory__section.html#a670affcc954678f783010ac09b78fa30">ptr</a> = nullptr</td></tr>
+<tr class="separator:a670affcc954678f783010ac09b78fa30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01a4145775b18acafa4dcc6d18c9caf3"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structnes_1_1memory__section.html#a01a4145775b18acafa4dcc6d18c9caf3">write_handler</a> )(void *, uint16_t, uint8_t) = nullptr</td></tr>
+<tr class="separator:a01a4145775b18acafa4dcc6d18c9caf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6df500053e934fe97be0b049fd7fa9e2"><td class="memItemLeft" align="right" valign="top">uint8_t(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structnes_1_1memory__section.html#a6df500053e934fe97be0b049fd7fa9e2">read_handler</a> )(void *, uint16_t) = nullptr</td></tr>
+<tr class="separator:a6df500053e934fe97be0b049fd7fa9e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="memory_8h_source.html#l00012">12</a> of file <a class="el" href="memory_8h_source.html">memory.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mapper_8h_source.html#l00010">10</a> of file <a class="el" href="mapper_8h_source.html">mapper.h</a>.</p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
 <a id="adf95ead77e708b0ed06da403d11fd0fc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adf95ead77e708b0ed06da403d11fd0fc">&#9670;&nbsp;</a></span>addr</h2>
@@ -100,9 +102,9 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="memory_8h_source.html#l00014">14</a> of file <a class="el" href="memory_8h_source.html">memory.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mapper_8h_source.html#l00012">12</a> of file <a class="el" href="mapper_8h_source.html">mapper.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="memory_8cpp_source.html#l00009">nes::MMU::get_section()</a>, <a class="el" href="memory_8cpp_source.html#l00103">nes::MMU::ppu_write()</a>, <a class="el" href="memory_8cpp_source.html#l00059">nes::MMU::read_byte()</a>, and <a class="el" href="memory_8cpp_source.html#l00076">nes::MMU::write_byte()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mapper0_8cpp_source.html#l00033">nes::Mapper0::get_section()</a>, <a class="el" href="mapper_8cpp_source.html#l00009">nes::Mapper::read_byte()</a>, and <a class="el" href="mapper_8cpp_source.html#l00040">nes::Mapper::write_byte()</a>.</p>
 
 </div>
 </div>
@@ -118,50 +120,69 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="memory_8h_source.html#l00015">15</a> of file <a class="el" href="memory_8h_source.html">memory.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mapper_8h_source.html#l00013">13</a> of file <a class="el" href="mapper_8h_source.html">mapper.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="memory_8cpp_source.html#l00009">nes::MMU::get_section()</a>, <a class="el" href="memory_8cpp_source.html#l00059">nes::MMU::read_byte()</a>, and <a class="el" href="memory_8cpp_source.html#l00076">nes::MMU::write_byte()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mapper0_8cpp_source.html#l00033">nes::Mapper0::get_section()</a>, <a class="el" href="mapper_8cpp_source.html#l00009">nes::Mapper::read_byte()</a>, and <a class="el" href="mapper_8cpp_source.html#l00040">nes::Mapper::write_byte()</a>.</p>
 
 </div>
 </div>
-<a id="a5e5cf1afb301dbb595eb9f745e41df89"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5e5cf1afb301dbb595eb9f745e41df89">&#9670;&nbsp;</a></span>ptr</h2>
+<a id="a670affcc954678f783010ac09b78fa30"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a670affcc954678f783010ac09b78fa30">&#9670;&nbsp;</a></span>ptr</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void* nes::memory_section::ptr = nullptr</td>
+          <td class="memname">void * nes::memory_section::ptr = nullptr</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="memory_8h_source.html#l00016">16</a> of file <a class="el" href="memory_8h_source.html">memory.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mapper_8h_source.html#l00014">14</a> of file <a class="el" href="mapper_8h_source.html">mapper.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="memory_8cpp_source.html#l00009">nes::MMU::get_section()</a>, <a class="el" href="memory_8cpp_source.html#l00059">nes::MMU::read_byte()</a>, and <a class="el" href="memory_8cpp_source.html#l00076">nes::MMU::write_byte()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mapper0_8cpp_source.html#l00033">nes::Mapper0::get_section()</a>, <a class="el" href="mapper_8cpp_source.html#l00009">nes::Mapper::read_byte()</a>, and <a class="el" href="mapper_8cpp_source.html#l00040">nes::Mapper::write_byte()</a>.</p>
 
 </div>
 </div>
-<a id="a26e746e99ce57dad54870f3af886429c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a26e746e99ce57dad54870f3af886429c">&#9670;&nbsp;</a></span>write_handler</h2>
+<a id="a6df500053e934fe97be0b049fd7fa9e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6df500053e934fe97be0b049fd7fa9e2">&#9670;&nbsp;</a></span>read_handler</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void(* nes::memory_section::write_handler) (<a class="el" href="classnes_1_1_m_m_u.html">MMU</a> *mmu, <a class="el" href="structnes_1_1memory__section.html">memory_section</a> s) = nullptr</td>
+          <td class="memname">uint8_t(* nes::memory_section::read_handler) (void *, uint16_t) = nullptr</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="memory_8h_source.html#l00017">17</a> of file <a class="el" href="memory_8h_source.html">memory.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mapper_8h_source.html#l00016">16</a> of file <a class="el" href="mapper_8h_source.html">mapper.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="memory_8cpp_source.html#l00009">nes::MMU::get_section()</a>, and <a class="el" href="memory_8cpp_source.html#l00076">nes::MMU::write_byte()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mapper0_8cpp_source.html#l00033">nes::Mapper0::get_section()</a>, and <a class="el" href="mapper_8cpp_source.html#l00009">nes::Mapper::read_byte()</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/<a class="el" href="memory_8h_source.html">memory.h</a></li>
+<a id="a01a4145775b18acafa4dcc6d18c9caf3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01a4145775b18acafa4dcc6d18c9caf3">&#9670;&nbsp;</a></span>write_handler</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void(* nes::memory_section::write_handler)(<a class="el" href="classnes_1_1_m_m_u.html">MMU</a> *mmu, <a class="el" href="structnes_1_1memory__section.html">memory_section</a> s) = nullptr</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="mapper_8h_source.html#l00015">15</a> of file <a class="el" href="mapper_8h_source.html">mapper.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="mapper0_8cpp_source.html#l00033">nes::Mapper0::get_section()</a>, and <a class="el" href="mapper_8cpp_source.html#l00040">nes::Mapper::write_byte()</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following files:<ul>
+<li>src/mappers/<a class="el" href="mapper_8h_source.html">mapper.h</a></li>
+<li>src/<a class="el" href="memory_8h_source.html">memory.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

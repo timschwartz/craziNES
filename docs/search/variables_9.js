@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['pc',['PC',['../classnes_1_1cpu__6502.html#a01d6cc46325c1bd5ee80c83edf700a98',1,'nes::cpu_6502']]],
-  ['ppu_5fregisters',['ppu_registers',['../classnes_1_1_m_m_u.html#a0ce53509fe5dbe772dff19ad312c8cb0',1,'nes::MMU']]],
-  ['prgrom_5fsize',['prgrom_size',['../structnes_1_1_n_e_s__header.html#ad95ecb393ac7712b554d59b60420fe0c',1,'nes::NES_header']]],
-  ['ptr',['ptr',['../structnes_1_1memory__section.html#a5e5cf1afb301dbb595eb9f745e41df89',1,'nes::memory_section']]]
+  ['magic',['magic',['../structnes_1_1_n_e_s__header.html#ac50392ab994b91ea696a6a747b6b941a',1,'nes::NES_header']]],
+  ['mapper',['mapper',['../classnes_1_1cpu__6502.html#a4e10f3be6c9d0e7a6f39325c1c809a38',1,'nes::cpu_6502::mapper()'],['../classnes_1_1_m_m_u.html#adac98065aa3193826f471eaf06da7af9',1,'nes::MMU::mapper()'],['../structnes_1_1_n_e_s__header.html#a4b98d8f26b59af4acd2a69772ded8f2c',1,'nes::NES_header::mapper()']]],
+  ['memory',['memory',['../classwxcrazi_n_e_s.html#a40e091e8dddce0bd6977d8ef7aa4cbe8',1,'wxcraziNES']]],
+  ['memory_5flistbox',['memory_listbox',['../class_memory_window.html#afc62fd0fc8bb5435b1c76352fff6411c',1,'MemoryWindow']]],
+  ['misc_5froms',['misc_roms',['../structnes_1_1_n_e_s__header.html#a232db07230537dafd52511df2fd2d4c9',1,'nes::NES_header']]]
 ];

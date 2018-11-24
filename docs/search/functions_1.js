@@ -4,6 +4,7 @@ var searchData=
   ['bcs',['bcs',['../classnes_1_1cpu__6502.html#aa1d7f3c66a02de9a18060023cfa38c15',1,'nes::cpu_6502']]],
   ['beq',['beq',['../classnes_1_1cpu__6502.html#aaf1c5a4b7e507883e3f5b0a035662e36',1,'nes::cpu_6502']]],
   ['bit_5fzp',['bit_zp',['../classnes_1_1cpu__6502.html#a62e3033e40b5a9c430c851698dae9700',1,'nes::cpu_6502']]],
+  ['bmi',['bmi',['../classnes_1_1cpu__6502.html#ae2735eb9c339383079ae5b5de4d97cd4',1,'nes::cpu_6502']]],
   ['bne',['bne',['../classnes_1_1cpu__6502.html#a02b4a258ab370d466d855bb7af9cc0c4',1,'nes::cpu_6502']]],
   ['bpl',['bpl',['../classnes_1_1cpu__6502.html#aa336ffb506c7b60b146c1c9f392a48d0',1,'nes::cpu_6502']]],
   ['brk',['brk',['../classnes_1_1cpu__6502.html#a1abc82c5bdf812ad6cd997277891972e',1,'nes::cpu_6502']]],

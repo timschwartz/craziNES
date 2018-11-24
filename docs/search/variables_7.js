@@ -1,9 +1,10 @@
 var searchData=
 [
-  ['magic',['magic',['../structnes_1_1_n_e_s__header.html#ac50392ab994b91ea696a6a747b6b941a',1,'nes::NES_header']]],
-  ['mapper',['mapper',['../classnes_1_1_m_m_u.html#adac98065aa3193826f471eaf06da7af9',1,'nes::MMU::mapper()'],['../structnes_1_1_n_e_s__header.html#a4b98d8f26b59af4acd2a69772ded8f2c',1,'nes::NES_header::mapper()']]],
-  ['memory',['memory',['../classwxcrazi_n_e_s.html#a40e091e8dddce0bd6977d8ef7aa4cbe8',1,'wxcraziNES']]],
-  ['memory_5flistbox',['memory_listbox',['../class_memory_window.html#afc62fd0fc8bb5435b1c76352fff6411c',1,'MemoryWindow']]],
-  ['misc_5froms',['misc_roms',['../structnes_1_1_n_e_s__header.html#a232db07230537dafd52511df2fd2d4c9',1,'nes::NES_header']]],
-  ['mmu',['mmu',['../classnes_1_1cpu__6502.html#a6f1ad5765b1436fca090e0e5422b58db',1,'nes::cpu_6502']]]
+  ['id_5fcpu_5fstep_5fcount',['ID_CPU_STEP_COUNT',['../debug_8h.html#a648ea8ec50c2bf49f313c249f9734662',1,'debug.h']]],
+  ['id_5fdebugger_5fpc',['ID_DEBUGGER_PC',['../debug_8h.html#af9fe8174820895f5c9ce66448f8b90ee',1,'debug.h']]],
+  ['id_5flog_5flistbox',['ID_LOG_LISTBOX',['../debug_8h.html#add19ab49c40d56ff43291ff9ec21640c',1,'debug.h']]],
+  ['id_5fmemory_5flistbox',['ID_MEMORY_LISTBOX',['../debug_8h.html#a4807be450e4c28955ba3434eeca35e1d',1,'debug.h']]],
+  ['id_5fregisters_5flistbox',['ID_REGISTERS_LISTBOX',['../debug_8h.html#a1f3c967377f2a3a9214b2474a1b0b41b',1,'debug.h']]],
+  ['imm',['imm',['../classnes_1_1opcode__t.html#a3157bcfcf13a9e21f5d9a35758af4702',1,'nes::opcode_t']]],
+  ['instruction',['instruction',['../classnes_1_1opcode__t.html#aece17a7e25da31c648dbc59ccc0b5265',1,'nes::opcode_t']]]
 ];

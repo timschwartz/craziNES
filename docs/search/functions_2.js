@@ -8,7 +8,12 @@ var searchData=
   ['cld',['cld',['../classnes_1_1cpu__6502.html#a4f7568ddd2c4aaba85ad36580c28deca',1,'nes::cpu_6502']]],
   ['clearc',['clearC',['../classnes_1_1cpu__6502.html#a5ff351f302c44f01328bb18216a72d79',1,'nes::cpu_6502']]],
   ['cleard',['clearD',['../classnes_1_1cpu__6502.html#a3b26580765cedb20eadb7b55cbbdf503',1,'nes::cpu_6502']]],
+  ['cleari',['clearI',['../classnes_1_1cpu__6502.html#a8ce85c369e73e9f5c934472e0225fbaa',1,'nes::cpu_6502']]],
   ['clearv',['clearV',['../classnes_1_1cpu__6502.html#a57606349a7d5b2dbf554a39cfba91c6d',1,'nes::cpu_6502']]],
+  ['cli',['cli',['../classnes_1_1cpu__6502.html#a705ba456f59125b186eb5dbb139e7aa3',1,'nes::cpu_6502']]],
   ['clv',['clv',['../classnes_1_1cpu__6502.html#a692448550b57cba22844f0232fd73fa9',1,'nes::cpu_6502']]],
-  ['cpu_5f6502',['cpu_6502',['../classnes_1_1cpu__6502.html#af19921e95775b0d062e533a8d163d9ab',1,'nes::cpu_6502']]]
+  ['cmp_5fimm',['cmp_imm',['../classnes_1_1cpu__6502.html#aed666f3effe340623c4bbf45e548b15d',1,'nes::cpu_6502']]],
+  ['cpu_5f6502',['cpu_6502',['../classnes_1_1cpu__6502.html#af19921e95775b0d062e533a8d163d9ab',1,'nes::cpu_6502']]],
+  ['cpx_5fimm',['cpx_imm',['../classnes_1_1cpu__6502.html#a2d23d1aa5fb6b9e78255ab069d0820e8',1,'nes::cpu_6502']]],
+  ['cpy_5fimm',['cpy_imm',['../classnes_1_1cpu__6502.html#a261a933a8a18a065b14d425ac32d1c43',1,'nes::cpu_6502']]]
 ];

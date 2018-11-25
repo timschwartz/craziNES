@@ -481,6 +481,19 @@ namespace nes
         cpu->setI();
     }
 
+    void cpu_6502::sta_ind_x(cpu_6502 *cpu, opcode_t *op)
+    {
+        // 0x81
+        uint16_t addr = (0 << 8) | ((op->imm + cpu->X) & 0xFF);
+        uint16_t t_addr = (cpu->mapper->read_byte(addr + 1) << 8) |
+                          cpu->mapper->read_byte(addr);
+
+        cpu->mapper->write_byte(t_addr, cpu->A);
+
+        cpu->PC += op->sz;
+        cpu->cycles += 6;
+    }
+
     void cpu_6502::sta_zp(cpu_6502 *cpu, opcode_t *op)
     {
         // 0x85
@@ -709,6 +722,13 @@ namespace nes
         cpu->cycles += 6;
     }
 
+    void cpu_6502::nop_imm_C2(cpu_6502 *cpu, opcode_t *op)
+    {
+        // 0xC2
+        cpu->cycles += 2;
+        cpu->PC += op->sz;
+    }
+
     void cpu_6502::dec_zp(cpu_6502 *cpu, opcode_t *op)
     {
         // 0xC6
@@ -893,6 +913,7 @@ namespace nes
         opcode[ADC_imm] = adc_imm;
         opcode[BVS] = bvs;
         opcode[SEI] = sei;
+        opcode[STA_ind_x] = sta_ind_x;
         opcode[STA_zp] = sta_zp;
         opcode[STX_zp] = stx_zp;
         opcode[DEY] = dey;
@@ -913,6 +934,7 @@ namespace nes
         opcode[LDA_abs_x] = lda_abs_x;
         opcode[CPY_imm] = cpy_imm;
         opcode[CMP_ind_x] = cmp_ind_x;
+        opcode[NOP_imm_C2] = nop_imm_C2;
         opcode[DEC_zp] = dec_zp;
         opcode[CMP_imm] = cmp_imm;
         opcode[DEX] = dex;
@@ -1179,6 +1201,11 @@ namespace nes
                 imm = cpu->mapper->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
+            case STA_ind_x:
+                sz = 2;
+                imm = cpu->mapper->read_byte(addr + 1);
+                instruction = (opcode << 8) | imm;
+                break;
             case STY_zp_x:
                 sz = 2;
                 imm = cpu->mapper->read_byte(addr + 1);
@@ -1287,6 +1314,11 @@ namespace nes
                 instruction = (opcode << 8) | imm;
                 break;
             case CMP_ind_x:
+                sz = 2;
+                imm = cpu->mapper->read_byte(addr + 1);
+                instruction = (opcode << 8) | imm;
+                break;
+            case NOP_imm_C2:
                 sz = 2;
                 imm = cpu->mapper->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
@@ -1521,6 +1553,9 @@ namespace nes
             case NOP_imm_80:
                 sprintf(temp, "NOP $%.2X, 0", imm);
                 break;
+            case STA_ind_x:
+                sprintf(temp, "STA ($%.2X,X)", imm);
+                break;
             case STY_zp_x:
                 sprintf(temp, "STY $%.2X, X", imm);
                 break;
@@ -1595,6 +1630,9 @@ namespace nes
                 break;
             case CMP_ind_x:
                 sprintf(temp, "CMP ($%.2X, X)", imm);
+                break;
+            case NOP_imm_C2:
+                sprintf(temp, "NOP #$%.2X", imm);
                 break;
             case CMP_imm:
                 sprintf(temp, "CMP #$%.2X", imm);

@@ -101,6 +101,7 @@ namespace nes
        static void adc_imm(cpu_6502 *cpu, opcode_t *op); // 0x69
        static void bvs(cpu_6502 *cpu, opcode_t *op); // 0x70
        static void sei(cpu_6502 *cpu, opcode_t *op); // 0x78
+       static void sta_ind_x(cpu_6502 *, opcode_t *); // 0x81
        static void sta_zp(cpu_6502 *cpu, opcode_t *op); // 0x85
        static void stx_zp(cpu_6502 *cpu, opcode_t *op); // 0x86
        static void dey(cpu_6502 *, opcode_t *); // 0x88
@@ -121,6 +122,7 @@ namespace nes
        static void lda_abs_x(cpu_6502 *, opcode_t *); //  0xBD
        static void cpy_imm(cpu_6502 *cpu, opcode_t *op); // 0xC0
        static void cmp_ind_x(cpu_6502 *, opcode_t *); // 0xC1
+       static void nop_imm_C2(cpu_6502 *, opcode_t *); // 0xC2
        static void dec_zp(cpu_6502 *cpu, opcode_t *op); // 0xC6
        static void cmp_imm(cpu_6502 *cpu, opcode_t *op); // 0xC9
        static void dex(cpu_6502 *cpu, opcode_t *op); // 0xCA

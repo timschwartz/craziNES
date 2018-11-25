@@ -81,6 +81,7 @@
 #define NOP_abs_7C 0x7C
 
 #define NOP_imm_80 0x80
+#define STA_ind_x  0x81
 
 #define STY_zp_x   0x84
 #define STA_zp     0x85
@@ -120,6 +121,7 @@
 
 #define CPY_imm    0xC0
 #define CMP_ind_x  0xC1
+#define NOP_imm_C2 0xC2
 
 #define DEC_zp     0xC6
 

@@ -1,5 +1,6 @@
 #include <ppu.h>
 #include <iostream>
+#include <cstring>
 
 namespace nes
 {
@@ -100,6 +101,19 @@ namespace nes
                 std::cout << std::endl;
 
                 break;
+            case 6: // PPUADDR
+                if(ppu->latch_ppu_addr)
+                {
+                    ppu->ppu_addr |= value;
+                    ppu->latch_ppu_addr = false;
+                    std::cout << "PPUADDR: 0x" << std::hex << +ppu->ppu_addr << std::endl;
+                }
+                else
+                {
+                    ppu->ppu_addr = (value << 8) | 0;
+                    ppu->latch_ppu_addr = true;
+                }
+                break;
             default:
                 std::cout << "Unhandled ppu register: 0x" << +addr << std::endl;
                 break;
@@ -129,4 +143,25 @@ namespace nes
         return value;
     }
 
+    void PPU::chrrom_map(void *ptr)
+    {
+        this->chrrom = (uint8_t *)ptr;
+    }
+
+    memory_section PPU::get_section(uint16_t addr)
+    {
+        memory_section s;
+
+        if((addr >= 0) && (addr <= 0x1FFF))
+        {
+            s.addr = addr;
+            s.offset = 0x0;
+            s.ptr = chrrom;
+            return s;
+        }
+
+        char message[1024];
+        sprintf(message, "Unknown memory address 0x%.4X", addr);
+        throw std::string(message);
+    }
 }

@@ -17,6 +17,7 @@ namespace nes
         {
             memcpy(lprgrom, rom->get_pointer() + 16, 0x4000);
             memcpy(hprgrom, rom->get_pointer() + 16, 0x4000);
+            ppu->chrrom_map(rom->get_pointer() + 16 + 0x4000);
             return;
         }
 
@@ -24,6 +25,7 @@ namespace nes
         {
             memcpy(lprgrom, rom->get_pointer() + 16, 0x4000);
             memcpy(hprgrom, rom->get_pointer() + 16 + 0x4000, 0x4000);
+            ppu->chrrom_map(rom->get_pointer() + 16 + 0x8000);
             return;
         }
 

@@ -101,17 +101,30 @@ namespace nes
                 std::cout << std::endl;
 
                 break;
+            case 5: // PPUSCROLL
+                if(ppu->latch)
+                {
+                    ppu->ppu_scroll |= value;
+                    ppu->latch = false;
+                    std::cout << "PPUSCROLL: 0x" << std::hex << +ppu->ppu_scroll << std::endl;
+                }
+                else
+                {
+                    ppu->ppu_scroll = (value << 8) | 0;
+                    ppu->latch = true;
+                }
+                break;
             case 6: // PPUADDR
-                if(ppu->latch_ppu_addr)
+                if(ppu->latch)
                 {
                     ppu->ppu_addr |= value;
-                    ppu->latch_ppu_addr = false;
+                    ppu->latch = false;
                     std::cout << "PPUADDR: 0x" << std::hex << +ppu->ppu_addr << std::endl;
                 }
                 else
                 {
                     ppu->ppu_addr = (value << 8) | 0;
-                    ppu->latch_ppu_addr = true;
+                    ppu->latch = true;
                 }
                 break;
             default:

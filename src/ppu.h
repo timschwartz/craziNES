@@ -24,8 +24,9 @@ namespace nes
         uint16_t sprite_pattern_table[2] = { 0x0000, 0x1000 };
         uint16_t background_pattern_table[2] = { 0x0000, 0x1000 };
 
-        bool latch_ppu_addr = false;
+        bool latch = false;
         uint16_t ppu_addr = 0;
+        uint16_t ppu_scroll = 0;
 
         uint16_t scanline = 0;
         uint16_t pixel = 0;

@@ -11,7 +11,7 @@ var searchData=
   ['registers_5flistbox',['registers_listbox',['../class_registers_window.html#a5d8baf6bde30c9782d102ed64816a3b3',1,'RegistersWindow']]],
   ['registerswindow',['RegistersWindow',['../class_registers_window.html',1,'RegistersWindow'],['../class_registers_window.html#a20e575990b7951158b38189730288421',1,'RegistersWindow::RegistersWindow()']]],
   ['rla_5fzp_5fx',['rla_zp_x',['../classnes_1_1cpu__6502.html#af1464c08142e829ee76874e6c79a82ad',1,'nes::cpu_6502::rla_zp_x()'],['../opcodes_8h.html#ad1ad9c98b023f6826f9697a9dfa33d19',1,'RLA_zp_x():&#160;opcodes.h']]],
-  ['rom',['ROM',['../classnes_1_1_r_o_m.html',1,'nes::ROM'],['../classnes_1_1_r_o_m.html#afe13ab0aa7cc98cfb53fefc17eb247c1',1,'nes::ROM::ROM()'],['../classnes_1_1cpu__6502.html#a2ad637fc029059673a60b67ccc5138e3',1,'nes::cpu_6502::rom()'],['../classnes_1_1_mapper.html#a4576142e3de7a3b0d380ac272f34b9ef',1,'nes::Mapper::rom()'],['../classnes_1_1_m_m_u.html#a5c60b8d86aa6dd8da99f7d8b987b717a',1,'nes::MMU::rom()']]],
+  ['rom',['ROM',['../classnes_1_1_r_o_m.html',1,'nes::ROM'],['../classnes_1_1cpu__6502.html#a2ad637fc029059673a60b67ccc5138e3',1,'nes::cpu_6502::rom()'],['../classnes_1_1_mapper.html#a4576142e3de7a3b0d380ac272f34b9ef',1,'nes::Mapper::rom()'],['../classnes_1_1_m_m_u.html#a5c60b8d86aa6dd8da99f7d8b987b717a',1,'nes::MMU::rom()'],['../classnes_1_1_r_o_m.html#afe13ab0aa7cc98cfb53fefc17eb247c1',1,'nes::ROM::ROM()']]],
   ['rom_2ecpp',['rom.cpp',['../rom_8cpp.html',1,'']]],
   ['rom_2eh',['rom.h',['../rom_8h.html',1,'']]],
   ['rom_5fupper',['rom_upper',['../structnes_1_1_n_e_s__header.html#aceed42321805ae19da1694cc3ca94d53',1,'nes::NES_header']]],

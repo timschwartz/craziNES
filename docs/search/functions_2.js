@@ -4,6 +4,7 @@ var searchData=
   ['checkn',['checkN',['../classnes_1_1cpu__6502.html#a9f7ce2191a495cb3ccbdf3e7859285b4',1,'nes::cpu_6502']]],
   ['checkv',['checkV',['../classnes_1_1cpu__6502.html#ae0d482662198573f8575438515009cc5',1,'nes::cpu_6502']]],
   ['checkz',['checkZ',['../classnes_1_1cpu__6502.html#a1495adb36198e64154a410a268afb7a4',1,'nes::cpu_6502']]],
+  ['chrrom_5fmap',['chrrom_map',['../classnes_1_1_p_p_u.html#a43eee8292f6f9ea38db3b83085c03bde',1,'nes::PPU']]],
   ['clc',['clc',['../classnes_1_1cpu__6502.html#a087be4f59c969a6d3ba406d79f35cde3',1,'nes::cpu_6502']]],
   ['cld',['cld',['../classnes_1_1cpu__6502.html#a4f7568ddd2c4aaba85ad36580c28deca',1,'nes::cpu_6502']]],
   ['clearc',['clearC',['../classnes_1_1cpu__6502.html#a5ff351f302c44f01328bb18216a72d79',1,'nes::cpu_6502']]],
@@ -13,6 +14,7 @@ var searchData=
   ['cli',['cli',['../classnes_1_1cpu__6502.html#a705ba456f59125b186eb5dbb139e7aa3',1,'nes::cpu_6502']]],
   ['clv',['clv',['../classnes_1_1cpu__6502.html#a692448550b57cba22844f0232fd73fa9',1,'nes::cpu_6502']]],
   ['cmp_5fimm',['cmp_imm',['../classnes_1_1cpu__6502.html#aed666f3effe340623c4bbf45e548b15d',1,'nes::cpu_6502']]],
+  ['cmp_5find_5fx',['cmp_ind_x',['../classnes_1_1cpu__6502.html#afd6ff3890b02ddada8da300c6686d120',1,'nes::cpu_6502']]],
   ['cpu_5f6502',['cpu_6502',['../classnes_1_1cpu__6502.html#af19921e95775b0d062e533a8d163d9ab',1,'nes::cpu_6502']]],
   ['cpx_5fimm',['cpx_imm',['../classnes_1_1cpu__6502.html#a2d23d1aa5fb6b9e78255ab069d0820e8',1,'nes::cpu_6502']]],
   ['cpy_5fimm',['cpy_imm',['../classnes_1_1cpu__6502.html#a261a933a8a18a065b14d425ac32d1c43',1,'nes::cpu_6502']]]

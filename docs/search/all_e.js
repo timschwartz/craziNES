@@ -18,6 +18,7 @@ var searchData=
   ['ppu',['PPU',['../classnes_1_1_p_p_u.html',1,'nes::PPU'],['../classnes_1_1_p_p_u.html#a66b1f464afc03cdce647ffc2c9970850',1,'nes::PPU::PPU()'],['../classnes_1_1cpu__6502.html#add5cd7e1a984cdd3178eb920e09f271b',1,'nes::cpu_6502::ppu()'],['../classnes_1_1_mapper0.html#a0c3665cf54aab9efc7351dbfe8f63b00',1,'nes::Mapper0::ppu()']]],
   ['ppu_2ecpp',['ppu.cpp',['../ppu_8cpp.html',1,'']]],
   ['ppu_2eh',['ppu.h',['../ppu_8h.html',1,'']]],
+  ['ppu_5faddr',['ppu_addr',['../classnes_1_1_p_p_u.html#a61de5dd455ef319902418b69b9c40cc6',1,'nes::PPU']]],
   ['ppu_5fregisters',['ppu_registers',['../classnes_1_1_m_m_u.html#a0ce53509fe5dbe772dff19ad312c8cb0',1,'nes::MMU']]],
   ['ppu_5fwrite',['ppu_write',['../classnes_1_1_m_m_u.html#a5ed41da85fdbf6d1dac73424541820be',1,'nes::MMU']]],
   ['prgram',['prgram',['../classnes_1_1_mapper0.html#ac675b7ba08f155bd58eaa0a5049d5a4a',1,'nes::Mapper0']]],

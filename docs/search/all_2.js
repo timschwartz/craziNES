@@ -4,6 +4,8 @@ var searchData=
   ['checkn',['checkN',['../classnes_1_1cpu__6502.html#a9f7ce2191a495cb3ccbdf3e7859285b4',1,'nes::cpu_6502']]],
   ['checkv',['checkV',['../classnes_1_1cpu__6502.html#ae0d482662198573f8575438515009cc5',1,'nes::cpu_6502']]],
   ['checkz',['checkZ',['../classnes_1_1cpu__6502.html#a1495adb36198e64154a410a268afb7a4',1,'nes::cpu_6502']]],
+  ['chrrom',['chrrom',['../classnes_1_1_p_p_u.html#a966734bef081e761756b61fc23fa8e99',1,'nes::PPU']]],
+  ['chrrom_5fmap',['chrrom_map',['../classnes_1_1_p_p_u.html#a43eee8292f6f9ea38db3b83085c03bde',1,'nes::PPU']]],
   ['chrrom_5fsize',['chrrom_size',['../structnes_1_1_n_e_s__header.html#af168ce0e6afcf6bfa48ca84eabf4b47e',1,'nes::NES_header']]],
   ['clc',['clc',['../classnes_1_1cpu__6502.html#a087be4f59c969a6d3ba406d79f35cde3',1,'nes::cpu_6502::clc()'],['../opcodes_8h.html#af537557f86f08cfca1a5b6298caad92c',1,'CLC():&#160;opcodes.h']]],
   ['cld',['cld',['../classnes_1_1cpu__6502.html#a4f7568ddd2c4aaba85ad36580c28deca',1,'nes::cpu_6502::cld()'],['../opcodes_8h.html#a449570a25023bbc91bf9c944cce1de1e',1,'CLD():&#160;opcodes.h']]],
@@ -14,6 +16,7 @@ var searchData=
   ['cli',['cli',['../classnes_1_1cpu__6502.html#a705ba456f59125b186eb5dbb139e7aa3',1,'nes::cpu_6502::cli()'],['../opcodes_8h.html#a7806d82cb41c78b6d2a9a236e60bf19c',1,'CLI():&#160;opcodes.h']]],
   ['clv',['clv',['../classnes_1_1cpu__6502.html#a692448550b57cba22844f0232fd73fa9',1,'nes::cpu_6502::clv()'],['../opcodes_8h.html#a27e377f04b7a836302a7562635bd7ce8',1,'CLV():&#160;opcodes.h']]],
   ['cmp_5fimm',['cmp_imm',['../classnes_1_1cpu__6502.html#aed666f3effe340623c4bbf45e548b15d',1,'nes::cpu_6502::cmp_imm()'],['../opcodes_8h.html#a9b2f5016e22bb19767aeafb723285aae',1,'CMP_imm():&#160;opcodes.h']]],
+  ['cmp_5find_5fx',['cmp_ind_x',['../classnes_1_1cpu__6502.html#afd6ff3890b02ddada8da300c6686d120',1,'nes::cpu_6502::cmp_ind_x()'],['../opcodes_8h.html#ae4dea89c616ce78aaaec3656704e56f3',1,'CMP_ind_x():&#160;opcodes.h']]],
   ['config_2eh',['config.h',['../config_8h.html',1,'']]],
   ['cpu',['cpu',['../classnes_1_1opcode__t.html#ae7dc826acda238ef11184991f881c3e1',1,'nes::opcode_t::cpu()'],['../classnes_1_1_p_p_u.html#aba4a9bcabb017f49a2cfa73ae8e187f4',1,'nes::PPU::cpu()'],['../crazi_n_e_s_8cpp.html#a640ae9b04d23f7fa3cb3d243eae03f77',1,'cpu():&#160;craziNES.cpp']]],
   ['cpu_5f6502',['cpu_6502',['../classnes_1_1cpu__6502.html',1,'nes::cpu_6502'],['../classnes_1_1cpu__6502.html#af19921e95775b0d062e533a8d163d9ab',1,'nes::cpu_6502::cpu_6502()']]],
@@ -27,5 +30,5 @@ var searchData=
   ['crazines_2ecpp',['craziNES.cpp',['../crazi_n_e_s_8cpp.html',1,'']]],
   ['crazines_2eh',['craziNES.h',['../crazi_n_e_s_8h.html',1,'']]],
   ['cycles',['cycles',['../classnes_1_1cpu__6502.html#a9eaa7b93c49525bcedc5d336b694aab0',1,'nes::cpu_6502']]],
-  ['crazines',['crazines',['../md__r_e_a_d_m_e.html',1,'']]]
+  ['crazines',['craziNES',['../md__r_e_a_d_m_e.html',1,'']]]
 ];

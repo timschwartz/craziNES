@@ -1,6 +1,7 @@
 var searchData=
 [
   ['last_5fcycles',['last_cycles',['../classnes_1_1cpu__6502.html#abc1afbffaa48b634555c8f6390002ef9',1,'nes::cpu_6502']]],
+  ['latch_5fppu_5faddr',['latch_ppu_addr',['../classnes_1_1_p_p_u.html#aad2d5ad4e97d301a7ea3eb6d002d4d31',1,'nes::PPU']]],
   ['lda_5fabs',['lda_abs',['../classnes_1_1cpu__6502.html#a62605cc0d6c4466799fab74f8de9e33e',1,'nes::cpu_6502::lda_abs()'],['../opcodes_8h.html#a7048adf959dbcd25df0fee5f96b99748',1,'LDA_abs():&#160;opcodes.h']]],
   ['lda_5fabs_5fx',['lda_abs_x',['../classnes_1_1cpu__6502.html#a25437ca03f8a8b6ac5f5de2e76aa5ebb',1,'nes::cpu_6502::lda_abs_x()'],['../opcodes_8h.html#ac9bb3bdac0879f212c96a2b18e2f260c',1,'LDA_abs_x():&#160;opcodes.h']]],
   ['lda_5fimm',['lda_imm',['../classnes_1_1cpu__6502.html#af8db973eb66888db7ea5aff0886ed6ab',1,'nes::cpu_6502::lda_imm()'],['../opcodes_8h.html#abea2e495b3a84abdc1e4b9cfd9540389',1,'LDA_imm():&#160;opcodes.h']]],

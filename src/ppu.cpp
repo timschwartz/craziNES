@@ -127,6 +127,13 @@ namespace nes
                     ppu->latch = true;
                 }
                 break;
+            case 7: // PPUDATA
+                ppu->write_byte(ppu->ppu_addr, value);
+
+                if((ppu->registers[0] >> 2) & 0x1) ppu->ppu_addr += 32;
+                else ppu->ppu_addr += 1;
+
+                break;
             default:
                 std::cout << "Unhandled ppu register: 0x" << +addr << std::endl;
                 break;
@@ -148,6 +155,7 @@ namespace nes
             case 0x2:
                 // end vblank
                 ppu->registers[2] &= ~0x80;
+                ppu->latch = false;
                 break;
             default:
                 break;
@@ -173,8 +181,45 @@ namespace nes
             return s;
         }
 
+        if((addr >= 0x2000) && (addr <= 0x2FFF))
+        {
+            s.addr = ((addr - 0x2000) % 0x400) + 0x2000;
+            s.offset = 0x2000;
+            s.ptr = vram;
+            return s;
+        }
+
         char message[1024];
         sprintf(message, "Unknown memory address 0x%.4X", addr);
         throw std::string(message);
+    }
+
+    void PPU::write_byte(uint16_t addr, uint8_t value)
+    {
+        nes::memory_section s;
+        try
+        {
+            s = get_section(addr);
+        }
+        catch(std::string e)
+        {
+            throw e;
+        }
+
+        if(s.write_handler != nullptr)
+        {
+            try
+            {
+                s.write_handler(s.ptr, addr, value);
+            }
+            catch(std::string e)
+            {
+                throw e;
+            }
+            return;
+        }
+
+        uint8_t *p = (uint8_t *)s.ptr;
+        p[s.addr - s.offset] = value;
     }
 }

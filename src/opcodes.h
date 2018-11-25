@@ -119,6 +119,7 @@
 #define LDA_abs_x  0xBD
 
 #define CPY_imm    0xC0
+#define CMP_ind_x  0xC1
 
 #define DEC_zp     0xC6
 

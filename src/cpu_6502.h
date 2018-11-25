@@ -120,6 +120,7 @@ namespace nes
        static void clv(cpu_6502 *cpu, opcode_t *op); // 0xB8
        static void lda_abs_x(cpu_6502 *, opcode_t *); //  0xBD
        static void cpy_imm(cpu_6502 *cpu, opcode_t *op); // 0xC0
+       static void cmp_ind_x(cpu_6502 *, opcode_t *); // 0xC1
        static void dec_zp(cpu_6502 *cpu, opcode_t *op); // 0xC6
        static void cmp_imm(cpu_6502 *cpu, opcode_t *op); // 0xC9
        static void dex(cpu_6502 *cpu, opcode_t *op); // 0xCA

@@ -691,6 +691,24 @@ namespace nes
         cpu->PC += op->sz;
     }
 
+    void cpu_6502::cmp_ind_x(cpu_6502 *cpu, opcode_t *op)
+    {
+        // 0xC1
+        uint16_t addr = (0 << 8) | ((op->imm + cpu->X) & 0xFF);
+        uint16_t t_addr = (cpu->mapper->read_byte(addr + 1) << 8) |
+                          cpu->mapper->read_byte(addr);
+
+        uint8_t value = cpu->mapper->read_byte(t_addr);
+
+        if(cpu->A >= value) cpu->setC();
+        else cpu->clearC();
+        cpu->setZ(cpu->A - op->imm);
+        cpu->setN(cpu->A - op->imm);
+
+        cpu->PC += op->sz;
+        cpu->cycles += 6;
+    }
+
     void cpu_6502::dec_zp(cpu_6502 *cpu, opcode_t *op)
     {
         // 0xC6
@@ -894,6 +912,7 @@ namespace nes
         opcode[CLV] = clv;
         opcode[LDA_abs_x] = lda_abs_x;
         opcode[CPY_imm] = cpy_imm;
+        opcode[CMP_ind_x] = cmp_ind_x;
         opcode[DEC_zp] = dec_zp;
         opcode[CMP_imm] = cmp_imm;
         opcode[DEX] = dex;
@@ -1267,6 +1286,11 @@ namespace nes
                 imm = cpu->mapper->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
+            case CMP_ind_x:
+                sz = 2;
+                imm = cpu->mapper->read_byte(addr + 1);
+                instruction = (opcode << 8) | imm;
+                break;
             case DEC_zp:
                 sz = 2;
                 imm = cpu->mapper->read_byte(addr + 1);
@@ -1568,6 +1592,9 @@ namespace nes
                 break;
             case CPY_imm:
                 sprintf(temp, "CPY #$%.2X", imm);
+                break;
+            case CMP_ind_x:
+                sprintf(temp, "CMP ($%.2X, X)", imm);
                 break;
             case CMP_imm:
                 sprintf(temp, "CMP #$%.2X", imm);

@@ -1,8 +1,11 @@
 #include <craziNES.h>
 #include <cpu_6502.h>
 #include <rom.h>
+#include <palette.h>
+#include <cstdlib>
+#include <ctime>
 
-nes::cpu_6502 *cpu = new nes::cpu_6502();
+nes::cpu_6502 *cpu = nullptr;
 
 wxBEGIN_EVENT_TABLE(MainWindow, wxFrame)
     EVT_MENU(ID_open_rom,   MainWindow::OnOpenROM)
@@ -10,13 +13,14 @@ wxBEGIN_EVENT_TABLE(MainWindow, wxFrame)
     EVT_MENU(ID_debug_registers, MainWindow::OnDebugRegisters)
     EVT_MENU(ID_debug_log, MainWindow::OnDebugLog)
     EVT_MENU(wxID_EXIT,  MainWindow::OnExit)
+    EVT_PAINT(MainWindow::OnPaint)
 wxEND_EVENT_TABLE()
 
 wxIMPLEMENT_APP(wxcraziNES);
 
 bool wxcraziNES::OnInit()
 {
-    frame = new MainWindow("craziNES", wxPoint(20, 20), wxSize(640, 480));
+    frame = new MainWindow("craziNES", wxPoint(20, 20), wxSize(256, 240));
     frame->Show(true);
     return true;
 }
@@ -67,7 +71,18 @@ void MainWindow::OnExit(wxCommandEvent& event)
 MainWindow::MainWindow(const wxString& title, const wxPoint& pos, const wxSize& size)
         : wxFrame(NULL, wxID_ANY, title, pos, size)
 {
-    this->SetBackgroundColour(wxColour(*wxBLACK));
+//    this->SetBackgroundColour(wxColour(*wxBLACK));
+    cpu = new nes::cpu_6502(this->screen);
+
+    std::srand(std::time(nullptr));
+    uint8_t color_index = std::rand() % 64;
+    for(uint32_t counter = 0; counter < (256 * 240 * 3); counter += 3)
+    {
+        this->screen[counter + 0] = nes::palette[color_index].Red();
+        this->screen[counter + 1] = nes::palette[color_index].Green();
+        this->screen[counter + 2] = nes::palette[color_index].Blue();
+    }
+
 
     wxMenu *menuFile = new wxMenu;
     menuFile->Append(ID_open_rom, "&Open ROM...\tCtrl-H", "");
@@ -129,5 +144,14 @@ MainWindow::MainWindow(const wxString& title, const wxPoint& pos, const wxSize& 
     }
 
     std::cout << "Clock cycles: " << std::dec << +(cpu->get_cycles()) << std::endl;
-    exit(0);
+//    exit(0);
+}
+
+void MainWindow::OnPaint(wxPaintEvent& event)
+{
+    wxPaintDC dc(this);
+
+    wxImage img(256, 240, this->screen, true);
+    wxBitmap bmp(img, 24);
+    dc.DrawBitmap(bmp, 0, 0, false);
 }

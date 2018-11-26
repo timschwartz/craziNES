@@ -14,7 +14,9 @@ class MainWindow: public wxFrame
     void OnDebugRegisters(wxCommandEvent &event);
     void OnDebugLog(wxCommandEvent &event);
     void OnExit(wxCommandEvent &event);
+    void OnPaint(wxPaintEvent& event);
     wxDECLARE_EVENT_TABLE();
+    uint8_t screen[256 * 240 * 3];
 };
 
 class wxcraziNES: public wxApp

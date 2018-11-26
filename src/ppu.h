@@ -11,12 +11,13 @@ namespace nes
     class PPU 
     {
       public:
-        PPU(nes::cpu_6502 *);
+        PPU(nes::cpu_6502 *, void *);
         void step(uint16_t);
         static void register_write_byte(void *ptr, uint16_t addr, uint8_t value);
         static uint8_t register_read_byte(void *ptr, uint16_t addr);
         void chrrom_map(void *ptr);
       private:
+        void *screen = nullptr;
         uint8_t registers[8];
         uint8_t *chrrom = nullptr;
         uint8_t *vram = new uint8_t[0x800];

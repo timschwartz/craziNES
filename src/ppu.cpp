@@ -4,9 +4,10 @@
 
 namespace nes
 {
-    PPU::PPU(cpu_6502 *cpu)
+    PPU::PPU(cpu_6502 *cpu, void *ptr)
     {
         this->cpu = cpu;
+        this->screen = ptr;
     }
 
     void PPU::step(uint16_t cpu_cycles)
@@ -96,6 +97,48 @@ namespace nes
                 std::cout << std::endl;
 
                 std::cout << "Generate an NMI at the start of the vertical blanking interval: ";
+                if((value >> 7) & 0x1) std::cout << "on";
+                else std::cout << "off";
+                std::cout << std::endl;
+
+                break;
+            case 1: // PPUMASK
+                std::cout << "Display: ";
+                if(value & 0x1) std::cout << "greyscale";
+                else std::cout << "color";
+                std::cout << std::endl;
+
+                std::cout << "Background in leftmost 8 pixels: ";
+                if((value >> 1) & 0x1) std::cout << "show";
+                else std::cout << "hide";
+                std::cout << std::endl;
+
+                std::cout << "Sprites in leftmost 8 pixels: ";
+                if((value >> 2) & 0x1) std::cout << "show";
+                else std::cout << "hide";
+                std::cout << std::endl;
+
+                std::cout << "Background: ";
+                if((value >> 3) & 0x1) std::cout << "show";
+                else std::cout << "hide";
+                std::cout << std::endl;
+
+                std::cout << "Sprites: ";
+                if((value >> 4) & 0x1) std::cout << "show";
+                else std::cout << "hide";
+                std::cout << std::endl;
+
+                std::cout << "Emphasize red: ";
+                if((value >> 5) & 0x1) std::cout << "on";
+                else std::cout << "off";
+                std::cout << std::endl;
+
+                std::cout << "Emphasize green: ";
+                if((value >> 6) & 0x1) std::cout << "of";
+                else std::cout << "off";
+                std::cout << std::endl;
+
+                std::cout << "Emphasize blue: ";
                 if((value >> 7) & 0x1) std::cout << "on";
                 else std::cout << "off";
                 std::cout << std::endl;

@@ -32,7 +32,7 @@ namespace nes
    class cpu_6502
    {
      public:
-       cpu_6502();
+       cpu_6502(void *);
        uint16_t get_PC();
        uint8_t get_A();
        std::string get_state();
@@ -128,6 +128,7 @@ namespace nes
        static void dex(cpu_6502 *cpu, opcode_t *op); // 0xCA
        static void dec_abs(cpu_6502 *cpu, opcode_t *op); // 0xCE
        static void bne(cpu_6502 *cpu, opcode_t *op); // 0xD0
+       static void cmp_zp_x(cpu_6502 *, opcode_t *); // 0xD5
        static void cld(cpu_6502 *cpu, opcode_t *op); // 0xD8
        static void cpx_imm(cpu_6502 *cpu, opcode_t *op); // 0xE0
        static void nop_ea(cpu_6502 *cpu, opcode_t *op); // 0xEA

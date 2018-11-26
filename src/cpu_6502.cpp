@@ -797,6 +797,23 @@ namespace nes
         }
     }
 
+    void cpu_6502::cmp_zp_x(cpu_6502 *cpu, opcode_t *op)
+    {
+        // 0xD5
+        uint16_t addr = (0 << 8) | op->imm;
+        addr += cpu->X;
+
+        uint8_t value = cpu->mapper->read_byte(addr);
+
+        if(cpu->A >= value) cpu->setC();
+        else cpu->clearC();
+        cpu->setZ(cpu->A - value);
+        cpu->setN(cpu->A - value);
+
+        cpu->PC += op->sz;
+        cpu->cycles += 4;
+    }
+
     void cpu_6502::cld(cpu_6502 *cpu, opcode_t *op)
     {
         // 0xD8
@@ -877,9 +894,9 @@ namespace nes
         cpu->PC += op->sz;
     }
 
-    cpu_6502::cpu_6502()
+    cpu_6502::cpu_6502(void *ptr)
     {
-        this->ppu = new nes::PPU(this);
+        this->ppu = new nes::PPU(this, ptr);
 
         uint16_t counter = 0;
         while(counter < 256)
@@ -940,6 +957,7 @@ namespace nes
         opcode[DEX] = dex;
         opcode[DEC_abs] = dec_abs;
         opcode[BNE] = bne;
+        opcode[CMP_zp_x] = cmp_zp_x;
         opcode[CLD] = cld;
         opcode[SBC_imm] = sbc_imm;
         opcode[CPX_imm] = cpx_imm;
@@ -1351,6 +1369,11 @@ namespace nes
                 imm = cpu->mapper->read_byte(addr + 1);
                 instruction = (opcode << 8) | imm;
                 break;
+            case CMP_zp_x:
+                sz = 2;
+                imm = cpu->mapper->read_byte(addr + 1);
+                instruction = (opcode << 8) | imm;
+                break;
             case CLD:
                 sz = 1;
                 break;
@@ -1648,6 +1671,9 @@ namespace nes
                 break;
             case NOP_zp_D4:
                 sprintf(temp, "NOP $%.2X, 0", imm);
+                break;
+            case CMP_zp_x:
+                sprintf(temp, "CMP #$%.2X,X", imm);
                 break;
             case CLD:
                 sprintf(temp, "CLD");

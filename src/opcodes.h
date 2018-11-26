@@ -135,6 +135,7 @@
 #define BNE        0xD0
 
 #define NOP_zp_D4  0xD4
+#define CMP_zp_x   0xD5
 
 #define CLD        0xD8
 

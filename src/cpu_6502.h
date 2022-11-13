@@ -3,7 +3,7 @@
 
 #include <cstdint>
 #include <string>
-#include "nes/mappers/mappers.h"
+#include "nes/mappers/mappers.hpp"
 #include "nes/rom.hpp"
 #include <opcodes.h>
 #include <ppu.h>

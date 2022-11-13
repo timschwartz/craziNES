@@ -2,8 +2,9 @@
 #define _CRAZINES_DEBUG_H
 
 #include <wx/wx.h>
+#include "nes/cpu_6502.hpp"
 
-void open_memory();
+void open_memory(nes::cpu_6502 *);
 void open_registers();
 void open_log();
 

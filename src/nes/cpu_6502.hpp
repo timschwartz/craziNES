@@ -1,12 +1,11 @@
-#ifndef _CRAZINES_CPU_6502_H
-#define _CRAZINES_CPU_6502_H
+#pragma once
 
 #include <cstdint>
 #include <string>
-#include "nes/mappers/mappers.hpp"
-#include "nes/rom.hpp"
-#include <opcodes.h>
-#include <ppu.h>
+#include "mappers/mappers.hpp"
+#include "rom.hpp"
+#include "../opcodes.h"
+#include "../ppu.h"
 
 namespace nes
 {
@@ -137,5 +136,3 @@ namespace nes
        static void sed(cpu_6502 *, opcode_t *); // 0xF8
    };
 }
-
-#endif

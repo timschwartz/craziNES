@@ -1,5 +1,5 @@
 #include "wxWidgets/wxcraziNES.hpp"
-#include <cpu_6502.h>
+#include "nes/cpu_6502.hpp"
 #include "nes/rom.hpp"
 #include <cstdlib>
 #include <ctime>

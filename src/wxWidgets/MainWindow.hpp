@@ -1,6 +1,7 @@
 #pragma once
 
 #include "wxcraziNES.hpp"
+#include "../nes/cpu_6502.hpp"
 
 class MainWindow: public wxFrame
 {
@@ -15,6 +16,7 @@ class MainWindow: public wxFrame
     void OnPaint(wxPaintEvent& event);
     wxDECLARE_EVENT_TABLE();
     uint8_t screen[256 * 240 * 3];
+    nes::cpu_6502 *cpu;
 };
 
 enum

@@ -2,7 +2,7 @@
 
 #include <cstdint>
 #include "nes/mappers/mappers.hpp"
-#include <cpu_6502.h>
+#include "nes/cpu_6502.hpp"
 
 namespace nes
 {

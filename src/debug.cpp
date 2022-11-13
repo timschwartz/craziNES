@@ -1,5 +1,5 @@
 #include "wxWidgets/wxcraziNES.hpp"
-#include <cpu_6502.h>
+#include "nes/cpu_6502.hpp"
 
 DECLARE_APP(wxcraziNES)
 
@@ -10,8 +10,9 @@ wxEND_EVENT_TABLE()
 
 extern nes::cpu_6502 *cpu;
 
-void open_memory()
+void open_memory(nes::cpu_6502 *c)
 {
+    cpu = c;
     if(!wxGetApp().memory) 
     {
         wxGetApp().memory = new MemoryWindow(wxGetApp().frame, 

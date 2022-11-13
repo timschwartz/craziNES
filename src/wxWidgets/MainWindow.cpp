@@ -27,9 +27,7 @@ void MainWindow::OnOpenROM(wxCommandEvent& event)
 
     try
     {
-#if 0
         cpu->load_rom(filename);
-#endif
     }
     catch(std::string e)
     {
@@ -40,18 +38,18 @@ void MainWindow::OnOpenROM(wxCommandEvent& event)
 
 void MainWindow::OnDebugROM(wxCommandEvent& event)
 {
-//    open_memory();
-//    wxGetApp().memory->view(cpu->get_PC(), cpu->get_PC() + 0x400);
+    open_memory(this->cpu);
+    wxGetApp().memory->view(cpu->get_PC(), cpu->get_PC() + 0x400);
 }
 
 void MainWindow::OnDebugRegisters(wxCommandEvent &event)
 {
-//    open_registers();
+    open_registers();
 }
 
 void MainWindow::OnDebugLog(wxCommandEvent &event)
 {
-//    open_log();
+    open_log();
 }
 
 void MainWindow::OnExit(wxCommandEvent& event)
@@ -62,7 +60,6 @@ void MainWindow::OnExit(wxCommandEvent& event)
 MainWindow::MainWindow(const wxString& title, const wxPoint& pos, const wxSize& size)
         : wxFrame(NULL, wxID_ANY, title, pos, size)
 {
-#if 0
 //    this->SetBackgroundColour(wxColour(*wxBLACK));
     cpu = new nes::cpu_6502(this->screen);
 
@@ -74,7 +71,6 @@ MainWindow::MainWindow(const wxString& title, const wxPoint& pos, const wxSize& 
         this->screen[counter + 1] = nes::palette[color_index].Green();
         this->screen[counter + 2] = nes::palette[color_index].Blue();
     }
-#endif
 
     wxMenu *menuFile = new wxMenu;
     menuFile->Append(ID_open_rom, "&Open ROM...\tCtrl-H", "");
@@ -94,7 +90,6 @@ MainWindow::MainWindow(const wxString& title, const wxPoint& pos, const wxSize& 
 
     if(wxGetApp().argc < 2) return;
 
-#if 0
     try
     {
         std::string argv1 = wxGetApp().argv[1].ToStdString();
@@ -138,7 +133,6 @@ MainWindow::MainWindow(const wxString& title, const wxPoint& pos, const wxSize& 
 
     std::cout << "Clock cycles: " << std::dec << +(cpu->get_cycles()) << std::endl;
 //    exit(0);
-#endif
 }
 
 void MainWindow::OnPaint(wxPaintEvent& event)

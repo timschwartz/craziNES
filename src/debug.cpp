@@ -1,4 +1,4 @@
-#include <craziNES.h>
+#include "wxWidgets/wxcraziNES.hpp"
 #include <cpu_6502.h>
 
 DECLARE_APP(wxcraziNES)

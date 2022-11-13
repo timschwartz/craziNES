@@ -1,5 +1,4 @@
-#ifndef _CRAZINES_ROM_H
-#define _CRAZINES_ROM_H
+#pragma once
 
 #include <cstdint>
 #include <string>
@@ -38,5 +37,3 @@ namespace nes
         NES_header header;
     };
 }
-
-#endif

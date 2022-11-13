@@ -1,8 +1,6 @@
-#ifndef _CRAZINES_H
-#define _CRAZINES_H
+#pragma once
 
-#include <wx/wx.h>
-#include <debug.h>
+#include "wxcraziNES.hpp"
 
 class MainWindow: public wxFrame
 {
@@ -19,16 +17,6 @@ class MainWindow: public wxFrame
     uint8_t screen[256 * 240 * 3];
 };
 
-class wxcraziNES: public wxApp
-{
-  public:
-    virtual bool OnInit();
-    MainWindow *frame = NULL;
-    MemoryWindow *memory = NULL;
-    RegistersWindow *registers = NULL;
-    LogWindow *log = NULL;
-};
-
 enum
 {
     ID_open_rom = 0,
@@ -37,5 +25,3 @@ enum
     ID_debug_registers = 11,
     ID_debug_log = 12
 };
-
-#endif

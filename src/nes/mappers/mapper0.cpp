@@ -2,7 +2,7 @@
 #include <cstring>
 #include <iostream>
 
-#include <mappers/mapper0.h>
+#include "mapper0.h"
 
 namespace nes
 {

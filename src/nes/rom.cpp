@@ -1,6 +1,6 @@
 #include <fstream>
 #include <cstring>
-#include <rom.h>
+#include "rom.hpp"
 
 namespace nes
 {

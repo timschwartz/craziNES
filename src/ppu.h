@@ -1,7 +1,7 @@
 #pragma once
 
 #include <cstdint>
-#include <mappers/mappers.h>
+#include "nes/mappers/mappers.h"
 #include <cpu_6502.h>
 
 namespace nes

@@ -2,7 +2,7 @@
 
 #include <cstdint>
 #include "mapper.hpp"
-#include <ppu.h>
+#include "../ppu.hpp"
 
 namespace nes
 {

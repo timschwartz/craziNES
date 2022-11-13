@@ -4,8 +4,8 @@
 #include <string>
 #include "mappers/mappers.hpp"
 #include "rom.hpp"
-#include "../opcodes.h"
-#include "../ppu.h"
+#include "opcodes.hpp"
+#include "ppu.hpp"
 
 namespace nes
 {

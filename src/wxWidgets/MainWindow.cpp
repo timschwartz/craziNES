@@ -1,5 +1,5 @@
 #include "MainWindow.hpp"
-#include "palette.hpp"
+#include "../nes/palette.hpp"
 #include <cstdlib>
 #include <ctime>
 
@@ -67,9 +67,9 @@ MainWindow::MainWindow(const wxString& title, const wxPoint& pos, const wxSize& 
     uint8_t color_index = std::rand() % 64;
     for(uint32_t counter = 0; counter < (256 * 240 * 3); counter += 3)
     {
-        this->screen[counter + 0] = nes::palette[color_index].Red();
-        this->screen[counter + 1] = nes::palette[color_index].Green();
-        this->screen[counter + 2] = nes::palette[color_index].Blue();
+        this->screen[counter + 0] = nes::palette[color_index].x;
+        this->screen[counter + 1] = nes::palette[color_index].y;
+        this->screen[counter + 2] = nes::palette[color_index].z;
     }
 
     wxMenu *menuFile = new wxMenu;

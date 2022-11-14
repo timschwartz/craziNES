@@ -1,8 +1,8 @@
 #pragma once
 
 #include <cstdint>
-#include <mappers/mappers.h>
-#include <cpu_6502.h>
+#include "nes/mappers/mappers.hpp"
+#include "nes/cpu_6502.hpp"
 
 namespace nes
 {

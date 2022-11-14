@@ -1,4 +1,4 @@
-#include <cpu_6502.h>
+#include "cpu_6502.hpp"
 #include <iostream>
 #include <cstring>
 

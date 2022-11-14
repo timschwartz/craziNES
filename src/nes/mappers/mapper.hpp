@@ -1,7 +1,7 @@
 #pragma once
 
 #include <cstdint>
-#include <rom.h>
+#include "../rom.hpp"
 
 namespace nes
 {

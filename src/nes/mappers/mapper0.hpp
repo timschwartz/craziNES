@@ -1,8 +1,8 @@
 #pragma once
 
 #include <cstdint>
-#include <mappers/mapper.h>
-#include <ppu.h>
+#include "mapper.hpp"
+#include "../ppu.hpp"
 
 namespace nes
 {

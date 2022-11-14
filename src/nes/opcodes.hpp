@@ -1,5 +1,4 @@
-#ifndef _CRAZINES_OPCODES_H
-#define _CRAZINES_OPCODES_H
+#pragma once
 
 #define BRK        0x00
 
@@ -161,5 +160,3 @@
 #define NOP_abs_FC 0xFC
 
 #define SED        0xF8
-
-#endif

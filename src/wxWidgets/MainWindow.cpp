@@ -1,11 +1,9 @@
-#include <craziNES.h>
-#include <cpu_6502.h>
-#include <rom.h>
-#include <palette.h>
+#include "MainWindow.hpp"
+#include "palette.hpp"
 #include <cstdlib>
 #include <ctime>
 
-nes::cpu_6502 *cpu = nullptr;
+wxDECLARE_APP(wxcraziNES);
 
 wxBEGIN_EVENT_TABLE(MainWindow, wxFrame)
     EVT_MENU(ID_open_rom,   MainWindow::OnOpenROM)
@@ -15,15 +13,6 @@ wxBEGIN_EVENT_TABLE(MainWindow, wxFrame)
     EVT_MENU(wxID_EXIT,  MainWindow::OnExit)
     EVT_PAINT(MainWindow::OnPaint)
 wxEND_EVENT_TABLE()
-
-wxIMPLEMENT_APP(wxcraziNES);
-
-bool wxcraziNES::OnInit()
-{
-    frame = new MainWindow("craziNES", wxPoint(20, 20), wxSize(256, 240));
-    frame->Show(true);
-    return true;
-}
 
 void MainWindow::OnOpenROM(wxCommandEvent& event)
 {
@@ -38,7 +27,7 @@ void MainWindow::OnOpenROM(wxCommandEvent& event)
 
     try
     {
-        cpu->load_rom(filename);
+        wxGetApp().cpu->load_rom(filename);
     }
     catch(std::string e)
     {
@@ -49,18 +38,18 @@ void MainWindow::OnOpenROM(wxCommandEvent& event)
 
 void MainWindow::OnDebugROM(wxCommandEvent& event)
 {
-    open_memory();
-    wxGetApp().memory->view(cpu->get_PC(), cpu->get_PC() + 0x400);
+    wxGetApp().open_memory();
+    wxGetApp().memory->view(wxGetApp().cpu->get_PC(), wxGetApp().cpu->get_PC() + 0x400);
 }
 
 void MainWindow::OnDebugRegisters(wxCommandEvent &event)
 {
-    open_registers();
+    wxGetApp().open_registers();
 }
 
 void MainWindow::OnDebugLog(wxCommandEvent &event)
 {
-    open_log();
+    wxGetApp().open_log();
 }
 
 void MainWindow::OnExit(wxCommandEvent& event)
@@ -72,7 +61,7 @@ MainWindow::MainWindow(const wxString& title, const wxPoint& pos, const wxSize& 
         : wxFrame(NULL, wxID_ANY, title, pos, size)
 {
 //    this->SetBackgroundColour(wxColour(*wxBLACK));
-    cpu = new nes::cpu_6502(this->screen);
+    wxGetApp().cpu = new nes::cpu_6502(this->screen);
 
     std::srand(std::time(nullptr));
     uint8_t color_index = std::rand() % 64;
@@ -82,7 +71,6 @@ MainWindow::MainWindow(const wxString& title, const wxPoint& pos, const wxSize& 
         this->screen[counter + 1] = nes::palette[color_index].Green();
         this->screen[counter + 2] = nes::palette[color_index].Blue();
     }
-
 
     wxMenu *menuFile = new wxMenu;
     menuFile->Append(ID_open_rom, "&Open ROM...\tCtrl-H", "");
@@ -105,7 +93,7 @@ MainWindow::MainWindow(const wxString& title, const wxPoint& pos, const wxSize& 
     try
     {
         std::string argv1 = wxGetApp().argv[1].ToStdString();
-        cpu->load_rom(wxGetApp().argv[1].ToStdString());
+        wxGetApp().cpu->load_rom(wxGetApp().argv[1].ToStdString());
     }
     catch(std::string e)
     {
@@ -128,7 +116,7 @@ MainWindow::MainWindow(const wxString& title, const wxPoint& pos, const wxSize& 
     {
         try
         {
-            std::string status = cpu->step();
+            std::string status = wxGetApp().cpu->step();
             std::cout << status << std::endl;
 //            SetStatusText(status.c_str(), 0);
         }
@@ -136,14 +124,14 @@ MainWindow::MainWindow(const wxString& title, const wxPoint& pos, const wxSize& 
         {
             std::cout << e << std::endl;
             SetStatusText(e, 0);
-            std::cout << "Clock cycles: " << std::dec << +(cpu->get_cycles()) << std::endl;
+            std::cout << "Clock cycles: " << std::dec << +(wxGetApp().cpu->get_cycles()) << std::endl;
             exit(0);
             return;
         }
         counter++;
     }
 
-    std::cout << "Clock cycles: " << std::dec << +(cpu->get_cycles()) << std::endl;
+    std::cout << "Clock cycles: " << std::dec << +(wxGetApp().cpu->get_cycles()) << std::endl;
 //    exit(0);
 }
 

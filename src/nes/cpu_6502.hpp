@@ -74,6 +74,7 @@ namespace nes
        static void not_implemented(cpu_6502 *, opcode_t *);
 
        static void brk(cpu_6502 *cpu, opcode_t *op); // 0x00
+       static void ora_ind_x(cpu_6502 *, opcode_t *); // 0x01
        static void slo_zp(cpu_6502 *, opcode_t *); // 0x07
        static void php(cpu_6502 *cpu, opcode_t *op); // 0x08
        static void ora_imm(cpu_6502 *cpu, opcode_t *op); // 0x09
@@ -92,6 +93,7 @@ namespace nes
        static void pha(cpu_6502 *cpu, opcode_t *op); // 0x48
        static void eor_imm(cpu_6502 *cpu, opcode_t *op); // 0x49
        static void jmp_abs(cpu_6502 *cpu, opcode_t *op); // 0x4C
+       static void eor_abs(cpu_6502 *cpu, opcode_t *op); // 0x4D
        static void bvc(cpu_6502 *cpu, opcode_t *op); // 0x50
        static void cli(cpu_6502 *, opcode_t *op); // 0x58
        static void rts(cpu_6502 *cpu, opcode_t *op); // 0x60
@@ -122,11 +124,13 @@ namespace nes
        static void cmp_ind_x(cpu_6502 *, opcode_t *); // 0xC1
        static void nop_imm_C2(cpu_6502 *, opcode_t *); // 0xC2
        static void dec_zp(cpu_6502 *cpu, opcode_t *op); // 0xC6
+       static void iny(cpu_6502 *, opcode_t *); // 0xC8
        static void cmp_imm(cpu_6502 *cpu, opcode_t *op); // 0xC9
        static void dex(cpu_6502 *cpu, opcode_t *op); // 0xCA
        static void dec_abs(cpu_6502 *cpu, opcode_t *op); // 0xCE
        static void bne(cpu_6502 *cpu, opcode_t *op); // 0xD0
        static void cmp_zp_x(cpu_6502 *, opcode_t *); // 0xD5
+       static void dec_zp_x(cpu_6502 *, opcode_t *); // 0xD6
        static void cld(cpu_6502 *cpu, opcode_t *op); // 0xD8
        static void cpx_imm(cpu_6502 *cpu, opcode_t *op); // 0xE0
        static void nop_ea(cpu_6502 *cpu, opcode_t *op); // 0xEA

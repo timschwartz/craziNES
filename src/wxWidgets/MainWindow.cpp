@@ -5,15 +5,6 @@
 
 wxDECLARE_APP(wxcraziNES);
 
-wxBEGIN_EVENT_TABLE(MainWindow, wxFrame)
-    EVT_MENU(ID_open_rom,   MainWindow::OnOpenROM)
-    EVT_MENU(ID_debug_rom, MainWindow::OnDebugROM)
-    EVT_MENU(ID_debug_registers, MainWindow::OnDebugRegisters)
-    EVT_MENU(ID_debug_log, MainWindow::OnDebugLog)
-    EVT_MENU(wxID_EXIT,  MainWindow::OnExit)
-    EVT_PAINT(MainWindow::OnPaint)
-wxEND_EVENT_TABLE()
-
 void MainWindow::OnOpenROM(wxCommandEvent& event)
 {
     wxFileDialog rom_dialog(this, _("Open NES ROM file"), "", "",
@@ -60,6 +51,12 @@ void MainWindow::OnExit(wxCommandEvent& event)
 MainWindow::MainWindow(const wxString& title, const wxPoint& pos, const wxSize& size)
         : wxFrame(NULL, wxID_ANY, title, pos, size)
 {
+    this->Bind(wxEVT_MENU, &MainWindow::OnOpenROM, this, ID_open_rom);
+    this->Bind(wxEVT_MENU, &MainWindow::OnDebugROM, this, ID_debug_rom);
+    this->Bind(wxEVT_MENU, &MainWindow::OnDebugRegisters, this, ID_debug_registers);
+    this->Bind(wxEVT_MENU, &MainWindow::OnDebugLog, this, ID_debug_log);
+    this->Bind(wxEVT_MENU, &MainWindow::OnExit, this,  wxID_EXIT);
+    this->Bind(wxEVT_PAINT, &MainWindow::OnPaint, this);
 //    this->SetBackgroundColour(wxColour(*wxBLACK));
     wxGetApp().cpu = new nes::cpu_6502(this->screen);
 

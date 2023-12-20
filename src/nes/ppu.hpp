@@ -36,5 +36,6 @@ namespace nes
 
         memory_section get_section(uint16_t addr);
         void write_byte(uint16_t addr, uint8_t value);
+        uint8_t read_byte(uint16_t addr);
     };
 }

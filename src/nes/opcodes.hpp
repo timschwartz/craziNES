@@ -1,7 +1,7 @@
 #pragma once
 
 #define BRK        0x00
-
+#define ORA_ind_x  0x01
 #define NOP_zp_04  0x04
 #define ORA_zp     0x05
 
@@ -51,6 +51,7 @@
 #define LSR_acc    0x4A
 
 #define JMP_abs    0x4C
+#define EOR_abs    0x4D
 
 #define BVC        0x50
 
@@ -135,6 +136,7 @@
 
 #define NOP_zp_D4  0xD4
 #define CMP_zp_x   0xD5
+#define DEC_zp_x   0xD6
 
 #define CLD        0xD8
 

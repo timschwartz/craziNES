@@ -19,6 +19,19 @@ namespace nes
             if((this->scanline >= 0) && (this->scanline <= 240))
             {
                 // draw stuff
+                if((this->pixel >= 0) && (this->pixel <= 256))
+                {
+                    // draw pixel
+                    uint16_t addr = 0x2000 | (this->ppu_addr & 0x0FFF);
+                    uint8_t value = this->read_byte(addr);
+
+                    uint8_t *p = (uint8_t *)this->screen;
+                    p[(this->scanline * 256 * 3) + (this->pixel * 3) + 0] = value;
+                    p[(this->scanline * 256 * 3) + (this->pixel * 3) + 1] = value;
+                    p[(this->scanline * 256 * 3) + (this->pixel * 3) + 2] = value;
+
+                    this->ppu_addr += 1;
+                }
             }
 
             if((this->scanline == 241) && (this->pixel == 0))
@@ -264,5 +277,33 @@ namespace nes
 
         uint8_t *p = (uint8_t *)s.ptr;
         p[s.addr - s.offset] = value;
+    }
+
+    uint8_t PPU::read_byte(uint16_t addr)
+    {
+        nes::memory_section s;
+        try
+        {
+            s = get_section(addr);
+        }
+        catch(std::string e)
+        {
+            throw e;
+        }
+
+        if(s.read_handler != nullptr)
+        {
+            try
+            {
+                return s.read_handler(s.ptr, addr);
+            }
+            catch(std::string e)
+            {
+                throw e;
+            }
+        }
+
+        uint8_t *p = (uint8_t *)s.ptr;
+        return p[s.addr - s.offset];
     }
 }

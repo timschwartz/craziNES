@@ -14,7 +14,7 @@ class MainWindow: public wxFrame
     void OnDebugLog(wxCommandEvent &event);
     void OnExit(wxCommandEvent &event);
     void OnPaint(wxPaintEvent& event);
-    wxDECLARE_EVENT_TABLE();
+    //wxDECLARE_EVENT_TABLE();
     uint8_t screen[256 * 240 * 3];
     nes::cpu_6502 *cpu;
 };

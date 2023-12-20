@@ -1,6 +1,7 @@
 #pragma once
 
 #include "wxcraziNES.hpp"
+#include <cstdint>
 
 class MemoryWindow: public wxFrame
 {

@@ -1,6 +1,6 @@
 AC_PREREQ([2.71])
 AC_INIT([craziNES],[0.2],[tim@metaverse.systems])
-AC_CONFIG_SRCDIR([src/craziNES.cpp])
+AC_CONFIG_SRCDIR([src/nes/cpu_6502.cpp])
 AC_CONFIG_HEADERS([config.h])
 
 AC_CONFIG_MACRO_DIR([m4])
